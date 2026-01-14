@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>গণভোট ২০২৬ | জুলাই জাতীয় সনদ ২০২৫</title>
+    <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #006A4E;
+            --secondary: #f42a41;
+            --accent: #FFD700;
+            --dark: #0f172a;
+            --light: #f8fafc;
+        }
+
+        body {
+            font-family: 'Hind Siliguri', sans-serif;
+            background: #f1f5f9;
+            margin: 0;
+            color: var(--dark);
+        }
+
+        /* Top Countdown */
+        .top-bar {
+            background: var(--secondary);
+            color: white;
+            padding: 10px;
+            text-align: center;
+            font-weight: 700;
+            font-size: 1.1rem;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        /* Hero Header */
+        .hero {
+            background: linear-gradient(rgba(0,106,78,0.9), rgba(0,106,78,0.95)), url('https://www.transparenttextures.com/patterns/cubes.png');
+            color: white;
+            padding: 60px 20px;
+            text-align: center;
+            border-bottom: 6px solid var(--accent);
+        }
+
+        .hero h1 { font-size: 3rem; margin: 0; text-shadow: 2px 2px 4px rgba(0,0,0,0.3); }
+        .hero p { font-size: 1.4rem; font-weight: 300; opacity: 0.9; }
+
+        .container { max-width: 1200px; margin: -40px auto 40px; padding: 0 20px; }
+
+        /* Premium Info Cards */
+        .section-title { 
+            text-align: center; 
+            margin: 40px 0 20px; 
+            color: var(--primary); 
+            font-size: 2rem;
+            position: relative;
+        }
+
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 25px;
+        }
+
+        .premium-card {
+            background: white;
+            padding: 30px;
+            border-radius: 20px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.05);
+            border: 1px solid rgba(0,106,78,0.1);
+            transition: 0.3s;
+        }
+
+        .premium-card:hover { transform: translateY(-5px); box-shadow: 0 15px 35px rgba(0,0,0,0.1); }
+        .premium-card h3 { color: var(--secondary); border-bottom: 2px solid var(--accent); padding-bottom: 10px; }
+        .premium-card ul { padding-left: 20px; list-style-type: none; }
+        .premium-card li { margin-bottom: 12px; position: relative; font-size: 1rem; }
+        .premium-card li::before { content: '✓'; position: absolute; left: -25px; color: var(--primary); font-weight: bold; }
+
+        /* Tools Section */
+        .tool-container {
+            background: white;
+            border-radius: 30px;
+            overflow: hidden;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.1);
+            margin-top: 50px;
+        }
+
+        @media (max-width: 900px) { .tool-container { grid-template-columns: 1fr; } }
+
+        .editor-side { padding: 40px; background: #fff; }
+        .preview-side { background: #e2e8f0; padding: 20px; display: flex; flex-direction: column; align-items: center; justify-content: center; }
+
+        .input-group { margin-bottom: 20px; }
+        .input-group label { display: block; font-weight: 700; margin-bottom: 8px; color: var(--primary); }
+        .input-group input { 
+            width: 100%; padding: 15px; border: 2px solid #e2e8f0; border-radius: 12px; font-size: 1rem; outline: none; transition: 0.3s;
+            box-sizing: border-box;
+        }
+        .input-group input:focus { border-color: var(--primary); }
+
+        .btn-magic {
+            background: linear-gradient(45deg, var(--secondary), #c02032);
+            color: white; border: none; padding: 20px; width: 100%; border-radius: 15px;
+            font-size: 1.2rem; font-weight: 700; cursor: pointer; box-shadow: 0 5px 15px rgba(244,42,65,0.3);
+        }
+
+        canvas { max-width: 100%; height: auto; display: none; border-radius: 15px; box-shadow: 0 20px 40px rgba(0,0,0,0.2); }
+
+        .dl-btn {
+            margin-top: 20px; display: none; background: var(--primary); color: white;
+            padding: 15px 40px; text-decoration: none; border-radius: 10px; font-weight: 700;
+        }
+    </style>
+</head>
+<body>
+
+<div class="top-bar">গণভোট ২০২৬ শুরু হতে বাকি: <span id="clock">লোড হচ্ছে...</span></div>
+
+<div class="hero">
+    <h1>জুলাই জাতীয় সনদ ২০২৫</h1>
+    <p>পরিবর্তনের চাবি এবার আপনারই হাতে। নতুন বাংলাদেশের স্বপ্নে "হ্যাঁ" ভোট দিন।</p>
+</div>
+
+<div class="container">
+    <h2 class="section-title">আপনি কি এমন বাংলাদেশ চান?</h2>
+    <div class="info-grid">
+        <div class="premium-card">
+            <h3>সাংবিধানিক ও রাজনৈতিক সংস্কার</h3>
+            <ul>
+                <li>তত্ত্বাবধায়ক সরকার, ইসি ও পিএসসি গঠনে সরকারি ও বিরোধী দলের ঐক্য।</li>
+                <li>কেউ সর্বোচ্চ ১০ বছরের বেশি প্রধানমন্ত্রী থাকতে পারবেন না।</li>
+                <li>সংসদে নারীর প্রতিনিধিত্ব পর্যায়ক্রমে বৃদ্ধি করা।</li>
+                <li>রাষ্ট্রপতি ও প্রধানমন্ত্রীর ক্ষমতার মধ্যে ভারসাম্য থাকবে।</li>
+                <li>বিরোধী দল থেকে ডেপুটি স্পিকার ও গুরুত্বপূর্ণ কমিটির সভাপতি।</li>
+            </ul>
+        </div>
+        <div class="premium-card">
+            <h3>অধিকার ও ন্যায়বিচার</h3>
+            <ul>
+                <li>মৌলিক অধিকার (যেমন: ইন্টারনেট) কখনও বন্ধ করা যাবে না।</li>
+                <li>দেশের বিচারব্যবস্থা সম্পূর্ণ স্বাধীনভাবে কাজ করবে।</li>
+                <li>দণ্ডপ্রাপ্ত অপরাধীকে রাষ্ট্রপতি ইচ্ছেমতো ক্ষমা করতে পারবেন না।</li>
+                <li>বিভাগীয় শহরগুলোতে হাইকোর্টের বেঞ্চ স্থাপন।</li>
+                <li>উপজেলায় আদালত ব্যবস্থা পুনরায় চালু করা।</li>
+            </ul>
+        </div>
+        <div class="premium-card">
+            <h3>ক্ষমতার ভারসাম্য</h3>
+            <ul>
+                <li>ইচ্ছেমতো সংবিধান সংশোধন করা যাবে না।</li>
+                <li>গুরুত্বপূর্ণ পরিবর্তনের ক্ষেত্রে গণভোটের বিধান।</li>
+                <li>পার্লামেন্টে একটি উচ্চকক্ষ (দ্বিকক্ষ বিশিষ্ট আইনসভা) গঠন।</li>
+                <li>বাংলার পাশাপাশি অন্যান্য জাতিগোষ্ঠীর ভাষার সাংবিধানিক স্বীকৃতি।</li>
+                <li>জবাবদিহিমূলক রাষ্ট্রব্যবস্থা প্রতিষ্ঠা।</li>
+            </ul>
+        </div>
+    </div>
+
+    <h2 class="section-title">কেন গণভোটে অংশ নেবেন?</h2>
+    <div class="info-grid">
+        <div class="premium-card" style="border-top-color: var(--secondary);">
+            <p>১. দেশের মালিক হিসেবে আপনার ইচ্ছার মূল্য নিশ্চিত করা।</p>
+            <p>২. জুলাই গণঅভ্যুত্থানের আকাঙ্ক্ষা বাস্তবায়ন করা।</p>
+            <p>৩. আপনার প্রতিনিধিরা যাতে আপনার ওপর ছড়ি ঘোরাতে না পারে।</p>
+            <p>৪. সামগ্রিকভাবে একটি জবাবদিহিমূলক রাষ্ট্রব্যবস্থা প্রতিষ্ঠা করা।</p>
+        </div>
+    </div>
+
+    <div class="tool-container">
+        <div class="editor-side">
+            <h2 style="color: var(--primary); margin-top: 0;">প্রিমিয়াম পোস্টার মেকার</h2>
+            <div class="input-group">
+                <label>আপনার পূর্ণ নাম</label>
+                <input type="text" id="userName" placeholder="এখানে নাম লিখুন">
+            </div>
+            <div class="input-group">
+                <label>আপনার পরিচয় / পদবি</label>
+                <input type="text" id="userTitle" placeholder="উদা: সচেতন নাগরিক">
+            </div>
+            <div class="input-group">
+                <label>আপনার প্রোফাইল ছবি</label>
+                <input type="file" id="userImg" accept="image/*">
+            </div>
+            <button class="btn-magic" onclick="generatePoster()">পোস্টার তৈরি করুন ✨</button>
+        </div>
+        <div class="preview-side">
+            <div id="placeholderText">আপনার পোস্টার এখানে দেখা যাবে</div>
+            <canvas id="posterCanvas" width="1080" height="1350"></canvas>
+            <a href="#" class="dl-btn" id="dlBtn" onclick="downloadMe()">গ্যালারিতে সেভ করুন (HD)</a>
+        </div>
+    </div>
+</div>
+
+<script>
+    const canvas = document.getElementById('posterCanvas');
+    const ctx = canvas.getContext('2d');
+
+    function generatePoster() {
+        const name = document.getElementById('userName').value || "সচেতন নাগরিক";
+        const title = document.getElementById('userTitle').value || "দেশপ্রেমিক ভোটার";
+        const file = document.getElementById('userImg').files[0];
+
+        if(!file) return alert("দয়া করে একটি ছবি আপলোড করুন");
+
+        const reader = new FileReader();
+        reader.onload = function(e) {
+            const img = new Image();
+            img.onload = function() {
+                // Background & Layout
+                ctx.fillStyle = "#ffffff";
+                ctx.fillRect(0, 0, 1080, 1350);
+
+                // Side Banner (Dark Green)
+                ctx.fillStyle = "#004d39";
+                ctx.fillRect(600, 0, 480, 1350);
+
+                // Image Placement
+                ctx.save();
+                ctx.beginPath();
+                ctx.roundRect(40, 40, 520, 720, 40);
+                ctx.clip();
+                let scale = Math.max(520/img.width, 720/img.height);
+                ctx.drawImage(img, 40 + (520 - img.width*scale)/2, 40 + (720 - img.height*scale)/2, img.width*scale, img.height*scale);
+                ctx.restore();
+
+                // Gold Border for Image
+                ctx.strokeStyle = "#FFD700";
+                ctx.lineWidth = 12;
+                ctx.stroke();
+
+                // Left Bottom - Recommendations
+                ctx.textAlign = "left";
+                ctx.fillStyle = "#006A4E";
+                ctx.font = "bold 45px 'Hind Siliguri'";
+                ctx.fillText("জুলাই জাতীয় সনদ সুপারিশ:", 40, 840);
+
+                ctx.fillStyle = "#1e293b";
+                ctx.font = "32px 'Hind Siliguri'";
+                const points = [
+                    "• ১০ বছরের বেশি প্রধানমন্ত্রী নয়",
+                    "• ইন্টারনেট কখনও বন্ধ হবে না",
+                    "• দ্বিকক্ষ বিশিষ্ট পার্লামেন্ট ও উচ্চকক্ষ",
+                    "• ক্ষমতার ভারসাম্য ও জবাবদিহিতা",
+                    "• স্বাধীন ও জনবান্ধব বিচার বিভাগ"
+                ];
+                points.forEach((txt, i) => ctx.fillText(txt, 40, 910 + (i * 70)));
+
+                // Right Panel - Campaign Text
+                ctx.textAlign = "center";
+                ctx.fillStyle = "#ffffff";
+                ctx.font = "bold 95px 'Hind Siliguri'";
+                ctx.fillText("গণভোট", 840, 200);
+                ctx.fillStyle = "#FFD700";
+                ctx.font = "bold 130px 'Hind Siliguri'";
+                ctx.fillText("২০২৬", 840, 340);
+
+                ctx.fillStyle = "#ffffff";
+                ctx.font = "50px 'Hind Siliguri'";
+                ctx.fillText("পরিবর্তনের পক্ষে", 840, 440);
+
+                // Vote Button Graphic
+                ctx.fillStyle = "#f42a41";
+                ctx.beginPath();
+                ctx.roundRect(650, 550, 380, 130, 20);
+                ctx.fill();
+                ctx.fillStyle = "#ffffff";
+                ctx.font = "bold 65px 'Hind Siliguri'";
+                ctx.fillText("হ্যাঁ ভোট দিন", 840, 635);
+
+                // Footer Info
+                ctx.fillStyle = "#ffffff";
+                ctx.font = "bold 75px 'Hind Siliguri'";
+                ctx.fillText(name, 840, 1150);
+                ctx.fillStyle = "#FFD700";
+                ctx.font = "45px 'Hind Siliguri'";
+                ctx.fillText(title, 840, 1220);
+
+                // Show UI
+                document.getElementById('placeholderText').style.display = 'none';
+                canvas.style.display = 'block';
+                document.getElementById('dlBtn').style.display = 'inline-block';
+            }
+            img.src = e.target.result;
+        }
+        reader.readAsDataURL(file);
+    }
+
+    function downloadMe() {
+        const link = document.createElement('a');
+        link.download = 'Gonovote_Premium_Poster.png';
+        link.href = canvas.toDataURL();
+        link.click();
+    }
+
+    // Countdown Timer
+    const target = new Date("March 26, 2026 00:00:00").getTime();
+    setInterval(() => {
+        const diff = target - new Date().getTime();
+        const d = Math.floor(diff / 86400000);
+        const h = Math.floor((diff % 86400000) / 3600000);
+        const m = Math.floor((diff % 3600000) / 60000);
+        document.getElementById("clock").innerHTML = `${d} দিন ${h} ঘণ্টা ${m} মিনিট`;
+    }, 1000);
+</script>
+</body>
+</html>
