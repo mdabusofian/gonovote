@@ -2,109 +2,180 @@
 <html lang="bn">
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ডিজিটাল নির্বাচনী তথ্যকেন্দ্র</title>
   <script src="https://cdn.tailwindcss.com"></script>
-  <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.cdnfonts.com/css/solaimanlipi" rel="stylesheet">
+  
   <style>
-    body { font-family: 'Hind Siliguri', sans-serif; background: #f8fafc; color: #1e293b; }
-    .glass { background: rgba(255, 255, 255, 0.95); backdrop-filter: blur(12px); border: 1px solid rgba(255, 255, 255, 0.2); }
-    .header-gradient { background: radial-gradient(circle at top left, #1e40af, #3b82f6); }
-    .search-input:focus { box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.2); }
-    .serial-tag { background: linear-gradient(135deg, #ef4444, #b91c1c); }
-    .voter-card { transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); }
-    .voter-card:hover { transform: translateY(-5px); box-shadow: 0 20px 25px -5px rgba(0,0,0,0.1); }
+    body { 
+      font-family: 'SolaimanLipi', Arial, sans-serif; 
+      background-color: #f2f5f8; 
+    }
+    .gov-header { background: linear-gradient(135deg, #006a4e 0%, #004d3a 100%); }
+    .gov-card { 
+      border-top: 5px solid #006a4e; 
+      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+    }
+    .gender-btn { border: 2px solid #e2e8f0; color: #64748b; }
+    .gender-btn.active { 
+      background-color: #006a4e; 
+      color: white; 
+      border-color: #006a4e; 
+      box-shadow: 0 4px 10px rgba(0, 106, 78, 0.3);
+    }
+    .search-btn {
+      background-color: #ef4444;
+      transition: all 0.3s ease;
+    }
+    .search-btn:hover { background-color: #dc2626; transform: translateY(-1px); }
+    
+    /* Loading Spinner Style */
+    .loader-dots div {
+      animation-timing-function: cubic-bezier(0, 1, 1, 0);
+    }
+    .loader-dots div:nth-child(1) { left: 8px; animation: loader-dots1 0.6s infinite; }
+    .loader-dots div:nth-child(2) { left: 8px; animation: loader-dots2 0.6s infinite; }
+    .loader-dots div:nth-child(3) { left: 32px; animation: loader-dots2 0.6s infinite; }
+    .loader-dots div:nth-child(4) { left: 56px; animation: loader-dots3 0.6s infinite; }
+    @keyframes loader-dots1 { 0% { transform: scale(0); } 100% { transform: scale(1); } }
+    @keyframes loader-dots3 { 0% { transform: scale(1); } 100% { transform: scale(0); } }
+    @keyframes loader-dots2 { 0% { transform: translate(0, 0); } 100% { transform: translate(24px, 0); } }
   </style>
 </head>
-<body class="min-h-screen">
+<body class="min-h-screen pb-20">
 
-  <header class="header-gradient text-white pt-12 pb-28 px-6 shadow-xl">
-    <div class="max-w-4xl mx-auto text-center">
-      <h1 class="text-4xl md:text-5xl font-black mb-3 tracking-tight">ডিজিটাল ভোটার বুথ</h1>
-      <p class="text-blue-100 text-lg font-light">দৌলতপুর (৩ নং ওয়ার্ড অংশ) - স্মার্ট অনুসন্ধান সিস্টেম</p>
+  <header class="gov-header text-white py-10 px-4 text-center border-b-4 border-red-600 shadow-2xl relative overflow-hidden">
+    <div class="absolute top-0 left-0 w-full h-full opacity-10 pointer-events-none">
+        <svg width="100%" height="100%"><pattern id="pattern" x="0" y="0" width="40" height="40" patternUnits="userSpaceOnUse"><circle cx="20" cy="20" r="1" fill="white"/></pattern><rect width="100%" height="100%" fill="url(#pattern)"/></svg>
+    </div>
+    <div class="max-w-4xl mx-auto relative z-10">
+      <h1 class="text-4xl md:text-5xl font-bold mb-3 tracking-tight">ডিজিটাল নির্বাচনী তথ্যকেন্দ্র</h1>
+      <p class="text-base md:text-xl opacity-90 font-light italic">দৌলতপুর (৩ নং ওয়ার্ড অংশ) — স্মার্ট পোলিং তথ্যসেবা</p>
     </div>
   </header>
 
-  <main class="max-w-2xl mx-auto -mt-16 px-4">
-    <div class="glass p-8 rounded-[2rem] shadow-2xl">
-      <div class="relative group">
-        <input type="text" id="searchInput" oninput="liveSearch()"
-               class="search-input w-full pl-14 pr-6 py-5 bg-white border-2 border-gray-100 rounded-2xl text-xl transition-all outline-none" 
-               placeholder="নাম, আইডি বা বাড়ির নাম দিয়ে খুঁজুন...">
-        <div class="absolute left-5 top-5 text-blue-500 group-hover:scale-110 transition-transform">
-          <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
-          </svg>
+  <main class="max-w-3xl mx-auto px-4 -mt-8 relative z-20">
+    
+    <div class="flex justify-center gap-3 mb-6">
+      <button onclick="setGender('Male', this)" class="gender-btn active bg-white px-6 md:px-10 py-3 rounded-xl font-bold transition-all flex items-center gap-2">
+        <span class="w-3 h-3 rounded-full bg-blue-500"></span> পুরুষ ভোটার
+      </button>
+      <button onclick="setGender('Female', this)" class="gender-btn bg-white px-6 md:px-10 py-3 rounded-xl font-bold transition-all flex items-center gap-2">
+        <span class="w-3 h-3 rounded-full bg-pink-500"></span> মহিলা ভোটার
+      </button>
+    </div>
+
+    <div class="bg-white p-6 md:p-8 rounded-[2rem] shadow-2xl border border-white">
+      <div class="flex flex-col md:flex-row gap-4">
+        <div class="relative flex-1 group">
+          <input type="text" id="searchInput" 
+                 class="w-full pl-5 pr-5 py-4 bg-gray-50 border-2 border-gray-100 rounded-2xl text-xl outline-none focus:border-green-600 focus:bg-white transition-all shadow-inner" 
+                 placeholder="নাম, পিতা বা জন্মতারিখ লিখুন...">
         </div>
+        <button onclick="handleSearch()" class="search-btn text-white px-10 py-4 rounded-2xl font-bold text-xl shadow-lg flex items-center justify-center gap-2">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor font-bold"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" /></svg>
+          অনুসন্ধান
+        </button>
       </div>
-      
-      <div id="stats" class="mt-4 flex justify-between text-sm text-gray-500 font-medium px-2">
-        <span>সার্চ শুরু করুন...</span>
-        <span id="resultCount"></span>
-      </div>
+      <p class="text-center text-xs text-gray-400 mt-4">তথ্য নিরাপত্তা নিশ্চিত করতে সঠিক বানান ব্যবহার করুন</p>
     </div>
 
-    <div id="resultsArea" class="mt-8 space-y-6">
-      </div>
-
-    <div id="loader" class="hidden space-y-4 mt-8">
-      <div class="h-32 bg-gray-200 animate-pulse rounded-2xl"></div>
-      <div class="h-32 bg-gray-200 animate-pulse rounded-2xl"></div>
+    <div id="loader" class="hidden flex flex-col items-center mt-12">
+        <div class="loader-dots relative w-20 h-5">
+            <div class="absolute top-0 w-3 h-3 rounded-full bg-green-700"></div>
+            <div class="absolute top-0 w-3 h-3 rounded-full bg-green-700"></div>
+            <div class="absolute top-0 w-3 h-3 rounded-full bg-green-700"></div>
+            <div class="absolute top-0 w-3 h-3 rounded-full bg-green-700"></div>
+        </div>
+        <p class="mt-4 text-green-800 font-bold animate-pulse">ডাটাবেজ থেকে তথ্য যাচাই করা হচ্ছে...</p>
     </div>
+
+    <div id="resultsArea" class="mt-10 space-y-6"></div>
+
   </main>
 
   <script>
-    let timeout = null;
+    let currentGender = 'Male';
+    const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbx3yLqxNZLHJfXIGzDXsaqdQpF2k6W0n__-cJQUJ7Ka1_7g85_4rKc8L72-bLwrWbQG/exec";
 
-    function liveSearch() {
-      const query = document.getElementById('searchInput').value;
-      clearTimeout(timeout);
+    function setGender(gender, btn) {
+      currentGender = gender;
+      document.querySelectorAll('.gender-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      document.getElementById('resultsArea').innerHTML = '';
+      document.getElementById('searchInput').value = '';
+    }
+
+    function handleSearch() {
+      const query = document.getElementById('searchInput').value.trim();
+      const resultsArea = document.getElementById('resultsArea');
+      const loader = document.getElementById('loader');
 
       if (query.length < 2) {
-        document.getElementById('resultsArea').innerHTML = '';
-        document.getElementById('stats').firstElementChild.innerText = "সার্চ শুরু করুন...";
+        alert("অনুগ্রহ করে কমপক্ষে ২ অক্ষরের নাম বা তথ্য দিন।");
         return;
       }
 
-      timeout = setTimeout(() => {
-        document.getElementById('loader').classList.remove('hidden');
-        google.script.run.withSuccessHandler(updateUI).searchVoter(query);
-      }, 300); // ৩শ মিলি-সেকেন্ড পর পর সার্চ হবে (Performance optimization)
+      // UI রিসেট এবং লোডার চালু
+      resultsArea.innerHTML = '';
+      loader.classList.remove('hidden');
+
+      fetch(`${SCRIPT_URL}?query=${encodeURIComponent(query)}&gender=${currentGender}`)
+        .then(res => res.json())
+        .then(data => {
+          loader.classList.add('hidden');
+          renderResults(data);
+        })
+        .catch(err => {
+          loader.classList.add('hidden');
+          resultsArea.innerHTML = '<div class="text-center p-8 bg-red-50 text-red-600 rounded-2xl">সার্ভারের সাথে সংযোগ বিচ্ছিন্ন হয়েছে। আবার চেষ্টা করুন।</div>';
+        });
     }
 
-    function updateUI(data) {
-      document.getElementById('loader').classList.add('hidden');
-      const container = document.getElementById('resultsArea');
-      const countLabel = document.getElementById('resultCount');
-      const statsLabel = document.getElementById('stats').firstElementChild;
-      
-      container.innerHTML = '';
-      countLabel.innerText = data.length > 0 ? `${data.length} টি ফলাফল` : '';
-      statsLabel.innerText = data.length > 0 ? "অনুসন্ধানের ফলাফল:" : "কিছু পাওয়া যায়নি";
+    function renderResults(data) {
+      const area = document.getElementById('resultsArea');
+      if (data.length === 0) {
+        area.innerHTML = '<div class="text-center p-12 bg-white rounded-[2rem] shadow-xl border border-gray-100"><p class="text-2xl font-bold text-gray-400">দুঃখিত!</p><p class="text-gray-500">আপনার দেওয়া তথ্যের সাথে কোনো মিল পাওয়া যায়নি।</p></div>';
+        return;
+      }
 
-      data.forEach(voter => {
-        const card = `
-          <div class="voter-card bg-white p-6 rounded-3xl shadow-sm border border-gray-100 flex flex-col md:flex-row gap-6 items-center md:items-start">
-            <div class="serial-tag text-white px-6 py-4 rounded-2xl text-center min-w-[100px] shadow-lg">
-              <span class="block text-xs uppercase opacity-80 font-bold">সিরিয়াল</span>
-              <span class="text-3xl font-black">${voter.serial}</span>
-            </div>
-            
-            <div class="flex-1 w-full">
-              <div class="flex flex-col md:flex-row justify-between mb-4">
-                <h3 class="text-2xl font-bold text-gray-800">${voter.name}</h3>
-                <span class="text-blue-600 font-mono font-bold bg-blue-50 px-3 py-1 rounded-lg text-sm self-start mt-2 md:mt-0">ID: ${voter.voterId.toString().slice(-4)}</span>
+      area.innerHTML = data.map(v => `
+        <div class="gov-card bg-white p-6 md:p-8 rounded-3xl flex flex-col md:flex-row gap-8 items-center md:items-start relative overflow-hidden">
+          <div class="absolute top-0 right-0 bg-green-50 px-4 py-1 text-[10px] font-bold text-green-700 rounded-bl-xl border-b border-l border-green-100 uppercase italic">অফিসিয়াল রেকর্ড</div>
+          
+          <div class="flex flex-col items-center">
+              <div class="bg-green-700 text-white w-24 h-24 rounded-2xl flex flex-col items-center justify-center shadow-xl mb-2">
+                <span class="text-[10px] uppercase opacity-80 font-bold">সিরিয়াল</span>
+                <span class="text-4xl font-black leading-none">${v.serial}</span>
               </div>
-              
-              <div class="grid grid-cols-1 md:grid-cols-2 gap-y-2 gap-x-8 text-gray-600 text-[15px]">
-                <p><strong>পিতা:</strong> ${voter.father}</p>
-                <p><strong>মাতা:</strong> ${voter.mother}</p>
-                <p class="md:col-span-2"><strong>ঠিকানা:</strong> <span class="text-blue-800">${voter.address}</span></p>
-                <p class="text-sm font-medium text-gray-400">জন্ম তারিখ: ${voter.dob}</p>
+              <span class="text-[10px] font-bold text-gray-400 font-mono tracking-tighter">ID: ${v.voterId.toString().slice(-4)}</span>
+          </div>
+
+          <div class="flex-1 w-full">
+            <h3 class="text-3xl font-black text-slate-800 mb-4 border-b-2 border-slate-100 pb-2">${v.name}</h3>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-y-4 gap-x-12">
+              <div class="flex flex-col">
+                <span class="text-[10px] text-gray-400 uppercase font-bold tracking-widest">পিতার নাম</span>
+                <span class="text-lg font-semibold text-slate-700">${v.father}</span>
+              </div>
+              <div class="flex flex-col">
+                <span class="text-[10px] text-gray-400 uppercase font-bold tracking-widest">মাতার নাম</span>
+                <span class="text-lg font-semibold text-slate-700">${v.mother}</span>
+              </div>
+              <div class="flex flex-col">
+                <span class="text-[10px] text-gray-400 uppercase font-bold tracking-widest">জন্ম তারিখ</span>
+                <span class="text-lg font-semibold text-slate-700">${v.dob}</span>
+              </div>
+              <div class="flex flex-col">
+                <span class="text-[10px] text-gray-400 uppercase font-bold tracking-widest">ঠিকানা / বাড়ির নাম</span>
+                <span class="text-lg font-bold text-blue-700">${v.address}</span>
               </div>
             </div>
           </div>
-        `;
-        container.innerHTML += card;
-      });
+        </div>
+      `).join('');
     }
   </script>
 </body>
