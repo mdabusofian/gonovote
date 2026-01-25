@@ -1,321 +1,99 @@
 <!DOCTYPE html>
 <html lang="bn">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>গণভোট ২০২৬ | প্রলয়ংকরী প্রিমিয়াম ডিজাইন</title>
-    <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@300;400;600;700&display=swap" rel="stylesheet">
-    <style>
-        :root {
-            --deep-green: #004d39;
-            --blood-red: #8b0000;
-            --gold: #D4AF37;
-            --glass-white: rgba(255, 255, 255, 0.95);
-        }
-
-        body {
-            font-family: 'Hind Siliguri', sans-serif;
-            background: linear-gradient(135deg, #002d21 0%, #4a0000 100%);
-            color: #fff;
-            margin: 0;
-            min-height: 100vh;
-        }
-
-        .header {
-            text-align: center;
-            padding: 40px 20px;
-            background: rgba(0,0,0,0.3);
-            border-bottom: 2px solid var(--gold);
-        }
-
-        .timer-box {
-            display: inline-block;
-            background: var(--gold);
-            color: #000;
-            padding: 10px 25px;
-            border-radius: 50px;
-            font-weight: 700;
-            margin-top: 15px;
-            box-shadow: 0 0 20px rgba(212, 175, 55, 0.4);
-        }
-
-        .container { max-width: 1200px; margin: 40px auto; padding: 0 20px; }
-
-        .glass-panel {
-            background: var(--glass-white);
-            color: #333;
-            border-radius: 30px;
-            padding: 40px;
-            margin-bottom: 40px;
-            box-shadow: 0 25px 50px rgba(0,0,0,0.5);
-        }
-
-        .claims-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 20px;
-        }
-
-        .claim-item {
-            background: #f8f9fa;
-            padding: 15px;
-            border-radius: 12px;
-            border-left: 6px solid var(--deep-green);
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            font-weight: 600;
-        }
-
-        .studio-grid {
-            display: grid;
-            grid-template-columns: 1fr 1.2fr;
-            gap: 40px;
-            align-items: start;
-        }
-
-        @media (max-width: 900px) { .studio-grid { grid-template-columns: 1fr; } }
-
-        .form-card {
-            background: var(--glass-white);
-            color: #333;
-            padding: 40px;
-            border-radius: 30px;
-            border: 2px solid var(--gold);
-        }
-
-        .input-box {
-            width: 100%;
-            padding: 15px;
-            margin-bottom: 20px;
-            border: 2px solid #ddd;
-            border-radius: 15px;
-            font-size: 1rem;
-        }
-
-        .btn-gold {
-            background: linear-gradient(90deg, #D4AF37, #f1c40f);
-            color: #000;
-            border: none;
-            padding: 20px;
-            width: 100%;
-            border-radius: 15px;
-            font-size: 1.3rem;
-            font-weight: 800;
-            cursor: pointer;
-            box-shadow: 0 10px 20px rgba(212, 175, 55, 0.3);
-        }
-
-        .preview-area {
-            background: rgba(255,255,255,0.05);
-            border: 2px dashed var(--gold);
-            border-radius: 30px;
-            padding: 20px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            min-height: 600px;
-            justify-content: center;
-        }
-
-        canvas { max-width: 100%; border-radius: 15px; display: none; box-shadow: 0 40px 80px rgba(0,0,0,0.6); }
-
-        .dl-btn {
-            margin-top: 20px;
-            background: #27ae60;
-            color: #fff;
-            padding: 15px 40px;
-            border-radius: 50px;
-            text-decoration: none;
-            font-weight: 700;
-            font-size: 1.2rem;
-            display: none;
-            cursor: pointer;
-            border: none;
-        }
-    </style>
+  <meta charset="UTF-8">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <style>
+    body { font-family: 'Hind Siliguri', sans-serif; background: #f0f2f5; }
+    .glass-effect { background: rgba(255, 255, 255, 0.9); backdrop-filter: blur(10px); }
+    .card-shadow { box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05), 0 8px 10px -6px rgba(0, 0, 0, 0.05); }
+    .gradient-bg { background: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 100%); }
+    .loader { border-top-color: #3b82f6; animation: spinner 1.5s linear infinite; }
+    @keyframes spinner { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+  </style>
 </head>
-<body>
+<body class="min-h-screen pb-10">
 
-<div class="header">
-    <h1 style="font-size: 3rem; margin: 0; letter-spacing: 2px;">বাংলাদেশ গণভোট ২০২৬</h1>
-    <div class="timer-box" id="timer">লোড হচ্ছে...</div>
-</div>
+  <div class="gradient-bg text-white pb-24 pt-10 px-6 text-center">
+    <h1 class="text-3xl font-bold mb-2">ভোটার তথ্য অনুসন্ধান</h1>
+    <p class="opacity-80">দৌলতপুর (৩ নং ওয়ার্ড অংশ) - নির্বাচনী ডিজিটাল বুথ</p>
+  </div>
 
-<div class="container">
-    <div class="glass-panel">
-        <h2 style="color: var(--deep-green); text-align: center; margin-bottom: 30px;">কেন 'হ্যাঁ' ভোট দেবেন? (১১টি অঙ্গীকার)</h2>
-        <div class="claims-grid" id="pointsDisplay"></div>
+  <div class="max-w-md mx-auto -mt-16 px-4">
+    <div class="glass-effect rounded-2xl p-6 card-shadow border border-white">
+      <div class="relative">
+        <input type="text" id="searchInput" 
+               class="w-full pl-4 pr-12 py-4 bg-gray-50 border-2 border-gray-100 rounded-xl focus:border-blue-500 focus:outline-none transition-all text-lg" 
+               placeholder="নাম বা বাড়ির নাম লিখুন...">
+        <button onclick="handleSearch()" class="absolute right-3 top-3 bg-blue-600 text-white p-2 rounded-lg hover:bg-blue-700 transition">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+          </svg>
+        </button>
+      </div>
+      <p class="text-xs text-center text-gray-500 mt-3">কমপক্ষে ২ অক্ষর লিখে অনুসন্ধান করুন</p>
+    </div>
+  </div>
+
+  <div id="results" class="max-w-xl mx-auto mt-8 px-4 space-y-4">
     </div>
 
-    <div class="studio-grid">
-        <div class="form-card">
-            <h2 style="margin-top: 0; color: var(--blood-red);">প্রিমিয়াম পোস্টার এডিটর</h2>
-            <input type="text" id="name" class="input-box" placeholder="আপনার পূর্ণ নাম">
-            <input type="text" id="title" class="input-box" placeholder="পরিচয় (উদাঃ সচেতন নাগরিক)">
-            <label style="display: block; margin-bottom: 10px; font-weight: bold;">আপনার প্রোফাইল ছবি আপলোড করুন:</label>
-            <input type="file" id="imgInp" class="input-box" accept="image/*">
-            <button class="btn-gold" onclick="generate()">পোস্টার তৈরি করুন ✨</button>
-        </div>
+  <div id="loader" class="hidden flex justify-center mt-10">
+    <div class="loader ease-linear rounded-full border-4 border-t-4 border-gray-200 h-12 w-12"></div>
+  </div>
 
-        <div class="preview-area">
-            <div id="status">পোস্টার প্রিভিউ এখানে দেখা যাবে</div>
-            <canvas id="posterCanvas" width="1200" height="1500"></canvas>
-            <button id="dlLink" class="dl-btn" onclick="downloadPoster()">📥 এইচডি পোস্টার ডাউনলোড করুন</button>
-        </div>
-    </div>
-</div>
+  <script>
+    function handleSearch() {
+      const query = document.getElementById('searchInput').value;
+      if (query.length < 2) return;
 
-<script>
-    // ১. কাউন্টডাউন
-    const target = new Date("March 26, 2026 00:00:00").getTime();
-    setInterval(() => {
-        const now = new Date().getTime();
-        const diff = target - now;
-        if(diff < 0) {
-             document.getElementById("timer").innerHTML = "ভোট গ্রহণ চলছে";
-             return;
-        }
-        document.getElementById("timer").innerHTML = `ভোটের আর: ${Math.floor(diff/(1000*60*60*24))} দিন : ${Math.floor((diff%(1000*60*60*24))/(1000*60*60))} ঘণ্টা`;
-    }, 1000);
+      document.getElementById('results').innerHTML = '';
+      document.getElementById('loader').classList.remove('hidden');
 
-    // ২. অঙ্গীকারসমূহ (১১টি পয়েন্ট)
-    const points = [
-        "প্রধানমন্ত্রীর মেয়াদ সর্বোচ্চ ১০ বছর করা।",
-        "ইন্টারনেট কখনও বন্ধ না করার সাংবিধানিক নিশ্চয়তা।",
-        "স্বাধীন ও নিরপেক্ষ বিচার বিভাগ প্রতিষ্ঠা।",
-        "দ্বিকক্ষ বিশিষ্ট সংসদ ও ক্ষমতার ভারসাম্য।",
-        "জাতীয় সিদ্ধান্তে সরাসরি গণভোটের বিধান।",
-        "ইসি ও পিএসসি গঠনে নিরপেক্ষ প্রক্রিয়ার নিশ্চয়তা।",
-        "রাষ্ট্রপতির ক্ষমা করার ক্ষমতা সীমিতকরণ।",
-        "বিরোধী দল থেকে ডেপুটি স্পিকার নিয়োগ।",
-        "রাষ্ট্রভাষা ও অন্যান্য ভাষার সাংবিধানিক স্বীকৃতি।",
-        "নির্বাচিত জনপ্রতিনিধিদের জবাবদিহিতা নিশ্চিত করা।",
-        "জুলাই বিপ্লবের শহীদদের আকাঙ্ক্ষা বাস্তবায়ন।"
-    ];
-    document.getElementById('pointsDisplay').innerHTML = points.map(p => `<div class="claim-item">✓ ${p}</div>`).join('');
-
-    // ৩. ক্যানভাস পোস্টার ডিজাইন
-    const canvas = document.getElementById('posterCanvas');
-    const ctx = canvas.getContext('2d');
-
-    function generate() {
-        const nameInput = document.getElementById('name').value || "আপনার নাম";
-        const titleInput = document.getElementById('title').value || "সচেতন নাগরিক";
-        const file = document.getElementById('imgInp').files[0];
-
-        if(!file) return alert("দয়া করে আপনার একটি ছবি আপলোড করুন");
-
-        const reader = new FileReader();
-        reader.onload = function(e) {
-            const img = new Image();
-            img.onload = function() {
-                // Background
-                let grd = ctx.createLinearGradient(0, 0, 1200, 1500);
-                grd.addColorStop(0, "#004d39");
-                grd.addColorStop(0.5, "#002d21");
-                grd.addColorStop(1, "#8b0000");
-                ctx.fillStyle = grd;
-                ctx.fillRect(0,0,1200,1500);
-
-                // Gold Borders
-                ctx.strokeStyle = "#D4AF37";
-                ctx.lineWidth = 40;
-                ctx.strokeRect(20,20,1160,1460);
-
-                // Header
-                ctx.fillStyle = "white";
-                ctx.textAlign = "center";
-                ctx.font = "bold 80px Hind Siliguri";
-                ctx.fillText("বাংলাদেশ গণভোট ২০২৬", 600, 130);
-
-                // অঙ্গীকার সেকশন (একপাশে সাজানো)
-                ctx.fillStyle = "rgba(0,0,0,0.4)";
-                ctx.roundRect(60, 200, 540, 1230, 20);
-                ctx.fill();
-                
-                ctx.fillStyle = "#D4AF37";
-                ctx.textAlign = "left";
-                ctx.font = "bold 45px Hind Siliguri";
-                ctx.fillText("কেন 'হ্যাঁ' ভোট দেবেন?", 90, 280);
-
-                ctx.fillStyle = "white";
-                ctx.font = "30px Hind Siliguri";
-                points.forEach((p, i) => {
-                    // দীর্ঘ লাইনগুলো ভেঙে ছোট করা
-                    let text = (p.length > 32) ? p.substring(0,32) + "..." : p;
-                    ctx.fillText("✓ " + text, 90, 360 + (i * 95));
-                });
-
-                // User Profile Smart Frame (অন্য পাশে)
-                const frameX = 660, frameY = 200, frameW = 480, frameH = 580;
-                ctx.save();
-                ctx.beginPath();
-                ctx.roundRect(frameX, frameY, frameW, frameH, 40);
-                ctx.clip();
-                ctx.drawImage(img, frameX, frameY, frameW, frameH);
-                ctx.restore();
-
-                // Frame Border
-                ctx.strokeStyle = "white";
-                ctx.lineWidth = 10;
-                ctx.roundRect(frameX, frameY, frameW, frameH, 40);
-                ctx.stroke();
-
-                // Name & Info
-                ctx.textAlign = "center";
-                ctx.fillStyle = "white";
-                ctx.font = "bold 85px Hind Siliguri";
-                ctx.fillText(nameInput, 900, 890);
-                
-                ctx.fillStyle = "#D4AF37";
-                ctx.font = "bold 50px Hind Siliguri";
-                ctx.fillText(titleInput, 900, 970);
-
-                // Call to Action Box
-                ctx.fillStyle = "white";
-                ctx.roundRect(660, 1100, 480, 330, 25);
-                ctx.fill();
-
-                ctx.fillStyle = "#8b0000";
-                ctx.font = "bold 75px Hind Siliguri";
-                ctx.fillText("গণভোটে", 900, 1220);
-                ctx.font = "bold 100px Hind Siliguri";
-                ctx.fillText("'হ্যাঁ' ভোট দিন", 900, 1350);
-
-                document.getElementById('status').style.display = 'none';
-                canvas.style.display = 'block';
-                document.getElementById('dlLink').style.display = 'inline-block';
-            }
-            img.src = e.target.result;
-        }
-        reader.readAsDataURL(file);
+      google.script.run.withSuccessHandler(renderResults).searchVoter(query);
     }
 
-    function downloadPoster() {
-        const dataURL = canvas.toDataURL("image/png");
-        const link = document.createElement('a');
-        link.href = dataURL;
-        link.download = 'Bangladesh_Gonovote_Poster_2026.png';
-        document.body.appendChild(link);
-        link.click();
-        document.body.removeChild(link);
+    function renderResults(data) {
+      document.getElementById('loader').classList.add('hidden');
+      const container = document.getElementById('results');
+      
+      if (data.length === 0) {
+        container.innerHTML = `<div class="text-center py-10 text-gray-500 bg-white rounded-xl">কোনো তথ্য খুঁজে পাওয়া যায়নি!</div>`;
+        return;
+      }
+
+      data.forEach(voter => {
+        const card = `
+          <div class="bg-white rounded-2xl p-5 card-shadow border border-gray-50 transition-transform active:scale-95">
+            <div class="flex justify-between items-start mb-3">
+              <div>
+                <span class="text-xs font-bold text-blue-600 uppercase tracking-wider">সিরিয়াল নাম্বার</span>
+                <div class="text-3xl font-black text-red-600">${voter.serial}</div>
+              </div>
+              <div class="text-right">
+                <span class="bg-blue-50 text-blue-700 px-3 py-1 rounded-full text-xs font-semibold">ভোটার নং: ${voter.voterNo.toString().slice(-4)}</span>
+              </div>
+            </div>
+            
+            <h3 class="text-xl font-bold text-gray-800 mb-2">${voter.name}</h3>
+            
+            <div class="grid grid-cols-1 gap-1 text-sm text-gray-600 border-t pt-3">
+              <p><strong>পিতা:</strong> ${voter.father}</p>
+              <p><strong>মাতা:</strong> ${voter.mother}</p>
+              <p><strong>ঠিকানা:</strong> ${voter.address}</p>
+              <p class="mt-2 text-xs text-gray-400 font-mono">DOB: ${voter.dob}</p>
+            </div>
+          </div>
+        `;
+        container.innerHTML += card;
+      });
     }
 
-    // roundRect polyfill
-    CanvasRenderingContext2D.prototype.roundRect = function (x, y, w, h, r) {
-      if (w < 2 * r) r = w / 2;
-      if (h < 2 * r) r = h / 2;
-      this.beginPath();
-      this.moveTo(x + r, y);
-      this.arcTo(x + w, y, x + w, y + h, r);
-      this.arcTo(x + w, y + h, x, y + h, r);
-      this.arcTo(x, y + h, x, y, r);
-      this.arcTo(x, y, x + w, y, r);
-      this.closePath();
-      return this;
-    }
-</script>
-
+    // Enter key support
+    document.getElementById('searchInput').addEventListener("keyup", function(event) {
+      if (event.key === "Enter") handleSearch();
+    });
+  </script>
 </body>
 </html>
