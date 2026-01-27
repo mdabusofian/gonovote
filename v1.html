@@ -1,310 +1,176 @@
 <!DOCTYPE html>
 <html lang="bn">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>গণভোট ২০২৬ | প্রলয়ংকরী প্রিমিয়াম ডিজাইন</title>
-    <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@300;400;600;700&display=swap" rel="stylesheet">
-    <style>
-        :root {
-            --deep-green: #004d39;
-            --blood-red: #8b0000;
-            --gold: #D4AF37;
-            --glass-white: rgba(255, 255, 255, 0.95);
-        }
-
-        body {
-            font-family: 'Hind Siliguri', sans-serif;
-            background: linear-gradient(135deg, #002d21 0%, #4a0000 100%);
-            color: #fff;
-            margin: 0;
-            min-height: 100vh;
-        }
-
-        .header {
-            text-align: center;
-            padding: 40px 20px;
-            background: rgba(0,0,0,0.3);
-            border-bottom: 2px solid var(--gold);
-        }
-
-        .timer-box {
-            display: inline-block;
-            background: var(--gold);
-            color: #000;
-            padding: 10px 25px;
-            border-radius: 50px;
-            font-weight: 700;
-            margin-top: 15px;
-            box-shadow: 0 0 20px rgba(212, 175, 55, 0.4);
-        }
-
-        .container { max-width: 1200px; margin: 40px auto; padding: 0 20px; }
-
-        /* Claims Section */
-        .glass-panel {
-            background: var(--glass-white);
-            color: #333;
-            border-radius: 30px;
-            padding: 40px;
-            margin-bottom: 40px;
-            box-shadow: 0 25px 50px rgba(0,0,0,0.5);
-        }
-
-        .claims-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 20px;
-        }
-
-        .claim-item {
-            background: #f8f9fa;
-            padding: 15px;
-            border-radius: 12px;
-            border-left: 6px solid var(--deep-green);
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            font-weight: 600;
-            transition: 0.3s;
-        }
-
-        .claim-item:hover { transform: scale(1.02); background: #fff; }
-
-        /* Generator Section */
-        .studio-grid {
-            display: grid;
-            grid-template-columns: 1fr 1.2fr;
-            gap: 40px;
-            align-items: start;
-        }
-
-        @media (max-width: 900px) { .studio-grid { grid-template-columns: 1fr; } }
-
-        .form-card {
-            background: var(--glass-white);
-            color: #333;
-            padding: 40px;
-            border-radius: 30px;
-            border: 2px solid var(--gold);
-        }
-
-        .input-box {
-            width: 100%;
-            padding: 15px;
-            margin-bottom: 20px;
-            border: 2px solid #ddd;
-            border-radius: 15px;
-            font-size: 1rem;
-        }
-
-        .btn-gold {
-            background: linear-gradient(90deg, #D4AF37, #f1c40f);
-            color: #000;
-            border: none;
-            padding: 20px;
-            width: 100%;
-            border-radius: 15px;
-            font-size: 1.3rem;
-            font-weight: 800;
-            cursor: pointer;
-            box-shadow: 0 10px 20px rgba(212, 175, 55, 0.3);
-        }
-
-        /* Canvas Preview */
-        .preview-area {
-            background: rgba(255,255,255,0.05);
-            border: 2px dashed var(--gold);
-            border-radius: 30px;
-            padding: 20px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            min-height: 600px;
-            justify-content: center;
-        }
-
-        canvas { max-width: 100%; border-radius: 15px; display: none; box-shadow: 0 40px 80px rgba(0,0,0,0.6); }
-
-        .dl-btn {
-            margin-top: 20px;
-            background: #fff;
-            color: #000;
-            padding: 12px 30px;
-            border-radius: 50px;
-            text-decoration: none;
-            font-weight: 700;
-            display: none;
-        }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ডিজিটাল নির্বাচনী তথ্যকেন্দ্র | ৩ নং ওয়ার্ড</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.cdnfonts.com/css/solaimanlipi" rel="stylesheet">
+  
+  <style>
+    body { 
+      font-family: 'SolaimanLipi', Arial, sans-serif; 
+      background: #f0f2f5;
+    }
+    .main-header { 
+      background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
+    }
+    /* প্রিমিয়াম কম্প্যাক্ট কার্ড */
+    .voter-card { 
+      background: white;
+      border-radius: 12px;
+      border: 1px solid #e2e8f0;
+      transition: all 0.3s ease;
+      overflow: hidden;
+    }
+    .voter-card:hover {
+      box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+      border-color: #3b82f6;
+    }
+    .serial-badge {
+      background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
+      color: white;
+      min-width: 60px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+    .gender-btn.active { 
+      background-color: #2563eb; 
+      color: white; 
+      border-color: #2563eb;
+    }
+    .search-btn { 
+      background: #2563eb;
+    }
+  </style>
 </head>
-<body>
+<body class="min-h-screen pb-10">
 
-<div class="header">
-    <h1 style="font-size: 3rem; margin: 0; letter-spacing: 2px;">বাংলাদেশ গণভোট ২০২৬</h1>
-    <div class="timer-box" id="timer">লোড হচ্ছে...</div>
-</div>
+  <header class="main-header text-white pt-10 pb-16 px-4 text-center shadow-lg">
+    <div class="max-w-4xl mx-auto">
+      <h1 class="text-3xl md:text-4xl font-black mb-2 tracking-tight">নির্বাচনী তথ্যকেন্দ্র</h1>
+      <div class="flex flex-wrap justify-center gap-2 text-[10px] md:text-xs font-bold uppercase tracking-widest opacity-80">
+        <span class="bg-blue-600 px-2 py-0.5 rounded">ওয়ার্ড: ০৩</span>
+        <span class="bg-slate-700 px-2 py-0.5 rounded">দৌলতপুর</span>
+        <span class="bg-slate-700 px-2 py-0.5 rounded">কোড: ১৮৮৩</span>
+      </div>
+    </div>
+  </header>
 
-<div class="container">
-    <div class="glass-panel">
-        <h2 style="color: var(--deep-green); text-align: center; margin-bottom: 30px;">জুলাই জাতীয় সনদ ২০২৫: ১১টি অঙ্গীকার</h2>
-        <div class="claims-grid" id="pointsDisplay"></div>
+  <main class="max-w-xl mx-auto px-4 -mt-8 relative z-10">
+    
+    <div class="flex p-1 bg-white rounded-xl shadow-md mb-6 border border-gray-100">
+      <button onclick="setGender('Male', this)" class="gender-btn active flex-1 py-3 rounded-lg font-bold text-sm transition-all uppercase">
+        পুরুষ
+      </button>
+      <button onclick="setGender('Female', this)" class="gender-btn flex-1 py-3 rounded-lg font-bold text-sm transition-all uppercase">
+        মহিলা
+      </button>
     </div>
 
-    <div class="studio-grid">
-        <div class="form-card">
-            <h2 style="margin-top: 0; color: var(--blood-red);">প্রিমিয়াম পোস্টার এডিটর</h2>
-            <input type="text" id="name" class="input-box" placeholder="আপনার পূর্ণ নাম">
-            <input type="text" id="title" class="input-box" placeholder="পরিচয় (উদাঃ সচেতন নাগরিক)">
-            <label style="display: block; margin-bottom: 10px; font-weight: bold;">আপনার প্রোফাইল ছবি:</label>
-            <input type="file" id="imgInp" class="input-box" accept="image/*">
-            <button class="btn-gold" onclick="generate()">পোস্টার তৈরি করুন ✨</button>
-        </div>
-
-        <div class="preview-area">
-            <div id="status">পোস্টার প্রিভিউ এখানে দেখা যাবে</div>
-            <canvas id="posterCanvas" width="1200" height="1500"></canvas>
-            <a id="dlLink" class="dl-btn" onclick="download()">📥 ডাউনলোড এইচডি পোস্টার</a>
-        </div>
+    <div class="bg-white p-2 rounded-2xl shadow-xl border border-gray-100 mb-8">
+      <div class="flex flex-col md:flex-row gap-2">
+        <input type="text" id="searchInput" 
+               class="flex-1 px-5 py-4 rounded-xl bg-slate-50 border-none outline-none focus:ring-2 focus:ring-blue-500 font-medium text-lg" 
+               placeholder="নাম বা পিতার নাম লিখুন...">
+        <button onclick="handleSearch()" class="search-btn text-white px-8 py-4 rounded-xl font-bold flex items-center justify-center gap-2 shadow-lg active:scale-95 transition-transform">
+          খুঁজুন
+        </button>
+      </div>
     </div>
-</div>
 
-<script>
-    // ১. কাউন্টডাউন
-    const target = new Date("March 26, 2026 00:00:00").getTime();
-    setInterval(() => {
-        const now = new Date().getTime();
-        const diff = target - now;
-        document.getElementById("timer").innerHTML = `ভোটের আর: ${Math.floor(diff/(1000*60*60*24))} দিন : ${Math.floor((diff%(1000*60*60*24))/(1000*60*60))} ঘণ্টা`;
-    }, 1000);
+    <div id="loader" class="hidden flex flex-col items-center py-6">
+        <div class="w-8 h-8 border-4 border-blue-500 border-t-transparent rounded-full animate-spin"></div>
+        <p class="mt-2 text-blue-600 text-[10px] font-black uppercase tracking-widest">Searching Database...</p>
+    </div>
 
-    // ২. অঙ্গীকারসমূহ (১১টি পয়েন্ট)
-    const points = [
-        "প্রধানমন্ত্রীর মেয়াদ সর্বোচ্চ ১০ বছর।",
-        "ইন্টারনেট কখনও বন্ধ করা যাবে না।",
-        "স্বাধীন ও নিরপেক্ষ বিচার বিভাগ।",
-        "দ্বিকক্ষ বিশিষ্ট সংসদ ও ক্ষমতার ভারসাম্য।",
-        "জাতীয় সিদ্ধান্তে সরাসরি গণভোটের বিধান।",
-        "ইসি ও পিএসসি গঠনে নিরপেক্ষ প্রক্রিয়ার নিশ্চয়তা।",
-        "রাষ্ট্রপতির ক্ষমা করার ক্ষমতা সীমিতকরণ।",
-        "বিরোধী দল থেকে ডেপুটি স্পিকার নিয়োগ।",
-        "রাষ্ট্রভাষা ও অন্যান্য ভাষার সাংবিধানিক স্বীকৃতি।",
-        "নির্বাচিত জনপ্রতিনিধিদের জবাবদিহিতা।",
-        "বিপ্লবের শহীদদের আকাঙ্ক্ষা বাস্তবায়ন।"
-    ];
-    document.getElementById('pointsDisplay').innerHTML = points.map(p => `<div class="claim-item">✓ ${p}</div>`).join('');
+    <div id="resultsArea" class="space-y-3"></div>
 
-    // ৩. ক্যানভাস পোস্টার ডিজাইন
-    const canvas = document.getElementById('posterCanvas');
-    const ctx = canvas.getContext('2d');
+    <div class="mt-12 text-center">
+        <p class="text-[10px] text-gray-400 font-bold uppercase tracking-tighter leading-relaxed">
+            বেসরকারি উদ্যোগ • সরকারি ভোটার তালিকাই চূড়ান্ত <br>
+            কারিগরি সহায়তায়: নির্বাচনী ডিজিটাল বুথ টিম
+        </p>
+    </div>
 
-    function generate() {
-        const nameInput = document.getElementById('name').value || "সচেতন নাগরিক";
-        const titleInput = document.getElementById('title').value || "পরিবর্তনের কান্ডারি";
-        const file = document.getElementById('imgInp').files[0];
+  </main>
 
-        if(!file) return alert("ছবি আপলোড করুন");
+  <script>
+    let currentGender = 'Male';
+    const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbx3yLqxNZLHJfXIGzDXsaqdQpF2k6W0n__-cJQUJ7Ka1_7g85_4rKc8L72-bLwrWbQG/exec";
 
-        const reader = new FileReader();
-        reader.onload = function(e) {
-            const img = new Image();
-            img.onload = function() {
-                // Background Gradient
-                let grd = ctx.createLinearGradient(0, 0, 1200, 1500);
-                grd.addColorStop(0, "#004d39");
-                grd.addColorStop(0.5, "#002d21");
-                grd.addColorStop(1, "#8b0000");
-                ctx.fillStyle = grd;
-                ctx.fillRect(0,0,1200,1500);
-
-                // Gold Borders
-                ctx.strokeStyle = "#D4AF37";
-                ctx.lineWidth = 40;
-                ctx.strokeRect(0,0,1200,1500);
-
-                // Side Panel for Points
-                ctx.fillStyle = "rgba(255,255,255,0.08)";
-                ctx.fillRect(60, 250, 540, 1180);
-                
-                ctx.fillStyle = "#D4AF37";
-                ctx.font = "bold 45px Hind Siliguri";
-                ctx.fillText("গণভোটের অঙ্গীকারসমূহ", 90, 330);
-
-                ctx.fillStyle = "white";
-                ctx.font = "30px Hind Siliguri";
-                points.slice(0, 11).forEach((p, i) => {
-                    ctx.fillText("✓ " + (p.length > 35 ? p.substring(0,35)+"..." : p), 90, 410 + (i * 85));
-                });
-
-                // User Profile Smart Frame
-                const frameX = 660, frameY = 250, frameW = 480, frameH = 580;
-                ctx.save();
-                ctx.beginPath();
-                ctx.roundRect(frameX, frameY, frameW, frameH, 40);
-                ctx.clip();
-                ctx.drawImage(img, frameX, frameY, frameW, frameH);
-                ctx.restore();
-
-                // Frame Glow
-                ctx.strokeStyle = "white";
-                ctx.lineWidth = 10;
-                ctx.roundRect(frameX, frameY, frameW, frameH, 40);
-                ctx.stroke();
-
-                // Name & Info
-                ctx.textAlign = "center";
-                ctx.fillStyle = "white";
-                ctx.font = "bold 80px Hind Siliguri";
-                ctx.fillText(nameInput, 900, 950);
-                
-                ctx.fillStyle = "#D4AF37";
-                ctx.font = "50px Hind Siliguri";
-                ctx.fillText(titleInput, 900, 1030);
-
-                // Call to Action Box
-                ctx.fillStyle = "white";
-                ctx.roundRect(660, 1150, 480, 250, 25);
-                ctx.fill();
-
-                ctx.fillStyle = "#8b0000";
-                ctx.font = "bold 65px Hind Siliguri";
-                ctx.fillText("গণভোটে", 900, 1240);
-                ctx.font = "bold 100px Hind Siliguri";
-                ctx.fillText("'হ্যাঁ' ভোট দিন", 900, 1350);
-
-                // Top Header Text
-                ctx.fillStyle = "white";
-                ctx.font = "bold 70px Hind Siliguri";
-                ctx.fillText("বাংলাদেশ গণভোট ২০২৬", 600, 120);
-
-                document.getElementById('status').style.display = 'none';
-                canvas.style.display = 'block';
-                document.getElementById('dlLink').style.display = 'inline-block';
-            }
-            img.src = e.target.result;
-        }
-        reader.readAsDataURL(file);
+    function setGender(gender, btn) {
+      currentGender = gender;
+      document.querySelectorAll('.gender-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      document.getElementById('resultsArea').innerHTML = '';
+      document.getElementById('searchInput').value = '';
     }
 
-    function download() {
-        const link = document.createElement('a');
-        link.download = 'Premium_Vote_Poster.png';
-        link.href = canvas.toDataURL();
-        link.click();
+    function handleSearch() {
+      const query = document.getElementById('searchInput').value.trim();
+      const resultsArea = document.getElementById('resultsArea');
+      const loader = document.getElementById('loader');
+
+      if (query.length < 2) {
+        alert("অনুগ্রহ করে সঠিক তথ্য দিন।");
+        return;
+      }
+
+      resultsArea.innerHTML = '';
+      loader.classList.remove('hidden');
+
+      fetch(`${SCRIPT_URL}?query=${encodeURIComponent(query)}&gender=${currentGender}`)
+        .then(res => res.json())
+        .then(data => {
+          loader.classList.add('hidden');
+          renderResults(data);
+        })
+        .catch(err => {
+          loader.classList.add('hidden');
+          resultsArea.innerHTML = `<div class="text-center p-4 bg-red-50 text-red-500 rounded-lg text-xs font-bold">সার্ভার এরর! আবার চেষ্টা করুন।</div>`;
+        });
     }
 
-    // Polyfill for roundRect
-    CanvasRenderingContext2D.prototype.roundRect = function (x, y, w, h, r) {
-      this.beginPath();
-      this.moveTo(x + r, y);
-      this.arcTo(x + w, y, x + w, y + h, r);
-      this.arcTo(x + w, y + h, x, y + h, r);
-      this.arcTo(x, y + h, x, y, r);
-      this.arcTo(x, y, x + w, y, r);
-      this.closePath();
-      return this;
-    }
-</script>
+    function renderResults(data) {
+      const area = document.getElementById('resultsArea');
+      if (data.length === 0) {
+        area.innerHTML = `<div class="text-center p-10 bg-white rounded-2xl border border-dashed text-gray-400">কোনো তথ্য পাওয়া যায়নি।</div>`;
+        return;
+      }
 
+      area.innerHTML = data.map(v => `
+        <div class="voter-card flex h-auto">
+          <div class="serial-badge p-2">
+            <span class="text-[8px] font-bold uppercase opacity-80">সিরিয়াল</span>
+            <span class="text-2xl font-black">${v.serial}</span>
+          </div>
+
+          <div class="flex-1 p-3 min-w-0">
+            <div class="flex justify-between items-start mb-1">
+                <h3 class="text-base font-black text-slate-800 truncate uppercase tracking-tight">${v.name}</h3>
+                <span class="text-[8px] font-bold bg-slate-100 text-slate-500 px-1.5 py-0.5 rounded ml-2 whitespace-nowrap">ওয়াড-০৩</span>
+            </div>
+            
+            <div class="grid grid-cols-2 gap-x-3 gap-y-0.5 text-[11px] border-t border-gray-50 pt-1">
+              <div class="truncate"><span class="text-gray-400 font-bold">পিতা:</span> <span class="text-slate-700 font-semibold">${v.father}</span></div>
+              <div class="truncate"><span class="text-gray-400 font-bold">মাতা:</span> <span class="text-slate-700 font-semibold">${v.mother}</span></div>
+              <div><span class="text-gray-400 font-bold">জন্ম:</span> <span class="text-slate-700 font-semibold">${v.dob}</span></div>
+              <div class="text-right text-[9px] text-blue-500 font-bold">কোড: ১৮৮৩</div>
+            </div>
+
+            <div class="mt-1.5 bg-blue-50/50 p-1.5 rounded-lg border border-blue-100/30 flex items-center gap-2">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-3 w-3 text-blue-500 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                </svg>
+                <p class="text-[11px] font-bold text-blue-800 truncate">${v.address}</p>
+            </div>
+          </div>
+        </div>
+      `).join('');
+    }
+  </script>
 </body>
 </html>
