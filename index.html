@@ -2,223 +2,235 @@
 <html lang="bn">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>ভোটার তথ্য সেবা | ৩ নং ওয়ার্ড</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>ভোটার তথ্য | বড়উঠান ইউনিয়ন</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <link href="https://fonts.cdnfonts.com/css/solaimanlipi" rel="stylesheet">
   
   <style>
+    :root {
+      --primary-blue: #1d4ed8;
+      --deep-blue: #1e3a8a;
+      --light-blue: #eff6ff;
+      --accent-yellow: #ffd700;
+    }
+
     body { 
       font-family: 'SolaimanLipi', Arial, sans-serif; 
-      background-color: #f0f4f8;
-      color: #1e293b;
+      background-color: #f8fafc;
+      color: #1f2937;
     }
 
-    /* প্রিমিয়াম হেডার */
-    .top-header {
-      background: linear-gradient(135deg, #074799 0%, #001e6c 100%);
-      border-bottom: 4px solid #ffd700;
+    .app-header {
+      background: linear-gradient(135deg, var(--deep-blue) 0%, #0f172a 100%);
+      border-bottom: 5px solid var(--accent-yellow);
     }
 
-    /* স্বচ্ছ কার্ড ডিজাইন */
-    .voter-card { 
-      background: #ffffff;
+    /* প্রিমিয়াম কার্ড ডিজাইন */
+    .voter-card {
+      background: white;
+      border-radius: 20px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.05);
       border: 1px solid #e2e8f0;
-      border-radius: 16px;
-      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
-      transition: all 0.3s ease;
-    }
-    .voter-card:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
-      border-color: #074799;
+      overflow: hidden;
+      margin-bottom: 16px;
     }
 
-    /* সিরিয়াল বক্স */
     .serial-section {
-      background: #f8fafc;
-      border-right: 2px dashed #e2e8f0;
-      min-width: 80px;
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
+      background: var(--light-blue);
+      border-right: 1px dashed #cbd5e1;
+      min-width: 85px;
     }
 
-    .btn-gender {
-      background: #ffffff;
-      border: 2px solid #cbd5e1;
-      color: #475569;
-      transition: 0.3s;
-    }
-    .btn-gender.active {
-      background: #074799;
-      color: #ffffff;
-      border-color: #074799;
-    }
-
-    .btn-search {
-      background: #074799;
-      transition: 0.3s;
-    }
-    .btn-search:hover {
-      background: #001e6c;
-    }
-
-    /* লেবেল স্টাইল */
     .info-label {
-      font-size: 11px;
-      color: #64748b;
-      font-weight: bold;
-      margin-bottom: 2px;
+      text-transform: uppercase;
+      font-size: 10px;
+      font-weight: 800;
+      color: #94a3b8;
+      letter-spacing: 0.05em;
+      display: block;
     }
+
+    .notice-box {
+      background: #fffbeb;
+      border: 1px solid #fde68a;
+      border-radius: 15px;
+      padding: 12px;
+      margin-bottom: 20px;
+    }
+
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .animate-card { animation: fadeInUp 0.4s ease-out forwards; }
   </style>
 </head>
-<body class="min-h-screen">
+<body class="pb-10">
 
-  <header class="top-header text-white py-8 px-4 shadow-xl text-center">
-    <div class="max-w-2xl mx-auto">
-      <h1 class="text-3xl md:text-4xl font-black tracking-tight mb-3">নির্বাচনী তথ্য সেবা</h1>
-      <div class="flex flex-wrap justify-center gap-3 text-sm font-medium opacity-90">
-        <span class="bg-white/10 px-3 py-1 rounded-full border border-white/20">কর্ণফুলী উপজেলা</span>
-        <span class="bg-white/10 px-3 py-1 rounded-full border border-white/20">বড়উঠান ইউনিয়ন</span>
-      </div>
-    </div>
-  </header>
+    <header class="app-header text-white pt-12 pb-16 px-6 rounded-b-[50px] shadow-lg text-center">
+        <h1 class="text-3xl font-black">বড়উঠান ইউনিয়ন</h1>
+              <h2 class="text-[10px] font-bold text-yellow-400 uppercase tracking-widest">কর্ণফুলী উপজেলা, চট্টগ্রাম</h2>
 
-  <main class="max-w-xl mx-auto px-4 -mt-6 relative z-10">
-    
-    <div class="bg-white rounded-2xl shadow-lg p-5 border border-gray-100 mb-6">
-      <div class="text-center mb-5">
-        <p class="text-blue-900 font-bold text-lg">ভোটার এলাকা: দৌলতপুর (১৮৮৩)</p>
-        <p class="text-slate-500 text-sm font-bold uppercase tracking-widest">৩ নং ওয়ার্ড ডিজিটাল বুথ</p>
-      </div>
+        <p class="text-xs opacity-80 mt-2 bg-white/10 inline-block px-4 py-1.5 rounded-full border border-white/5">ডিজিটাল ভোটার স্লিপ সিস্টেম</p>
+    </header>
 
-      <div class="flex gap-3 mb-5">
-        <button onclick="setGender('Male', this)" class="btn-gender active flex-1 py-3 rounded-xl font-bold text-base shadow-sm">
-          পুরুষ ভোটার
+    <main class="max-w-md mx-auto px-4 -mt-10 relative z-10">
+      
+      <div class="bg-white rounded-[32px] p-8 shadow-2xl border border-blue-50/50 mb-8">
+        <div class="grid grid-cols-2 gap-3 mb-5">
+            <div class="col-span-2">
+                <label class="block text-[11px] font-black text-slate-400 uppercase mb-2 ml-1 tracking-widest">ওয়ার্ড নির্বাচন করুন</label>
+                <select id="wardSelect" class="w-full px-5 py-4 rounded-2xl border-2 border-slate-100 outline-none text-lg font-bold text-slate-700 bg-slate-50 focus:border-blue-600 focus:bg-white transition-all appearance-none shadow-sm">
+                    <option value="1">ওয়ার্ড নং - ০১</option>
+                    <option value="2">ওয়ার্ড নং - ০২</option>
+                    <option value="3" selected>ওয়ার্ড নং - ০৩</option>
+                    <option value="4">ওয়ার্ড নং - ০৪</option>
+                    <option value="5">ওয়ার্ড নং - ০৫</option>
+                    <option value="6">ওয়ার্ড নং - ০৬</option>
+                    <option value="7">ওয়ার্ড নং - ০৭</option>
+                    <option value="8">ওয়ার্ড নং - ০৮</option>
+                    <option value="9">ওয়ার্ড নং - ০৯</option>
+                </select>
+            </div>
+            <button onclick="setGender('Male', this)" id="maleBtn" class="py-4 rounded-2xl font-black text-sm bg-blue-700 text-white shadow-lg active:scale-95 transition-all">পুরুষ</button>
+            <button onclick="setGender('Female', this)" id="femaleBtn" class="py-4 rounded-2xl font-black text-sm bg-white border-2 border-slate-100 text-slate-500 active:scale-95 transition-all">মহিলা</button>
+        </div>
+
+        <input type="text" id="searchInput" class="w-full px-6 py-5 rounded-2xl border-2 border-slate-100 outline-none font-bold bg-slate-50 focus:border-blue-600 focus:bg-white transition-all mb-5 shadow-inner" placeholder="নাম অথবা পিতা/মাতার নাম লিখুন...">
+        
+        <button onclick="handleSearch()" class="w-full bg-slate-900 text-white py-5 rounded-2xl font-black text-xl shadow-xl active:scale-[0.98] transition-all flex items-center justify-center gap-3">
+            তথ্য অনুসন্ধান করুন
         </button>
-        <button onclick="setGender('Female', this)" class="btn-gender flex-1 py-3 rounded-xl font-bold text-base shadow-sm">
-          মহিলা ভোটার
-        </button>
       </div>
 
-      <div class="space-y-3">
-        <input type="text" id="searchInput" 
-               class="w-full px-5 py-4 rounded-xl bg-slate-50 border-2 border-slate-100 focus:border-blue-500 focus:bg-white outline-none text-lg transition-all" 
-               placeholder="নাম, পিতা বা মাতার নাম লিখুন...">
-        <button onclick="handleSearch()" class="btn-search w-full text-white py-4 rounded-xl font-bold text-lg shadow-lg flex items-center justify-center gap-2 active:scale-95 transition-transform">
-          তথ্য অনুসন্ধান করুন
-        </button>
+      <div id="loader" class="hidden text-center py-10">
+          <div class="h-12 w-12 border-4 border-blue-700 border-t-transparent animate-spin rounded-full mx-auto"></div>
+          <p class="mt-4 text-blue-900 font-bold">অপেক্ষা করুন...</p>
       </div>
-    </div>
 
-    <div id="loader" class="hidden text-center py-8">
-        <div class="inline-block h-10 w-10 animate-spin rounded-full border-4 border-blue-600 border-r-transparent"></div>
-        <p class="mt-4 text-blue-900 font-bold animate-pulse text-sm">তথ্য খোঁজা হচ্ছে, দয়া করে অপেক্ষা করুন...</p>
-    </div>
+      <div id="resultsArea" class="space-y-4"></div>
 
-    <div id="resultsArea" class="space-y-4"></div>
+      <div class="mt-12 bg-white rounded-[32px] p-8 border border-slate-200 text-center shadow-sm">
+          <p class="text-[10px] font-black text-slate-400 uppercase tracking-[0.2em] mb-4">Technical Assistance</p>
+          <div class="flex flex-col items-center">
+              <h3 class="text-xl font-black text-slate-800">মোঃ আবু সুফিয়ান</h3>
+              <p class="text-[11px] font-bold text-blue-600 mt-2 bg-blue-50 px-5 py-2 rounded-full border border-blue-100 italic">আইটি স্পেশালিস্ট ও সমাজকর্মী</p>
+          </div>
+      </div>
 
-    <div class="mt-12 p-6 bg-white/50 backdrop-blur-sm border border-gray-200 rounded-2xl text-center">
-        <p class="text-xs text-slate-500 leading-relaxed font-medium">
-            <span class="text-red-500 font-bold">সতর্কবার্তা:</span> এটি একটি বেসরকারি স্বেচ্ছাসেবী উদ্যোগ। <br>
-            প্রদর্শিত তথ্যের কোনো অসঙ্গতি থাকলে সরকারি ভোটার তালিকাই চূড়ান্ত।
-        </p>
-        <div class="mt-4 h-px bg-gray-200 w-24 mx-auto"></div>
-        <p class="mt-3 text-[10px] text-slate-400 font-bold uppercase tracking-widest">কারিগরি সহায়তায়: ডিজিটাল বুথ টিম</p>
-    </div>
-
-  </main>
+    </main>
 
   <script>
     let currentGender = 'Male';
-    const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbx3yLqxNZLHJfXIGzDXsaqdQpF2k6W0n__-cJQUJ7Ka1_7g85_4rKc8L72-bLwrWbQG/exec";
+    const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbyYlqsTVz_vim5MsONPJ0bi8CwtNeJYTZIoLrkKU6QZlwuZbhLVZpMbi7xopkx_MhE/exec"; 
 
     function setGender(gender, btn) {
       currentGender = gender;
-      document.querySelectorAll('.btn-gender').forEach(b => b.classList.remove('active'));
-      btn.classList.add('active');
+      const mBtn = document.getElementById('maleBtn');
+      const fBtn = document.getElementById('femaleBtn');
+      
+      // থিম কালার এখন সবসময় নীল (Blue)
+      if(gender === 'Male') {
+        mBtn.className = "py-4 rounded-2xl font-black text-sm bg-blue-700 text-white shadow-lg active:scale-95 transition-all";
+        fBtn.className = "py-4 rounded-2xl font-black text-sm bg-white border-2 border-slate-100 text-slate-500 active:scale-95 transition-all";
+      } else {
+        fBtn.className = "py-4 rounded-2xl font-black text-sm bg-blue-700 text-white shadow-lg active:scale-95 transition-all";
+        mBtn.className = "py-4 rounded-2xl font-black text-sm bg-white border-2 border-slate-100 text-slate-500 active:scale-95 transition-all";
+      }
       document.getElementById('resultsArea').innerHTML = '';
-      document.getElementById('searchInput').value = '';
     }
 
-    function handleSearch() {
+    async function handleSearch() {
       const query = document.getElementById('searchInput').value.trim();
-      const resultsArea = document.getElementById('resultsArea');
+      const ward = document.getElementById('wardSelect').value;
       const loader = document.getElementById('loader');
+      const area = document.getElementById('resultsArea');
 
-      if (query.length < 2) {
-        alert("অনুগ্রহ করে কমপক্ষে ২ অক্ষরের নাম লিখুন।");
-        return;
-      }
-
-      resultsArea.innerHTML = '';
+      if (query.length < 2) { alert("কমপক্ষে ২ অক্ষর লিখুন"); return; }
+      area.innerHTML = '';
       loader.classList.remove('hidden');
 
-      fetch(`${SCRIPT_URL}?query=${encodeURIComponent(query)}&gender=${currentGender}`)
-        .then(res => res.json())
-        .then(data => {
-          loader.classList.add('hidden');
-          renderResults(data);
-        })
-        .catch(err => {
-          loader.classList.add('hidden');
-          resultsArea.innerHTML = `<div class="text-center p-5 bg-red-50 text-red-600 rounded-xl font-bold">সংযোগ সমস্যা! আবার চেষ্টা করুন।</div>`;
-        });
+      try {
+        const response = await fetch(`${SCRIPT_URL}?query=${encodeURIComponent(query)}&gender=${currentGender}&ward=${ward}`);
+        const data = await response.json();
+        loader.classList.add('hidden');
+        renderResults(data, ward);
+        
+        if(data.length > 0) {
+            setTimeout(() => {
+                area.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }, 300);
+        }
+      } catch (err) {
+        loader.classList.add('hidden');
+        alert("সার্ভার সমস্যা! আবার চেষ্টা করুন।");
+      }
     }
 
-    function renderResults(data) {
+    function renderResults(data, ward) {
       const area = document.getElementById('resultsArea');
       if (data.length === 0) {
-        area.innerHTML = `
-          <div class="text-center p-12 bg-white rounded-2xl shadow-sm border border-dashed border-gray-300">
-            <p class="text-slate-400 font-bold">দুঃখিত, কোনো তথ্য পাওয়া যায়নি।</p>
-          </div>`;
+        area.innerHTML = `<div class="bg-white p-10 rounded-3xl text-center shadow-md animate-card"><p class="text-slate-400 font-bold">কোনো তথ্য পাওয়া যায়নি</p></div>`;
         return;
       }
 
-      area.innerHTML = data.map(v => `
-        <div class="voter-card flex overflow-hidden">
+      const wardText = "ওয়ার্ড নং - ০" + ward;
+
+      let html = `
+        <div class="notice-box flex gap-3 items-center animate-card">
+            <svg class="h-5 w-5 text-amber-500 shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd"/></svg>
+            <p class="text-[11px] font-bold text-amber-900 leading-tight">সতর্কতা: এটি একটি ডিজিটাল অনুলিপি মাত্র। দাপ্তরিক কাজে মূল ভোটার তালিকা ব্যবহার করুন।</p>
+        </div>
+      `;
+
+      html += data.map((v, index) => `
+        <div class="voter-card flex animate-card" style="animation-delay: ${index * 0.1}s">
           <div class="serial-section px-4">
-            <span class="info-label">সিরিয়াল</span>
+            <span class="info-label">সিরিয়াল</span>
             <span class="text-3xl font-black text-blue-700 leading-none">${v.serial}</span>
           </div>
 
-          <div class="flex-1 p-4 min-w-0">
-            <div class="flex justify-between items-start mb-3 border-b border-gray-50 pb-2">
+          <div class="flex-1 p-5 min-w-0">
+            <div class="flex justify-between items-start mb-4 border-b border-gray-50 pb-3">
                 <h3 class="text-xl font-black text-slate-800 truncate">${v.name}</h3>
-                <span class="bg-blue-50 text-blue-600 text-[10px] font-bold px-2 py-0.5 rounded uppercase">ওয়ার্ড ০৩</span>
+                <span class="bg-blue-50 text-blue-600 text-[10px] font-black px-2.5 py-1 rounded-lg border border-blue-100 uppercase">${wardText}</span>
             </div>
             
             <div class="grid grid-cols-2 gap-x-4 gap-y-3">
               <div>
                 <p class="info-label">পিতার নাম</p>
-                <p class="text-sm font-bold text-slate-700 truncate">${v.father}</p>
+                <p class="text-[13px] font-bold text-slate-700 truncate">${v.father}</p>
               </div>
               <div>
                 <p class="info-label">মাতার নাম</p>
-                <p class="text-sm font-bold text-slate-700 truncate">${v.mother}</p>
+                <p class="text-[13px] font-bold text-slate-700 truncate">${v.mother}</p>
               </div>
               <div>
                 <p class="info-label">জন্ম তারিখ</p>
-                <p class="text-sm font-bold text-slate-700">${v.dob}</p>
+                <p class="text-[13px] font-bold text-slate-700">${v.dob}</p>
               </div>
               <div class="text-right">
                 <p class="info-label">এলাকা কোড</p>
-                <p class="text-sm font-black text-blue-600">১৮৮৩</p>
+                <p class="text-[13px] font-black text-blue-700">১৮৮৩</p>
               </div>
             </div>
 
-            <div class="mt-4 bg-slate-50 p-3 rounded-xl flex items-start gap-2 border border-slate-100">
-               <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-blue-500 mt-0.5 shrink-0" viewBox="0 0 20 20" fill="currentColor">
+            <div class="mt-5 bg-blue-50/50 p-3.5 rounded-2xl flex items-start gap-2 border border-blue-100/50">
+               <svg class="w-4 h-4 text-blue-600 mt-0.5 shrink-0" fill="currentColor" viewBox="0 0 20 20">
                  <path fill-rule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clip-rule="evenodd" />
                </svg>
-               <p class="text-xs font-bold text-slate-600 leading-tight">${v.address}</p>
+               <p class="text-[12px] font-bold text-slate-600 leading-tight italic">${v.address}</p>
             </div>
           </div>
         </div>
       `).join('');
+
+      area.innerHTML = html;
     }
   </script>
 </body>
