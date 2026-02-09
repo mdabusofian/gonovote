@@ -381,8 +381,17 @@
           <i class="fas fa-sign-in-alt"></i>
           লগইন করুন
         </button>
-        
+      </div>
       
+      <div class="warning-banner mt-6">
+        <p class="text-xs font-bold text-amber-800 text-center">
+          <i class="fas fa-exclamation-triangle mr-1"></i>
+          সতর্কবার্তা: এটি একটি বেসরকারি স্বেচ্ছাসেবী উদ্যোগ।
+        </p>
+      </div>
+    </div>
+  </div>
+
   <!-- মূল কনটেন্ট (লগইন পর দৃশ্যমান হবে) -->
   <div id="mainContent">
     <header class="gradient-header text-white pt-8 pb-12 px-6 rounded-b-[40px] shadow-lg relative">
@@ -553,12 +562,12 @@
               <span class="badge ward-badge">আইটি স্পেশালিস্ট</span>
               <div class="facebook-id">
                 <i class="fab fa-facebook text-blue-600"></i>
-                <span class="text-xs font-bold text-blue-700">facebook.com/sufian.68</span>
+                <span class="text-xs font-bold text-blue-700">facebook.com/abu.sufian</span>
               </div>
             </div>
           </div>
         </div>
-        <p class="text-xs text-slate-500 relative z-10">যেকোনো প্রযুক্তিগত সমস্যায় যোগাযোগ করুন-01871-536468</p>
+        <p class="text-xs text-slate-500 relative z-10">যেকোনো প্রযুক্তিগত সমস্যায় যোগাযোগ করুন</p>
       </div>
 
     </main>
@@ -695,7 +704,7 @@
       }
     }
 
-    // ভোটার কার্ড ডাউনলোড ফাংশন
+    // ভোটার কার্ড ডাউনলোড ফাংশন (সিরিয়াল নম্বর সহ)
     function downloadVoterCard(voterData, ward) {
       // একটি নতুন উইন্ডোতে কার্ড প্রদর্শন
       const cardWindow = window.open('', '_blank');
@@ -741,6 +750,26 @@
               margin: 8px 0 0 0;
               font-size: 16px;
               font-weight: 700;
+            }
+            .serial-display {
+              background: linear-gradient(135deg, #f0fdf4, #d1fae5);
+              border: 2px solid #10b981;
+              border-radius: 12px;
+              padding: 15px;
+              margin: 15px 0;
+              text-align: center;
+            }
+            .serial-label {
+              font-size: 14px;
+              font-weight: 800;
+              color: #065f46;
+              margin-bottom: 5px;
+            }
+            .serial-number {
+              font-size: 32px;
+              font-weight: 900;
+              color: #059669;
+              letter-spacing: 2px;
             }
             .voter-info {
               margin-bottom: 20px;
@@ -826,6 +855,12 @@
             <div class="card-header">
               <h1>বড়উঠান ইউনিয়ন ভোটার তথ্য</h1>
               <h2>ওয়ার্ড নং - ${toBengaliNumber(ward)}</h2>
+            </div>
+            
+            <!-- সিরিয়াল নম্বর অংশ (বড় ফন্টে) -->
+            <div class="serial-display">
+              <div class="serial-label">সিরিয়াল নম্বর</div>
+              <div class="serial-number">${toBengaliNumber(voterData.serial)}</div>
             </div>
             
             <div class="voter-info">
