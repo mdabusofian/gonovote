@@ -1,176 +1,1451 @@
 <!DOCTYPE html>
 <html lang="bn">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>ডিজিটাল নির্বাচনী তথ্যকেন্দ্র | ৩ নং ওয়ার্ড</title>
-  <script src="https://cdn.tailwindcss.com"></script>
-  <link href="https://fonts.cdnfonts.com/css/solaimanlipi" rel="stylesheet">
-  
-  <style>
-    body { 
-      font-family: 'SolaimanLipi', Arial, sans-serif; 
-      background: #f0f2f5;
-    }
-    .main-header { 
-      background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
-    }
-    /* প্রিমিয়াম কম্প্যাক্ট কার্ড */
-    .voter-card { 
-      background: white;
-      border-radius: 12px;
-      border: 1px solid #e2e8f0;
-      transition: all 0.3s ease;
-      overflow: hidden;
-    }
-    .voter-card:hover {
-      box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
-      border-color: #3b82f6;
-    }
-    .serial-badge {
-      background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
-      color: white;
-      min-width: 60px;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-    }
-    .gender-btn.active { 
-      background-color: #2563eb; 
-      color: white; 
-      border-color: #2563eb;
-    }
-    .search-btn { 
-      background: #2563eb;
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>বাংলাদেশ ফাইন্যান্স টুলস - জমি, লোন, স্বাস্থ্য ক্যালকুলেটর</title>
+    <meta name="description" content="বাংলাদেশের জন্য জমি রেজিস্ট্রেশন খরচ, ব্যাংক লোন EMI, BMI, GPA ক্যালকুলেটর। বিনামূল্যে হিসাব করুন।">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* হিন্দ শিলিগুড়ি ফন্ট এবং বেসিক স্টাইল */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Hind Siliguri', sans-serif;
+            transition: all 0.3s ease;
+        }
+        
+        :root {
+            --primary: #2E7D32;
+            --primary-light: #4CAF50;
+            --primary-dark: #1B5E20;
+            --secondary: #2196F3;
+            --secondary-light: #42A5F5;
+            --accent: #FF9800;
+            --accent-light: #FFB74D;
+            --text: #333333;
+            --text-light: #666666;
+            --bg-light: #f8f9fa;
+            --bg-white: #ffffff;
+            --shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+            --radius: 12px;
+        }
+        
+        body {
+            background-color: var(--bg-light);
+            color: var(--text);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+        
+        /* নেভিগেশন বার */
+        .navbar {
+            background: var(--bg-white);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+            padding: 1rem 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            backdrop-filter: blur(10px);
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .logo i {
+            color: var(--primary);
+            font-size: 1.8rem;
+        }
+        
+        .logo h1 {
+            color: var(--primary);
+            font-size: 1.6rem;
+            font-weight: 700;
+        }
+        
+        .nav-links {
+            display: flex;
+            gap: 1.8rem;
+            align-items: center;
+        }
+        
+        .nav-links a {
+            text-decoration: none;
+            color: var(--text);
+            font-weight: 500;
+            font-size: 1.05rem;
+            position: relative;
+            padding: 5px 0;
+        }
+        
+        .nav-links a:hover {
+            color: var(--primary);
+        }
+        
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: 0;
+            left: 0;
+            background-color: var(--primary);
+            transition: width 0.3s;
+        }
+        
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+        
+        .lang-switch {
+            display: flex;
+            border: 1px solid #e0e0e0;
+            border-radius: 20px;
+            overflow: hidden;
+            background: #f5f5f5;
+        }
+        
+        .lang-btn {
+            padding: 0.4rem 1rem;
+            border: none;
+            background: transparent;
+            cursor: pointer;
+            font-weight: 500;
+            font-size: 0.9rem;
+        }
+        
+        .lang-btn.active {
+            background: var(--primary);
+            color: white;
+        }
+        
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            color: var(--text);
+            cursor: pointer;
+        }
+        
+        /* হিরো সেকশন */
+        .hero {
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            color: white;
+            padding: 5rem 5% 4rem;
+            text-align: center;
+            border-radius: 0 0 30px 30px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" preserveAspectRatio="none"><path d="M0,0 L100,0 L100,100 Z" fill="rgba(255,255,255,0.05)"/></svg>');
+            background-size: cover;
+        }
+        
+        .hero-content {
+            position: relative;
+            z-index: 1;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+        
+        .hero h2 {
+            font-size: 2.8rem;
+            margin-bottom: 1.5rem;
+            font-weight: 700;
+            line-height: 1.2;
+        }
+        
+        .hero p {
+            font-size: 1.3rem;
+            margin-bottom: 2.5rem;
+            opacity: 0.9;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        .cta-button {
+            display: inline-block;
+            background: white;
+            color: var(--primary);
+            padding: 1rem 2.5rem;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1.2rem;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+            transition: all 0.3s;
+        }
+        
+        .cta-button:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 25px rgba(0, 0, 0, 0.25);
+        }
+        
+        /* টুলস সেকশন */
+        .tools-section {
+            padding: 5rem 5%;
+        }
+        
+        .section-title {
+            text-align: center;
+            margin-bottom: 3.5rem;
+            color: var(--primary);
+            font-size: 2.3rem;
+            font-weight: 700;
+            position: relative;
+            display: inline-block;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+        
+        .section-title::after {
+            content: '';
+            position: absolute;
+            width: 70px;
+            height: 4px;
+            background: var(--accent);
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            border-radius: 2px;
+        }
+        
+        .tools-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+        
+        .tool-card {
+            background: var(--bg-white);
+            border-radius: var(--radius);
+            padding: 2.2rem;
+            box-shadow: var(--shadow);
+            text-align: center;
+            transition: transform 0.4s, box-shadow 0.4s;
+            border: 1px solid rgba(0, 0, 0, 0.05);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .tool-card:hover {
+            transform: translateY(-12px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.12);
+        }
+        
+        .tool-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: var(--primary);
+        }
+        
+        .tool-icon {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1.8rem;
+            color: white;
+            font-size: 2.2rem;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+        }
+        
+        .tool-card h3 {
+            margin-bottom: 1.2rem;
+            color: var(--text);
+            font-size: 1.5rem;
+            font-weight: 600;
+        }
+        
+        .tool-card p {
+            color: var(--text-light);
+            margin-bottom: 1.8rem;
+            font-size: 1.05rem;
+            line-height: 1.7;
+        }
+        
+        .tool-link {
+            display: inline-block;
+            background: var(--primary);
+            color: white;
+            padding: 0.8rem 2rem;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1.05rem;
+            transition: all 0.3s;
+            border: 2px solid var(--primary);
+        }
+        
+        .tool-link:hover {
+            background: transparent;
+            color: var(--primary);
+        }
+        
+        /* ক্যালকুলেটর কন্টেইনার */
+        .calculator-container {
+            max-width: 850px;
+            margin: 3rem auto;
+            background: var(--bg-white);
+            padding: 2.5rem;
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+            display: none;
+        }
+        
+        .calculator-container.active {
+            display: block;
+            animation: fadeIn 0.5s ease;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .calculator-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+            padding-bottom: 1.5rem;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .calculator-header h2 {
+            color: var(--primary);
+            font-size: 1.8rem;
+            font-weight: 600;
+        }
+        
+        .close-calc {
+            background: #f5f5f5;
+            border: none;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 1.2rem;
+            color: var(--text-light);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .close-calc:hover {
+            background: #e0e0e0;
+        }
+        
+        .calculator-description {
+            color: var(--text-light);
+            margin-bottom: 2rem;
+            font-size: 1.1rem;
+            line-height: 1.7;
+        }
+        
+        /* ফর্ম স্টাইল */
+        .input-group {
+            margin-bottom: 1.8rem;
+        }
+        
+        .input-group label {
+            display: block;
+            margin-bottom: 0.7rem;
+            font-weight: 600;
+            color: var(--text);
+            font-size: 1.1rem;
+        }
+        
+        .input-group input, .input-group select {
+            width: 100%;
+            padding: 1rem 1.2rem;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            font-size: 1.1rem;
+            font-family: 'Hind Siliguri', sans-serif;
+            background: #fafafa;
+            transition: all 0.3s;
+        }
+        
+        .input-group input:focus, .input-group select:focus {
+            outline: none;
+            border-color: var(--primary);
+            background: white;
+            box-shadow: 0 0 0 3px rgba(46, 125, 50, 0.1);
+        }
+        
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.5rem;
+        }
+        
+        .calculate-btn {
+            background: linear-gradient(to right, var(--primary), var(--primary-light));
+            color: white;
+            border: none;
+            padding: 1.2rem 2.5rem;
+            border-radius: 10px;
+            font-size: 1.2rem;
+            font-weight: 600;
+            cursor: pointer;
+            width: 100%;
+            margin-top: 1rem;
+            box-shadow: 0 6px 15px rgba(46, 125, 50, 0.3);
+            transition: all 0.3s;
+        }
+        
+        .calculate-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(46, 125, 50, 0.4);
+        }
+        
+        /* ফলাফল বক্স */
+        .result-box {
+            background: linear-gradient(135deg, #f0f9f0, #e8f5e9);
+            padding: 2rem;
+            border-radius: 12px;
+            margin-top: 2.5rem;
+            display: none;
+            border-left: 5px solid var(--primary);
+            animation: fadeIn 0.6s ease;
+        }
+        
+        .result-box.show {
+            display: block;
+        }
+        
+        .result-box h3 {
+            color: var(--primary-dark);
+            margin-bottom: 1.5rem;
+            font-size: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .result-item {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 1.2rem;
+            padding-bottom: 1.2rem;
+            border-bottom: 1px dashed #c8e6c9;
+        }
+        
+        .result-item:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+            padding-bottom: 0;
+        }
+        
+        .result-total {
+            background: var(--primary);
+            color: white;
+            padding: 1.2rem;
+            border-radius: 8px;
+            margin-top: 1rem;
+            font-weight: 600;
+            font-size: 1.3rem;
+        }
+        
+        /* ট্যাব সিস্টেম */
+        .tabs {
+            display: flex;
+            justify-content: center;
+            gap: 0.5rem;
+            margin-bottom: 3rem;
+            flex-wrap: wrap;
+        }
+        
+        .tab-btn {
+            padding: 1rem 2rem;
+            background: white;
+            border: 2px solid #e0e0e0;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .tab-btn:hover {
+            border-color: var(--primary-light);
+            color: var(--primary);
+        }
+        
+        .tab-btn.active {
+            background: var(--primary);
+            color: white;
+            border-color: var(--primary);
+        }
+        
+        /* ফুটার */
+        footer {
+            background: #222;
+            color: #ddd;
+            padding: 3rem 5% 2rem;
+            margin-top: 4rem;
+        }
+        
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+        
+        .footer-section h3 {
+            color: white;
+            margin-bottom: 1.5rem;
+            font-size: 1.4rem;
+            font-weight: 600;
+        }
+        
+        .footer-links {
+            list-style: none;
+        }
+        
+        .footer-links li {
+            margin-bottom: 0.8rem;
+        }
+        
+        .footer-links a {
+            color: #aaa;
+            text-decoration: none;
+            transition: color 0.3s;
+            font-size: 1.05rem;
+        }
+        
+        .footer-links a:hover {
+            color: white;
+            padding-left: 5px;
+        }
+        
+        .copyright {
+            text-align: center;
+            padding-top: 2rem;
+            border-top: 1px solid #444;
+            color: #aaa;
+            font-size: 0.95rem;
+        }
+        
+        .ad-placeholder {
+            background: #333;
+            color: #aaa;
+            padding: 1rem;
+            margin: 2rem auto;
+            max-width: 728px;
+            border-radius: 8px;
+            text-align: center;
+            font-size: 0.9rem;
+        }
+        
+        /* ডিসক্লেইমার */
+        .disclaimer {
+            background: #fff8e1;
+            border-left: 4px solid #ffb300;
+            padding: 1.5rem;
+            border-radius: 8px;
+            margin-top: 2rem;
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+        
+        /* রেসপন্সিভ ডিজাইন */
+        @media (max-width: 992px) {
+            .hero h2 {
+                font-size: 2.3rem;
+            }
+            
+            .tools-grid {
+                grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            }
+            
+            .form-row {
+                grid-template-columns: 1fr;
+                gap: 1rem;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .navbar {
+                flex-wrap: wrap;
+            }
+            
+            .mobile-menu-btn {
+                display: block;
+            }
+            
+            .nav-links {
+                display: none;
+                width: 100%;
+                flex-direction: column;
+                gap: 1rem;
+                margin-top: 1rem;
+                padding-top: 1rem;
+                border-top: 1px solid #eee;
+            }
+            
+            .nav-links.active {
+                display: flex;
+            }
+            
+            .hero h2 {
+                font-size: 2rem;
+            }
+            
+            .hero p {
+                font-size: 1.1rem;
+            }
+            
+            .section-title {
+                font-size: 1.8rem;
+            }
+            
+            .calculator-container {
+                padding: 1.8rem;
+                margin: 2rem 1rem;
+            }
+            
+            .tabs {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .tab-btn {
+                width: 100%;
+                max-width: 300px;
+                justify-content: center;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .hero {
+                padding: 4rem 5% 3rem;
+            }
+            
+            .hero h2 {
+                font-size: 1.8rem;
+            }
+            
+            .tool-card {
+                padding: 1.8rem;
+            }
+            
+            .calculator-container {
+                padding: 1.5rem;
+            }
+            
+            .footer-content {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        /* ইউটিলিটি ক্লাস */
+        .text-center { text-align: center; }
+        .mt-1 { margin-top: 1rem; }
+        .mt-2 { margin-top: 2rem; }
+        .mb-1 { margin-bottom: 1rem; }
+        .mb-2 { margin-bottom: 2rem; }
+        .hidden { display: none; }
+        
+        /* স্ক্রোলবার স্টাইল */
+        ::-webkit-scrollbar {
+            width: 10px;
+        }
+        
+        ::-webkit-scrollbar-track {
+            background: #f1f1f1;
+        }
+        
+        ::-webkit-scrollbar-thumb {
+            background: var(--primary);
+            border-radius: 5px;
+        }
+        
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--primary-dark);
+        }
+    </style>
 </head>
-<body class="min-h-screen pb-10">
-
-  <header class="main-header text-white pt-10 pb-16 px-4 text-center shadow-lg">
-    <div class="max-w-4xl mx-auto">
-      <h1 class="text-3xl md:text-4xl font-black mb-2 tracking-tight">নির্বাচনী তথ্যকেন্দ্র</h1>
-      <div class="flex flex-wrap justify-center gap-2 text-[10px] md:text-xs font-bold uppercase tracking-widest opacity-80">
-        <span class="bg-blue-600 px-2 py-0.5 rounded">ওয়ার্ড: ০৩</span>
-        <span class="bg-slate-700 px-2 py-0.5 rounded">দৌলতপুর</span>
-        <span class="bg-slate-700 px-2 py-0.5 rounded">কোড: ১৮৮৩</span>
-      </div>
-    </div>
-  </header>
-
-  <main class="max-w-xl mx-auto px-4 -mt-8 relative z-10">
-    
-    <div class="flex p-1 bg-white rounded-xl shadow-md mb-6 border border-gray-100">
-      <button onclick="setGender('Male', this)" class="gender-btn active flex-1 py-3 rounded-lg font-bold text-sm transition-all uppercase">
-        পুরুষ
-      </button>
-      <button onclick="setGender('Female', this)" class="gender-btn flex-1 py-3 rounded-lg font-bold text-sm transition-all uppercase">
-        মহিলা
-      </button>
-    </div>
-
-    <div class="bg-white p-2 rounded-2xl shadow-xl border border-gray-100 mb-8">
-      <div class="flex flex-col md:flex-row gap-2">
-        <input type="text" id="searchInput" 
-               class="flex-1 px-5 py-4 rounded-xl bg-slate-50 border-none outline-none focus:ring-2 focus:ring-blue-500 font-medium text-lg" 
-               placeholder="নাম বা পিতার নাম লিখুন...">
-        <button onclick="handleSearch()" class="search-btn text-white px-8 py-4 rounded-xl font-bold flex items-center justify-center gap-2 shadow-lg active:scale-95 transition-transform">
-          খুঁজুন
+<body>
+    <!-- নেভিগেশন বার -->
+    <nav class="navbar">
+        <div class="logo">
+            <i class="fas fa-calculator"></i>
+            <h1>বাংলাদেশ ফাইন্যান্স টুলস</h1>
+        </div>
+        
+        <button class="mobile-menu-btn" id="mobileMenuBtn">
+            <i class="fas fa-bars"></i>
         </button>
-      </div>
+        
+        <div class="nav-links" id="navLinks">
+            <a href="#home"><i class="fas fa-home"></i> হোম</a>
+            <a href="#tools"><i class="fas fa-calculator"></i> টুলস</a>
+            <a href="#about"><i class="fas fa-info-circle"></i> সম্পর্কে</a>
+            <a href="#contact"><i class="fas fa-envelope"></i> যোগাযোগ</a>
+            <div class="lang-switch">
+                <button class="lang-btn active">বাংলা</button>
+                <button class="lang-btn">English</button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- হিরো সেকশন -->
+    <section class="hero" id="home">
+        <div class="hero-content">
+            <h2>বাংলাদেশের সবচেয়ে নির্ভরযোগ্য ফাইন্যান্সিয়াল ক্যালকুলেটর</h2>
+            <p>জমি রেজিস্ট্রেশন থেকে শুরু করে ব্যাংক লোনের EMI, BMI, GPA - সব ধরনের হিসাব এক ক্লিকে সম্পন্ন করুন। সম্পূর্ণ বিনামূল্যে এবং সহজে ব্যবহারযোগ্য।</p>
+            <a href="#tools" class="cta-button">টুলস ব্যবহার করুন <i class="fas fa-arrow-right"></i></a>
+        </div>
+    </section>
+
+    <!-- ট্যাব সিস্টেম -->
+    <div class="tabs" id="tools">
+        <button class="tab-btn active" data-calc="land">
+            <i class="fas fa-landmark"></i> জমি রেজিস্ট্রেশন
+        </button>
+        <button class="tab-btn" data-calc="loan">
+            <i class="fas fa-coins"></i> লোন EMI
+        </button>
+        <button class="tab-btn" data-calc="bmi">
+            <i class="fas fa-heartbeat"></i> BMI ক্যালকুলেটর
+        </button>
+        <button class="tab-btn" data-calc="gpa">
+            <i class="fas fa-graduation-cap"></i> GPA ক্যালকুলেটর
+        </button>
     </div>
 
-    <div id="loader" class="hidden flex flex-col items-center py-6">
-        <div class="w-8 h-8 border-4 border-blue-500 border-t-transparent rounded-full animate-spin"></div>
-        <p class="mt-2 text-blue-600 text-[10px] font-black uppercase tracking-widest">Searching Database...</p>
-    </div>
-
-    <div id="resultsArea" class="space-y-3"></div>
-
-    <div class="mt-12 text-center">
-        <p class="text-[10px] text-gray-400 font-bold uppercase tracking-tighter leading-relaxed">
-            বেসরকারি উদ্যোগ • সরকারি ভোটার তালিকাই চূড়ান্ত <br>
-            কারিগরি সহায়তায়: নির্বাচনী ডিজিটাল বুথ টিম
+    <!-- জমি রেজিস্ট্রেশন ক্যালকুলেটর -->
+    <div class="calculator-container active" id="landCalculator">
+        <div class="calculator-header">
+            <h2><i class="fas fa-landmark"></i> জমি রেজিস্ট্রেশন খরচ ক্যালকুলেটর</h2>
+            <button class="close-calc" onclick="hideAllCalculators()">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+        
+        <p class="calculator-description">
+            বাংলাদেশের সরকারি ফি স্ট্রাকচার অনুযায়ী জমি দলিল রেজিস্ট্রেশনের আনুমানিক খরচ বের করুন। 
+            সর্বশেষ ২০২৫ সালের রেট অনুসারে হিসাব করা হয়েছে।
         </p>
-    </div>
-
-  </main>
-
-  <script>
-    let currentGender = 'Male';
-    const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbx3yLqxNZLHJfXIGzDXsaqdQpF2k6W0n__-cJQUJ7Ka1_7g85_4rKc8L72-bLwrWbQG/exec";
-
-    function setGender(gender, btn) {
-      currentGender = gender;
-      document.querySelectorAll('.gender-btn').forEach(b => b.classList.remove('active'));
-      btn.classList.add('active');
-      document.getElementById('resultsArea').innerHTML = '';
-      document.getElementById('searchInput').value = '';
-    }
-
-    function handleSearch() {
-      const query = document.getElementById('searchInput').value.trim();
-      const resultsArea = document.getElementById('resultsArea');
-      const loader = document.getElementById('loader');
-
-      if (query.length < 2) {
-        alert("অনুগ্রহ করে সঠিক তথ্য দিন।");
-        return;
-      }
-
-      resultsArea.innerHTML = '';
-      loader.classList.remove('hidden');
-
-      fetch(`${SCRIPT_URL}?query=${encodeURIComponent(query)}&gender=${currentGender}`)
-        .then(res => res.json())
-        .then(data => {
-          loader.classList.add('hidden');
-          renderResults(data);
-        })
-        .catch(err => {
-          loader.classList.add('hidden');
-          resultsArea.innerHTML = `<div class="text-center p-4 bg-red-50 text-red-500 rounded-lg text-xs font-bold">সার্ভার এরর! আবার চেষ্টা করুন।</div>`;
-        });
-    }
-
-    function renderResults(data) {
-      const area = document.getElementById('resultsArea');
-      if (data.length === 0) {
-        area.innerHTML = `<div class="text-center p-10 bg-white rounded-2xl border border-dashed text-gray-400">কোনো তথ্য পাওয়া যায়নি।</div>`;
-        return;
-      }
-
-      area.innerHTML = data.map(v => `
-        <div class="voter-card flex h-auto">
-          <div class="serial-badge p-2">
-            <span class="text-[8px] font-bold uppercase opacity-80">সিরিয়াল</span>
-            <span class="text-2xl font-black">${v.serial}</span>
-          </div>
-
-          <div class="flex-1 p-3 min-w-0">
-            <div class="flex justify-between items-start mb-1">
-                <h3 class="text-base font-black text-slate-800 truncate uppercase tracking-tight">${v.name}</h3>
-                <span class="text-[8px] font-bold bg-slate-100 text-slate-500 px-1.5 py-0.5 rounded ml-2 whitespace-nowrap">ওয়াড-০৩</span>
+        
+        <div class="form-row">
+            <div class="input-group">
+                <label for="landValue"><i class="fas fa-money-bill-wave"></i> জমির মূল্য (টাকায়)</label>
+                <input type="number" id="landValue" placeholder="যেমন: ৫০,০০,০০০" min="0">
             </div>
             
-            <div class="grid grid-cols-2 gap-x-3 gap-y-0.5 text-[11px] border-t border-gray-50 pt-1">
-              <div class="truncate"><span class="text-gray-400 font-bold">পিতা:</span> <span class="text-slate-700 font-semibold">${v.father}</span></div>
-              <div class="truncate"><span class="text-gray-400 font-bold">মাতা:</span> <span class="text-slate-700 font-semibold">${v.mother}</span></div>
-              <div><span class="text-gray-400 font-bold">জন্ম:</span> <span class="text-slate-700 font-semibold">${v.dob}</span></div>
-              <div class="text-right text-[9px] text-blue-500 font-bold">কোড: ১৮৮৩</div>
+            <div class="input-group">
+                <label for="landArea"><i class="fas fa-ruler-combined"></i> জমির পরিমাণ</label>
+                <div style="display: flex; gap: 1rem;">
+                    <input type="number" id="landArea" placeholder="পরিমাণ" style="flex: 2;">
+                    <select id="areaUnit" style="flex: 1;">
+                        <option value="katha">কাঠা</option>
+                        <option value="shatak">শতক</option>
+                        <option value="acre">একর</option>
+                        <option value="bigha">বিঘা</option>
+                    </select>
+                </div>
             </div>
-
-            <div class="mt-1.5 bg-blue-50/50 p-1.5 rounded-lg border border-blue-100/30 flex items-center gap-2">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-3 w-3 text-blue-500 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
-                </svg>
-                <p class="text-[11px] font-bold text-blue-800 truncate">${v.address}</p>
-            </div>
-          </div>
         </div>
-      `).join('');
-    }
-  </script>
+        
+        <div class="form-row">
+            <div class="input-group">
+                <label for="propertyType"><i class="fas fa-home"></i> সম্পত্তির ধরন</label>
+                <select id="propertyType">
+                    <option value="residential">আবাসিক জমি</option>
+                    <option value="commercial">বাণিজ্যিক জমি</option>
+                    <option value="agricultural">কৃষি জমি</option>
+                </select>
+            </div>
+            
+            <div class="input-group">
+                <label for="location"><i class="fas fa-map-marker-alt"></i> লোকেশন</label>
+                <select id="location">
+                    <option value="city">সিটি কর্পোরেশন</option>
+                    <option value="municipal">পৌরসভা</option>
+                    <option value="rural">গ্রামীণ</option>
+                </select>
+            </div>
+        </div>
+        
+        <button class="calculate-btn" onclick="calculateLandCost()">
+            <i class="fas fa-calculator"></i> খরচ গণনা করুন
+        </button>
+        
+        <!-- ফলাফল -->
+        <div id="landResult" class="result-box">
+            <h3><i class="fas fa-file-invoice-dollar"></i> রেজিস্ট্রেশন খরচের বিস্তারিত</h3>
+            <div class="result-item">
+                <span>সরকারি রেজিস্ট্রেশন ফি (২%):</span>
+                <span id="regFee">০ টাকা</span>
+            </div>
+            <div class="result-item">
+                <span>স্ট্যাম্প ডিউটি (১.৫%):</span>
+                <span id="stampDuty">০ টাকা</span>
+            </div>
+            <div class="result-item">
+                <span>মিউটেশন ফি (১%):</span>
+                <span id="mutationFee">০ টাকা</span>
+            </div>
+            <div class="result-item">
+                <span>কেবিনেট ফি (০.৫%):</span>
+                <span id="cabinetFee">০ টাকা</span>
+            </div>
+            <div class="result-total">
+                <span>মোট আনুমানিক খরচ:</span>
+                <span id="landTotalCost">০ টাকা</span>
+            </div>
+        </div>
+        
+        <div class="disclaimer">
+            <p><i class="fas fa-exclamation-circle"></i> <strong>দ্রষ্টব্য:</strong> এটি একটি আনুমানিক হিসাব মাত্র। প্রকৃত খরচ উপজেলা রেজিস্ট্রার অফিস, জমির প্রকৃত অবস্থান এবং বর্তমান সরকারি নীতিমালা অনুসারে পরিবর্তিত হতে পারে। চূড়ান্ত সিদ্ধান্তের আগে একজন আইনজীবী বা রেজিস্ট্রার অফিসের সাথে পরামর্শ করুন।</p>
+        </div>
+    </div>
+
+    <!-- লোন EMI ক্যালকুলেটর -->
+    <div class="calculator-container" id="loanCalculator">
+        <div class="calculator-header">
+            <h2><i class="fas fa-coins"></i> লোন EMI ক্যালকুলেটর</h2>
+            <button class="close-calc" onclick="hideAllCalculators()">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+        
+        <p class="calculator-description">
+            ব্যাংক লোনের মাসিক কিস্তি (EMI), মোট সুদ এবং মোট পরিশোধের পরিমাণ বের করুন। 
+            বাংলাদেশের প্রধান ব্যাংকগুলোর গড় সুদের হার অনুসারে হিসাব করা হয়েছে।
+        </p>
+        
+        <div class="form-row">
+            <div class="input-group">
+                <label for="loanAmount"><i class="fas fa-money-bill"></i> ঋণের পরিমাণ (টাকায়)</label>
+                <input type="number" id="loanAmount" placeholder="যেমন: ১০,০০,০০০" min="0">
+            </div>
+            
+            <div class="input-group">
+                <label for="interestRate"><i class="fas fa-percentage"></i> বার্ষিক সুদের হার (%)</label>
+                <input type="number" id="interestRate" placeholder="যেমন: ৮.৫" step="0.1" min="0">
+            </div>
+        </div>
+        
+        <div class="form-row">
+            <div class="input-group">
+                <label for="loanTerm"><i class="fas fa-calendar-alt"></i> ঋণের মেয়াদ (বছর)</label>
+                <select id="loanTerm">
+                    <option value="1">১ বছর</option>
+                    <option value="2">২ বছর</option>
+                    <option value="3">৩ বছর</option>
+                    <option value="4">৪ বছর</option>
+                    <option value="5" selected>৫ বছর</option>
+                    <option value="10">১০ বছর</option>
+                    <option value="15">১৫ বছর</option>
+                    <option value="20">২০ বছর</option>
+                </select>
+            </div>
+            
+            <div class="input-group">
+                <label for="loanType"><i class="fas fa-hand-holding-usd"></i> ঋণের ধরন</label>
+                <select id="loanType">
+                    <option value="home">বাড়ি/হোম লোন</option>
+                    <option value="car">গাড়ি লোন</option>
+                    <option value="personal">পার্সোনাল লোন</option>
+                    <option value="business">ব্যবসায়িক লোন</option>
+                </select>
+            </div>
+        </div>
+        
+        <button class="calculate-btn" onclick="calculateEMI()">
+            <i class="fas fa-calculator"></i> EMI গণনা করুন
+        </button>
+        
+        <!-- ফলাফল -->
+        <div id="loanResult" class="result-box">
+            <h3><i class="fas fa-chart-line"></i> লোনের বিশদ বিবরণ</h3>
+            <div class="result-item">
+                <span>মাসিক কিস্তি (EMI):</span>
+                <span id="monthlyEMI">০ টাকা</span>
+            </div>
+            <div class="result-item">
+                <span>মোট পরিশোধ:</span>
+                <span id="totalPayment">০ টাকা</span>
+            </div>
+            <div class="result-item">
+                <span>মোট সুদ:</span>
+                <span id="totalInterest">০ টাকা</span>
+            </div>
+            <div class="result-item">
+                <span>মোট লোন পরিমাণ:</span>
+                <span id="principalAmount">০ টাকা</span>
+            </div>
+        </div>
+        
+        <div class="disclaimer">
+            <p><i class="fas fa-exclamation-circle"></i> <strong>দ্রষ্টব্য:</strong> এই হিসাব আনুমানিক এবং শুধুমাত্র তথ্যগত উদ্দেশ্যে। প্রকৃত EMI ব্যাংকের নীতি, প্রক্রিয়াকরণ ফি, বীমা এবং অন্যান্য খরচের উপর নির্ভর করে পরিবর্তিত হতে পারে। ঋণ নেওয়ার আগে সংশ্লিষ্ট ব্যাংকের সাথে সরাসরি যোগাযোগ করুন।</p>
+        </div>
+    </div>
+
+    <!-- BMI ক্যালকুলেটর -->
+    <div class="calculator-container" id="bmiCalculator">
+        <div class="calculator-header">
+            <h2><i class="fas fa-heartbeat"></i> BMI (বডি মাস ইনডেক্স) ক্যালকুলেটর</h2>
+            <button class="close-calc" onclick="hideAllCalculators()">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+        
+        <p class="calculator-description">
+            আপনার বডি মাস ইনডেক্স (BMI) নির্ণয় করুন এবং আপনার স্বাস্থ্যগত অবস্থা সম্পর্কে জানুন। 
+            বিশ্ব স্বাস্থ্য সংস্থা (WHO) এর মান অনুসারে মূল্যায়ন করা হয়েছে।
+        </p>
+        
+        <div class="form-row">
+            <div class="input-group">
+                <label for="height"><i class="fas fa-ruler-vertical"></i> উচ্চতা (সেন্টিমিটার)</label>
+                <input type="number" id="height" placeholder="যেমন: ১৬৫" min="50" max="250">
+            </div>
+            
+            <div class="input-group">
+                <label for="weight"><i class="fas fa-weight"></i> ওজন (কিলোগ্রাম)</label>
+                <input type="number" id="weight" placeholder="যেমন: ৬৫" min="10" max="300">
+            </div>
+        </div>
+        
+        <div class="input-group">
+            <label for="age"><i class="fas fa-birthday-cake"></i> বয়স</label>
+            <input type="number" id="age" placeholder="যেমন: ৩০" min="1" max="120">
+        </div>
+        
+        <div class="input-group">
+            <label for="gender"><i class="fas fa-user"></i> লিঙ্গ</label>
+            <select id="gender">
+                <option value="male">পুরুষ</option>
+                <option value="female">মহিলা</option>
+            </select>
+        </div>
+        
+        <button class="calculate-btn" onclick="calculateBMI()">
+            <i class="fas fa-calculator"></i> BMI গণনা করুন
+        </button>
+        
+        <!-- ফলাফল -->
+        <div id="bmiResult" class="result-box">
+            <h3><i class="fas fa-clipboard-check"></i> আপনার BMI ফলাফল</h3>
+            <div class="result-item">
+                <span>আপনার BMI:</span>
+                <span id="bmiValue">০</span>
+            </div>
+            <div class="result-item">
+                <span>স্বাস্থ্যগত অবস্থা:</span>
+                <span id="bmiCategory">-</span>
+            </div>
+            <div class="result-item">
+                <span>আদর্শ ওজন সীমা:</span>
+                <span id="idealWeight">-</span>
+            </div>
+            <div class="result-total" id="bmiAdvice">
+                স্বাস্থ্যকর জীবনযাপনের জন্য নিয়মিত ব্যায়াম এবং সুষম খাদ্য গ্রহণ করুন।
+            </div>
+        </div>
+        
+        <div class="disclaimer">
+            <p><i class="fas fa-exclamation-circle"></i> <strong>দ্রষ্টব্য:</strong> BMI একটি সাধারণ স্ক্রিনিং টুল এবং সম্পূর্ণ স্বাস্থ্য অবস্থা মূল্যায়নের জন্য যথেষ্ট নয়। এটি গর্ভবতী মহিলা, অ্যাথলিট বা পেশাদার বডিবিল্ডারদের জন্য উপযুক্ত নাও হতে পারে। কোনো স্বাস্থ্য সমস্যা থাকলে চিকিৎসকের পরামর্শ নিন।</p>
+        </div>
+    </div>
+
+    <!-- GPA ক্যালকুলেটর -->
+    <div class="calculator-container" id="gpaCalculator">
+        <div class="calculator-header">
+            <h2><i class="fas fa-graduation-cap"></i> GPA/CGPA ক্যালকুলেটর</h2>
+            <button class="close-calc" onclick="hideAllCalculators()">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+        
+        <p class="calculator-description">
+            বিশ্ববিদ্যালয় বা কলেজের সেমিস্টারের GPA এবং CGPA নির্ণয় করুন। 
+            সর্বোচ্চ ১০টি বিষয় যোগ করতে পারেন।
+        </p>
+        
+        <div id="subjectContainer">
+            <div class="form-row subject-row">
+                <div class="input-group">
+                    <label>বিষয়ের নাম</label>
+                    <input type="text" class="subjectName" placeholder="যেমন: বাংলা" value="বাংলা">
+                </div>
+                <div class="input-group">
+                    <label>ক্রেডিট আওয়ার</label>
+                    <input type="number" class="subjectCredit" placeholder="যেমন: ৩" min="1" max="10" value="3">
+                </div>
+                <div class="input-group">
+                    <label>প্রাপ্ত গ্রেড</label>
+                    <select class="subjectGrade">
+                        <option value="4.0">A+ (৪.০)</option>
+                        <option value="3.75">A (৩.৭৫)</option>
+                        <option value="3.5">A- (৩.৫)</option>
+                        <option value="3.25">B+ (৩.২৫)</option>
+                        <option value="3.0" selected>B (৩.০)</option>
+                        <option value="2.75">B- (২.৭৫)</option>
+                        <option value="2.5">C+ (২.৫)</option>
+                        <option value="2.25">C (২.২৫)</option>
+                        <option value="2.0">D (২.০)</option>
+                        <option value="0.0">F (০.০)</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+        
+        <div class="text-center mt-2">
+            <button class="tool-link" onclick="addSubject()" style="margin-right: 10px;">
+                <i class="fas fa-plus"></i> বিষয় যোগ করুন
+            </button>
+            <button class="tool-link" onclick="removeSubject()" style="background: #f44336; border-color: #f44336;">
+                <i class="fas fa-minus"></i> শেষ বিষয় বাদ দিন
+            </button>
+        </div>
+        
+        <button class="calculate-btn mt-2" onclick="calculateGPA()">
+            <i class="fas fa-calculator"></i> GPA গণনা করুন
+        </button>
+        
+        <!-- ফলাফল -->
+        <div id="gpaResult" class="result-box">
+            <h3><i class="fas fa-chart-bar"></i> GPA ফলাফল</h3>
+            <div class="result-item">
+                <span>মোট ক্রেডিট আওয়ার:</span>
+                <span id="totalCredits">০</span>
+            </div>
+            <div class="result-item">
+                <span>মোট গ্রেড পয়েন্ট:</span>
+                <span id="totalGradePoints">০</span>
+            </div>
+            <div class="result-item">
+                <span>সেমিস্টার GPA:</span>
+                <span id="gpaValue">০.০০</span>
+            </div>
+            <div class="result-total">
+                <span>গ্রেড:</span>
+                <span id="gradeLetter">-</span>
+            </div>
+        </div>
+        
+        <div class="disclaimer">
+            <p><i class="fas fa-exclamation-circle"></i> <strong>দ্রষ্টব্য:</strong> এই ক্যালকুলেটরটি ৪.০ স্কেলের উপর ভিত্তি করে তৈরি। আপনার প্রতিষ্ঠান ভিন্ন গ্রেডিং সিস্টেম ব্যবহার করলে ফলাফল ভিন্ন হতে পারে। চূড়ান্ত ফলাফল আপনার প্রতিষ্ঠানের অফিসিয়াল গণনার উপর নির্ভর করবে।</p>
+        </div>
+    </div>
+
+    <!-- টুলস গ্যালারি -->
+    <section class="tools-section">
+        <h2 class="section-title">আমাদের অন্যান্য জনপ্রিয় টুলস</h2>
+        <div class="tools-grid">
+            <div class="tool-card">
+                <div class="tool-icon" style="background: linear-gradient(135deg, #FF9800, #FF5722);">
+                    <i class="fas fa-gem"></i>
+                </div>
+                <h3>স্বর্ণের দাম ক্যালকুলেটর</h3>
+                <p>বাংলাদেশে স্বর্ণের বর্তমান বাজার দর অনুযায়ী স্বর্ণের দাম ও ভ্যাট সহ সম্পূর্ণ খরচ বের করুন</p>
+                <a href="#" class="tool-link" onclick="showCalculator('gold')">শীঘ্রই আসছে</a>
+            </div>
+            
+            <div class="tool-card">
+                <div class="tool-icon" style="background: linear-gradient(135deg, #9C27B0, #673AB7);">
+                    <i class="fas fa-percentage"></i>
+                </div>
+                <h3>ভ্যাট ও ট্যাক্স ক্যালকুলেটর</h3>
+                <p>ব্যবসার জন্য ভ্যাট, আয়কর এবং অন্যান্য করের পরিমাণ সহজেই গণনা করুন</p>
+                <a href="#" class="tool-link" onclick="showCalculator('tax')">শীঘ্রই আসছে</a>
+            </div>
+            
+            <div class="tool-card">
+                <div class="tool-icon" style="background: linear-gradient(135deg, #00BCD4, #0097A7);">
+                    <i class="fas fa-exchange-alt"></i>
+                </div>
+                <h3>মুদ্রা রূপান্তরকারী</h3>
+                <p>বাংলাদেশী টাকা থেকে বিশ্বের যেকোনো মুদ্রায় রূপান্তর করুন বর্তমান বাজার দর অনুযায়ী</p>
+                <a href="#" class="tool-link" onclick="showCalculator('currency')">শীঘ্রই আসছে</a>
+            </div>
+            
+            <div class="tool-card">
+                <div class="tool-icon" style="background: linear-gradient(135deg, #8BC34A, #689F38);">
+                    <i class="fas fa-seedling"></i>
+                </div>
+                <h3>কৃষি লাভ ক্যালকুলেটর</h3>
+                <p>কৃষি উৎপাদনের খরচ, সম্ভাব্য লাভ এবং বাজার মূল্য সহজেই নির্ধারণ করুন</p>
+                <a href="#" class="tool-link" onclick="showCalculator('agriculture')">শীঘ্রই আসছে</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- ফুটার -->
+    <footer id="contact">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3><i class="fas fa-calculator"></i> বাংলাদেশ ফাইন্যান্স টুলস</h3>
+                <p>বাংলাদেশের মানুষের জন্য সহজ, নির্ভরযোগ্য এবং বিনামূল্যে আর্থিক গণনার টুলস প্রদান করাই আমাদের লক্ষ্য।</p>
+            </div>
+            
+            <div class="footer-section">
+                <h3><i class="fas fa-link"></i> দ্রুত লিংক</h3>
+                <ul class="footer-links">
+                    <li><a href="#home">হোম</a></li>
+                    <li><a href="#tools">সকল টুলস</a></li>
+                    <li><a href="#about">সাইট সম্পর্কে</a></li>
+                    <li><a href="#contact">যোগাযোগ</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-section">
+                <h3><i class="fas fa-handshake"></i> আমাদের সাথে যুক্ত হোন</h3>
+                <ul class="footer-links">
+                    <li><a href="#"><i class="fab fa-facebook"></i> ফেসবুক পেজ</a></li>
+                    <li><a href="#"><i class="fab fa-youtube"></i> ইউটিউব চ্যানেল</a></li>
+                    <li><a href="#"><i class="fab fa-whatsapp"></i> WhatsApp গ্রুপ</a></li>
+                    <li><a href="mailto:info@bdfinancetools.com"><i class="fas fa-envelope"></i> ইমেইল করুন</a></li>
+                </ul>
+            </div>
+        </div>
+        
+        <!-- অ্যাডসেন্স প্লেসহোল্ডার -->
+        <div class="ad-placeholder">
+            <p><i class="fas fa-ad"></i> এখানে বিজ্ঞাপন স্থান - গুগল অ্যাডসেন্স</p>
+            <p style="font-size: 0.8rem;">728px × 90px</p>
+        </div>
+        
+        <div class="copyright">
+            <p>© ২০২৫ বাংলাদেশ ফাইন্যান্স টুলস। সকল স্বত্ব সংরক্ষিত।</p>
+            <p class="mt-1">এই ওয়েবসাইটের সমস্ত তথ্য শুধুমাত্র শিক্ষামূলক উদ্দেশ্যে। আর্থিক সিদ্ধান্তের আগে সংশ্লিষ্ট বিশেষজ্ঞের পরামর্শ নিন।</p>
+        </div>
+    </footer>
+
+    <script>
+        // মোবাইল মেনু টগল
+        document.getElementById('mobileMenuBtn').addEventListener('click', function() {
+            document.getElementById('navLinks').classList.toggle('active');
+        });
+        
+        // ভাষা পরিবর্তন
+        document.querySelectorAll('.lang-btn').forEach(button => {
+            button.addEventListener('click', function() {
+                document.querySelectorAll('.lang-btn').forEach(btn => {
+                    btn.classList.remove('active');
+                });
+                this.classList.add('active');
+                
+                // ভাষা পরিবর্তনের লজিক
+                if(this.textContent.includes('English')) {
+                    document.querySelector('.logo h1').textContent = 'Bangladesh Finance Tools';
+                    document.querySelector('.hero h2').textContent = 'Most Reliable Financial Calculators for Bangladesh';
+                    document.querySelector('.hero p').textContent = 'From land registration to bank loan EMI, BMI, GPA - complete all types of calculations with one click. Completely free and easy to use.';
+                    document.querySelector('.cta-button').innerHTML = 'Use Tools <i class="fas fa-arrow-right"></i>';
+                } else {
+                    document.querySelector('.logo h1').textContent = 'বাংলাদেশ ফাইন্যান্স টুলস';
+                    document.querySelector('.hero h2').textContent = 'বাংলাদেশের সবচেয়ে নির্ভরযোগ্য ফাইন্যান্সিয়াল ক্যালকুলেটর';
+                    document.querySelector('.hero p').textContent = 'জমি রেজিস্ট্রেশন থেকে শুরু করে ব্যাংক লোনের EMI, BMI, GPA - সব ধরনের হিসাব এক ক্লিকে সম্পন্ন করুন। সম্পূর্ণ বিনামূল্যে এবং সহজে ব্যবহারযোগ্য।';
+                    document.querySelector('.cta-button').innerHTML = 'টুলস ব্যবহার করুন <i class="fas fa-arrow-right"></i>';
+                }
+            });
+        });
+        
+        // ট্যাব পরিবর্তন
+        document.querySelectorAll('.tab-btn').forEach(tab => {
+            tab.addEventListener('click', function() {
+                // সক্রিয় ট্যাব চিহ্নিত করুন
+                document.querySelectorAll('.tab-btn').forEach(t => {
+                    t.classList.remove('active');
+                });
+                this.classList.add('active');
+                
+                // সংশ্লিষ্ট ক্যালকুলেটর দেখান
+                const calcType = this.getAttribute('data-calc');
+                showCalculator(calcType);
+            });
+        });
+        
+        // ক্যালকুলেটর দেখানো/লুকানো ফাংশন
+        function showCalculator(calcType) {
+            // সব ক্যালকুলেটর লুকান
+            hideAllCalculators();
+            
+            // নির্দিষ্ট ক্যালকুলেটর দেখান
+            if (calcType === 'land') {
+                document.getElementById('landCalculator').classList.add('active');
+            } else if (calcType === 'loan') {
+                document.getElementById('loanCalculator').classList.add('active');
+            } else if (calcType === 'bmi') {
+                document.getElementById('bmiCalculator').classList.add('active');
+            } else if (calcType === 'gpa') {
+                document.getElementById('gpaCalculator').classList.add('active');
+            }
+            
+            // পৃষ্ঠার উপরের দিকে স্ক্রোল করুন
+            window.scrollTo({ top: 250, behavior: 'smooth' });
+        }
+        
+        function hideAllCalculators() {
+            document.querySelectorAll('.calculator-container').forEach(calc => {
+                calc.classList.remove('active');
+            });
+        }
+        
+        // জমি রেজিস্ট্রেশন ক্যালকুলেটর
+        function calculateLandCost() {
+            const landValue = parseFloat(document.getElementById('landValue').value);
+            
+            if (!landValue || landValue <= 0) {
+                alert("দয়া করে জমির সঠিক মূল্য লিখুন");
+                return;
+            }
+            
+            // হিসাবের লজিক (সরলীকৃত)
+            const registrationFee = landValue * 0.02; // 2%
+            const stampDuty = landValue * 0.015; // 1.5%
+            const mutationFee = landValue * 0.01; // 1%
+            const cabinetFee = landValue * 0.005; // 0.5%
+            
+            const totalCost = registrationFee + stampDuty + mutationFee + cabinetFee;
+            
+            // ফলাফল দেখানো
+            document.getElementById('regFee').textContent = formatNumber(registrationFee) + ' টাকা';
+            document.getElementById('stampDuty').textContent = formatNumber(stampDuty) + ' টাকা';
+            document.getElementById('mutationFee').textContent = formatNumber(mutationFee) + ' টাকা';
+            document.getElementById('cabinetFee').textContent = formatNumber(cabinetFee) + ' টাকা';
+            document.getElementById('landTotalCost').textContent = formatNumber(totalCost) + ' টাকা';
+            
+            // রেজাল্ট বক্স দেখানো
+            document.getElementById('landResult').classList.add('show');
+        }
+        
+        // লোন EMI ক্যালকুলেটর
+        function calculateEMI() {
+            const loanAmount = parseFloat(document.getElementById('loanAmount').value);
+            const interestRate = parseFloat(document.getElementById('interestRate').value);
+            const loanTerm = parseInt(document.getElementById('loanTerm').value);
+            
+            if (!loanAmount || loanAmount <= 0) {
+                alert("দয়া করে ঋণের সঠিক পরিমাণ লিখুন");
+                return;
+            }
+            
+            if (!interestRate || interestRate <= 0) {
+                alert("দয়া করে সঠিক সুদের হার লিখুন");
+                return;
+            }
+            
+            // EMI গণনা
+            const monthlyRate = interestRate / 12 / 100;
+            const months = loanTerm * 12;
+            
+            const emi = loanAmount * monthlyRate * Math.pow(1 + monthlyRate, months) / 
+                        (Math.pow(1 + monthlyRate, months) - 1);
+            
+            const totalPayment = emi * months;
+            const totalInterest = totalPayment - loanAmount;
+            
+            // ফলাফল দেখানো
+            document.getElementById('monthlyEMI').textContent = formatNumber(Math.round(emi)) + ' টাকা';
+            document.getElementById('totalPayment').textContent = formatNumber(Math.round(totalPayment)) + ' টাকা';
+            document.getElementById('totalInterest').textContent = formatNumber(Math.round(totalInterest)) + ' টাকা';
+            document.getElementById('principalAmount').textContent = formatNumber(loanAmount) + ' টাকা';
+            
+            // রেজাল্ট বক্স দেখানো
+            document.getElementById('loanResult').classList.add('show');
+        }
+        
+        // BMI ক্যালকুলেটর
+        function calculateBMI() {
+            const height = parseFloat(document.getElementById('height').value);
+            const weight = parseFloat(document.getElementById('weight').value);
+            
+            if (!height || height <= 0) {
+                alert("দয়া করে সঠিক উচ্চতা লিখুন");
+                return;
+            }
+            
+            if (!weight || weight <= 0) {
+                alert("দয়া করে সঠিক ওজন লিখুন");
+                return;
+            }
+            
+            // BMI গণনা
+            const heightInMeter = height / 100;
+            const bmi = weight / (heightInMeter * heightInMeter);
+            
+            // BMI শ্রেণীবিভাগ
+            let category = "";
+            let advice = "";
+            
+            if (bmi < 18.5) {
+                category = "অতিরিক্ত ওজন কম";
+                advice = "ওজন বৃদ্ধির জন্য পুষ্টিকর খাবার এবং নিয়মিত ব্যায়াম করুন";
+            } else if (bmi >= 18.5 && bmi <= 24.9) {
+                category = "স্বাভাবিক ওজন";
+                advice = "অভিনন্দন! আপনার ওজন স্বাভাবিক। এই অবস্থা বজায় রাখুন";
+            } else if (bmi >= 25 && bmi <= 29.9) {
+                category = "অতিরিক্ত ওজন";
+                advice = "ওজন কমানোর জন্য সুষম খাদ্য এবং নিয়মিত ব্যায়াম শুরু করুন";
+            } else {
+                category = "স্থূলতা";
+                advice = "চিকিৎসকের পরামর্শ নিন এবং ওজন কমানোর পরিকল্পনা করুন";
+            }
+            
+            // আদর্শ ওজন গণনা
+            const idealMin = 18.5 * (heightInMeter * heightInMeter);
+            const idealMax = 24.9 * (heightInMeter * heightInMeter);
+            
+            // ফলাফল দেখানো
+            document.getElementById('bmiValue').textContent = bmi.toFixed(1);
+            document.getElementById('bmiCategory').textContent = category;
+            document.getElementById('idealWeight').textContent = `${idealMin.toFixed(1)} - ${idealMax.toFixed(1)} কেজি`;
+            document.getElementById('bmiAdvice').textContent = advice;
+            
+            // রেজাল্ট বক্স দেখানো
+            document.getElementById('bmiResult').classList.add('show');
+        }
+        
+        // GPA ক্যালকুলেটর
+        let subjectCount = 1;
+        
+        function addSubject() {
+            if (subjectCount >= 10) {
+                alert("সর্বোচ্চ ১০টি বিষয় যোগ করতে পারেন");
+                return;
+            }
+            
+            subjectCount++;
+            const subjectContainer = document.getElementById('subjectContainer');
+            const newSubject = document.createElement('div');
+            newSubject.className = 'form-row subject-row';
+            newSubject.innerHTML = `
+                <div class="input-group">
+                    <label>বিষয়ের নাম</label>
+                    <input type="text" class="subjectName" placeholder="যেমন: গণিত" value="বিষয় ${subjectCount}">
+                </div>
+                <div class="input-group">
+                    <label>ক্রেডিট আওয়ার</label>
+                    <input type="number" class="subjectCredit" placeholder="যেমন: ৩" min="1" max="10" value="3">
+                </div>
+                <div class="input-group">
+                    <label>প্রাপ্ত গ্রেড</label>
+                    <select class="subjectGrade">
+                        <option value="4.0">A+ (৪.০)</option>
+                        <option value="3.75">A (৩.৭৫)</option>
+                        <option value="3.5">A- (৩.৫)</option>
+                        <option value="3.25">B+ (৩.২৫)</option>
+                        <option value="3.0" selected>B (৩.০)</option>
+                        <option value="2.75">B- (২.৭৫)</option>
+                        <option value="2.5">C+ (২.৫)</option>
+                        <option value="2.25">C (২.২৫)</option>
+                        <option value="2.0">D (২.০)</option>
+                        <option value="0.0">F (০.০)</option>
+                    </select>
+                </div>
+            `;
+            subjectContainer.appendChild(newSubject);
+        }
+        
+        function removeSubject() {
+            if (subjectCount <= 1) {
+                alert("অন্তত একটি বিষয় থাকতে হবে");
+                return;
+            }
+            
+            subjectCount--;
+            const subjectContainer = document.getElementById('subjectContainer');
+            subjectContainer.removeChild(subjectContainer.lastChild);
+        }
+        
+        function calculateGPA() {
+            const subjectRows = document.querySelectorAll('.subject-row');
+            let totalCredits = 0;
+            let totalGradePoints = 0;
+            
+            subjectRows.forEach(row => {
+                const credit = parseFloat(row.querySelector('.subjectCredit').value);
+                const grade = parseFloat(row.querySelector('.subjectGrade').value);
+                
+                totalCredits += credit;
+                totalGradePoints += (credit * grade);
+            });
+            
+            if (totalCredits === 0) {
+                alert("দয়া করে ক্রেডিট আওয়ার লিখুন");
+                return;
+            }
+            
+            const gpa = totalGradePoints / totalCredits;
+            
+            // গ্রেড লেটার নির্ধারণ
+            let gradeLetter = "";
+            if (gpa >= 3.75) gradeLetter = "A+";
+            else if (gpa >= 3.5) gradeLetter = "A";
+            else if (gpa >= 3.25) gradeLetter = "A-";
+            else if (gpa >= 3.0) gradeLetter = "B+";
+            else if (gpa >= 2.75) gradeLetter = "B";
+            else if (gpa >= 2.5) gradeLetter = "B-";
+            else if (gpa >= 2.25) gradeLetter = "C+";
+            else if (gpa >= 2.0) gradeLetter = "C";
+            else if (gpa >= 1.75) gradeLetter = "D";
+            else gradeLetter = "F";
+            
+            // ফলাফল দেখানো
+            document.getElementById('totalCredits').textContent = totalCredits;
+            document.getElementById('totalGradePoints').textContent = totalGradePoints.toFixed(2);
+            document.getElementById('gpaValue').textContent = gpa.toFixed(2);
+            document.getElementById('gradeLetter').textContent = gradeLetter;
+            
+            // রেজাল্ট বক্স দেখানো
+            document.getElementById('gpaResult').classList.add('show');
+        }
+        
+        // সংখ্যা ফরম্যাটিং ফাংশন (বাংলা স্টাইল)
+        function formatNumber(num) {
+            return new Intl.NumberFormat('bn-BD').format(Math.round(num));
+        }
+        
+        // পেজ লোড হওয়ার সময় কিছু ডেমো ডেটা সেট করুন
+        window.onload = function() {
+            // জমি ক্যালকুলেটরে ডেমো ডেটা
+            document.getElementById('landValue').value = 5000000;
+            
+            // লোন ক্যালকুলেটরে ডেমো ডেটা
+            document.getElementById('loanAmount').value = 1000000;
+            document.getElementById('interestRate').value = 8.5;
+            
+            // BMI ক্যালকুলেটরে ডেমো ডেটা
+            document.getElementById('height').value = 165;
+            document.getElementById('weight').value = 65;
+            document.getElementById('age').value = 30;
+        };
+    </script>
 </body>
 </html>
