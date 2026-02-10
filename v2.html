@@ -2,317 +2,802 @@
 <html lang="bn">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>ভোটার তথ্য সেবা | ৩ নং ওয়ার্ড</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>ভোটার তথ্য | দৌলতপুর ৩নং ওয়ার্ড</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <link href="https://fonts.cdnfonts.com/css/solaimanlipi" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   
   <style>
+    :root {
+      --primary: #10b981;
+      --primary-dark: #059669;
+      --surface: #ffffff;
+      --background: #f8fafc;
+    }
+
+    * {
+      -webkit-tap-highlight-color: transparent;
+    }
+
     body { 
-      font-family: 'SolaimanLipi', Arial, sans-serif; 
-      background-color: #f0f4f8;
+      font-family: 'SolaimanLipi', Arial, sans-serif;
+      background: linear-gradient(135deg, #f0f9ff 0%, #f8fafc 100%);
+      min-height: 100vh;
       color: #1e293b;
+      overflow-x: hidden;
     }
 
-    /* প্রিমিয়াম লগইন স্ক্রিন */
-    #login-overlay {
-      background: linear-gradient(180deg, #074799 0%, #001e6c 100%);
-      position: fixed;
-      inset: 0;
-      z-index: 9999;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      padding: 20px;
+    /* হেডার ডিজাইন */
+    .gradient-header {
+      background: linear-gradient(145deg, #0d9488 0%, #10b981 50%, #34d399 100%);
+      position: relative;
+      overflow: hidden;
+      padding-top: 2rem !important;
+      padding-bottom: 5rem !important;
     }
 
-    .app-card {
-      background: #ffffff;
+    .gradient-header::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
       width: 100%;
-      max-width: 380px;
-      border-radius: 30px;
-      padding: 40px 25px;
-      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+      height: 100%;
+      background: radial-gradient(circle at 30% 30%, rgba(255,255,255,0.1) 0%, transparent 50%);
     }
 
-    .login-input {
-      background: #f1f5f9;
-      border: 2px solid transparent;
-      transition: all 0.3s ease;
+    .floating-element {
+      background: rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255, 255, 255, 0.2);
     }
 
-    .login-input:focus {
-      border-color: #074799;
-      background: #fff;
-      box-shadow: 0 0 0 4px rgba(7, 71, 153, 0.1);
+    /* সার্চ কন্টেইনার */
+    .search-container {
+      background: var(--surface);
+      border-radius: 24px;
+      box-shadow: 0 10px 40px rgba(6, 95, 70, 0.08);
+      border: 1px solid rgba(16, 185, 129, 0.1);
+      position: relative;
+      z-index: 10;
+      margin-top: -3.5rem !important;
+      overflow: visible;
     }
 
-    /* আপনার আগের ডিজাইনের সিএসএস - অপরিবর্তিত */
-    .top-header {
-      background: linear-gradient(135deg, #074799 0%, #001e6c 100%);
-      border-bottom: 4px solid #ffd700;
-    }
-
-    .voter-card { 
-      background: #ffffff;
-      border: 1px solid #e2e8f0;
-      border-radius: 16px;
-      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
-      transition: all 0.3s ease;
-    }
-    .voter-card:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
-      border-color: #074799;
-    }
-
-    .serial-section {
-      background: #f8fafc;
-      border-right: 2px dashed #e2e8f0;
-      min-width: 80px;
+    /* জেন্ডার ট্যাব */
+    .gender-tabs {
       display: flex;
+      background: #f1f5f9;
+      border-radius: 14px;
+      padding: 6px;
+    }
+
+    .gender-tab {
+      flex: 1;
+      padding: 14px;
+      border-radius: 10px;
+      font-weight: 800;
+      font-size: 14px;
+      transition: all 0.3s ease;
+      border: none;
+      background: transparent;
+      color: #64748b;
+    }
+
+    .gender-tab.active {
+      background: var(--surface);
+      color: var(--primary);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    }
+
+    /* ইনপুট ফিল্ড */
+    .search-input {
+      background: #f8fafc;
+      border: 2px solid #e2e8f0;
+      transition: all 0.3s ease;
+      font-size: 16px;
+    }
+
+    .search-input:focus {
+      border-color: var(--primary);
+      box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.1);
+      background: var(--surface);
+    }
+
+    /* ভোটার কার্ড - কম্প্যাক্ট */
+    .voter-card-mini {
+      background: var(--surface);
+      border-radius: 18px;
+      border: 1px solid #e2e8f0;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03);
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      position: relative;
+      overflow: hidden;
+      margin-bottom: 12px;
+    }
+
+    .voter-card-mini:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 8px 25px rgba(6, 95, 70, 0.1);
+      border-color: var(--primary);
+    }
+
+    .voter-card-mini::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 5px;
+      height: 100%;
+      background: linear-gradient(to bottom, var(--primary), var(--primary-dark));
+    }
+
+    /* সিরিয়াল হাইলাইট */
+    .serial-highlight {
+      background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+      color: white;
+      font-weight: 900;
+      border-radius: 12px;
+      padding: 8px 16px;
+      display: inline-flex;
       flex-direction: column;
       align-items: center;
+      box-shadow: 0 4px 15px rgba(16, 185, 129, 0.3);
+    }
+
+    /* অ্যাকশন বাটন */
+    .action-btn {
+      padding: 8px 16px;
+      border-radius: 10px;
+      font-weight: 700;
+      font-size: 12px;
+      transition: all 0.3s;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      border: none;
+      cursor: pointer;
+    }
+
+    .action-btn.download {
+      background: linear-gradient(135deg, #d1fae5, #a7f3d0);
+      color: #065f46;
+    }
+
+    .action-btn.download:hover {
+      background: linear-gradient(135deg, #a7f3d0, #6ee7b7);
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(16, 185, 129, 0.2);
+    }
+
+    .action-btn.share {
+      background: linear-gradient(135deg, #dbeafe, #bfdbfe);
+      color: #1e40af;
+    }
+
+    .action-btn.share:hover {
+      background: linear-gradient(135deg, #bfdbfe, #93c5fd);
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(37, 99, 235, 0.2);
+    }
+
+    /* লোডিং */
+    .loader {
+      width: 48px;
+      height: 48px;
+      border: 3px solid #f3f4f6;
+      border-top: 3px solid var(--primary);
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+    }
+
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+
+    /* নোটিফিকেশন */
+    .toast {
+      position: fixed;
+      bottom: 20px;
+      left: 50%;
+      transform: translateX(-50%) translateY(100px);
+      background: var(--surface);
+      color: var(--primary-dark);
+      padding: 12px 20px;
+      border-radius: 12px;
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+      font-weight: 600;
+      z-index: 1000;
+      transition: transform 0.4s ease;
+      border: 1px solid #d1fae5;
+    }
+
+    .toast.show {
+      transform: translateX(-50%) translateY(0);
+    }
+
+    /* মডাল */
+    .modal-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.5);
+      backdrop-filter: blur(4px);
+      display: flex;
+      align-items: center;
       justify-content: center;
+      z-index: 1000;
+      padding: 20px;
+      opacity: 0;
+      visibility: hidden;
+      transition: all 0.3s ease;
     }
 
-    .btn-gender {
-      background: #ffffff;
-      border: 2px solid #cbd5e1;
-      color: #475569;
-      transition: 0.3s;
-    }
-    .btn-gender.active {
-      background: #074799;
-      color: #ffffff;
-      border-color: #074799;
+    .modal-overlay.active {
+      opacity: 1;
+      visibility: visible;
     }
 
-    .btn-search {
-      background: #074799;
-      transition: 0.3s;
-    }
-    .btn-search:hover {
-      background: #001e6c;
+    .modal-content {
+      background: var(--surface);
+      border-radius: 24px;
+      width: 100%;
+      max-width: 400px;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+      transform: translateY(20px);
+      transition: transform 0.3s ease;
+      max-height: 90vh;
+      overflow-y: auto;
     }
 
-    .info-label {
-      font-size: 11px;
-      color: #64748b;
-      font-weight: bold;
-      margin-bottom: 2px;
+    .modal-overlay.active .modal-content {
+      transform: translateY(0);
+    }
+
+    /* ডাউনলোড কার্ড */
+    .download-card {
+      background: linear-gradient(135deg, #ffffff, #f8fafc);
+      border: 2px solid var(--primary);
+      border-radius: 20px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .download-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 6px;
+      background: linear-gradient(to right, var(--primary), var(--primary-dark));
+    }
+
+    /* অ্যানিমেশন */
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .animate-fade-in {
+      animation: fadeIn 0.5s ease forwards;
+    }
+
+    /* স্ক্রলবার */
+    ::-webkit-scrollbar {
+      width: 6px;
+    }
+
+    ::-webkit-scrollbar-track {
+      background: #f1f5f9;
+      border-radius: 10px;
+    }
+
+    ::-webkit-scrollbar-thumb {
+      background: #cbd5e1;
+      border-radius: 10px;
+    }
+
+    ::-webkit-scrollbar-thumb:hover {
+      background: #94a3b8;
     }
   </style>
 </head>
-<body class="min-h-screen">
+<body class="pb-6">
 
-  <div id="login-overlay">
-    <div class="mb-8 text-center">
-      <div class="w-20 h-20 bg-white/10 rounded-3xl flex items-center justify-center mx-auto mb-4 border border-white/20 backdrop-blur-md">
-        <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10 text-yellow-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
-        </svg>
-      </div>
-      <h2 class="text-2xl font-black text-white">ডিজিটাল নির্বাচনী বুথ</h2>
-      <p class="text-blue-200 text-xs font-bold uppercase tracking-widest mt-1">Authorized Access Only</p>
-    </div>
-
-    <div class="app-card">
-      <div class="mb-6">
-        <h3 class="text-xl font-black text-slate-800">লগইন করুন</h3>
-        <p class="text-slate-400 text-xs font-bold">এজেন্ট আইডি ও পাসওয়ার্ড প্রদান করুন</p>
+  <!-- মেইন হেডার -->
+  <header class="gradient-header text-white pt-8 pb-12 px-5">
+    <div class="text-center relative z-10">
+      <!-- লোগো/আইকন -->
+      <div class="w-16 h-16 rounded-2xl bg-white/10 backdrop-blur-sm flex items-center justify-center mx-auto mb-4 border border-white/20">
+        <i class="fas fa-vote-yea text-2xl text-white"></i>
       </div>
       
-      <div class="space-y-4">
-        <input type="text" id="user_id" class="login-input w-full px-5 py-4 rounded-2xl outline-none font-bold text-slate-700" placeholder="এজেন্ট আইডি">
-        <input type="password" id="user_pass" class="login-input w-full px-5 py-4 rounded-2xl outline-none font-bold text-slate-700" placeholder="পাসওয়ার্ড">
-        
-        <div id="login-error" class="hidden text-red-500 text-xs font-bold text-center bg-red-50 py-2 rounded-lg border border-red-100 animate-pulse">
-          ভুল আইডি অথবা পাসওয়ার্ড!
+      <!-- টাইটেল -->
+      <h1 class="text-2xl font-black mb-2 tracking-tight">দৌলতপুর ৩নং ওয়ার্ড</h1>
+      <p class="text-sm opacity-90 mb-4">ভোটার তথ্য ব্যবস্থাপনা</p>
+      
+      <!-- তথ্য বক্স -->
+      <div class="floating-element rounded-xl p-4 max-w-sm mx-auto">
+        <div class="flex items-center justify-center gap-3 mb-2">
+          <div class="w-2 h-2 bg-emerald-300 rounded-full animate-pulse"></div>
+          <span class="text-sm font-bold">এলাকা কোড: ১৮৮৩</span>
         </div>
+        <p class="text-xs opacity-80">দৌলতপুর দীঘিরপাড় সরকারী প্রাথমিক বিদ্যালয়</p>
+      </div>
+    </div>
+  </header>
 
-        <button onclick="checkLogin()" class="w-full bg-blue-700 text-white py-4 rounded-2xl font-black text-lg shadow-lg active:scale-95 transition-all">
-          প্রবেশ করুন
-        </button>
+  <!-- মেইন কন্টেন্ট -->
+  <main class="max-w-md mx-auto px-4">
+    
+    <!-- সার্চ সেকশন -->
+    <div class="search-container p-5 mb-5">
+      <div class="flex items-center gap-3 mb-4">
+        <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-emerald-500 to-emerald-600 flex items-center justify-center shadow-lg">
+          <i class="fas fa-search text-white text-lg"></i>
+        </div>
+        <div>
+          <h2 class="font-black text-slate-800 text-lg">ভোটার অনুসন্ধান</h2>
+          <p class="text-sm text-slate-500">নাম অথবা পিতার নাম লিখুন</p>
+        </div>
+      </div>
+
+      <!-- জেন্ডার সিলেক্টর -->
+      <div class="mb-4">
+        <p class="text-sm font-semibold text-slate-600 mb-2">লিঙ্গ নির্বাচন করুন</p>
+        <div class="gender-tabs">
+          <button onclick="setGender('Male')" id="maleBtn" class="gender-tab active">
+            <i class="fas fa-mars mr-2"></i>পুরুষ
+          </button>
+          <button onclick="setGender('Female')" id="femaleBtn" class="gender-tab">
+            <i class="fas fa-venus mr-2"></i>মহিলা
+          </button>
+        </div>
+      </div>
+
+      <!-- সার্চ ইনপুট -->
+      <div class="mb-5">
+        <div class="relative">
+          <input type="text" id="searchInput" 
+                 class="search-input w-full px-5 py-4 rounded-xl outline-none text-slate-800 font-medium placeholder-slate-400"
+                 placeholder="যেমন: রহিম বা করিম">
+          <div class="absolute right-4 top-1/2 transform -translate-y-1/2 text-slate-400">
+            <i class="fas fa-user-edit"></i>
+          </div>
+        </div>
+        <p class="text-xs text-slate-400 mt-2">কমপক্ষে ২টি অক্ষর লিখুন</p>
+      </div>
+
+      <!-- সার্চ বাটন -->
+      <button onclick="handleSearch()" 
+              class="w-full py-4 rounded-xl bg-gradient-to-r from-slate-800 to-slate-900 text-white font-black text-lg shadow-lg hover:shadow-xl active:scale-[0.98] transition-all duration-300">
+        <i class="fas fa-search mr-2"></i>
+        অনুসন্ধান শুরু করুন
+      </button>
+    </div>
+
+    <!-- সতর্কতা নোট -->
+    <div class="bg-gradient-to-r from-amber-50 to-amber-100 border border-amber-200 rounded-xl p-4 mb-5">
+      <div class="flex items-start gap-3">
+        <i class="fas fa-info-circle text-amber-600 text-lg mt-0.5"></i>
+        <div>
+          <p class="text-sm font-bold text-amber-800 mb-1">স্বেচ্ছাসেবী উদ্যোগ</p>
+          <p class="text-xs text-amber-700">সরকারি ভোটার তালিকা চূড়ান্ত। তথ্য যাচাই করুন।</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- রেজাল্টস সেকশন -->
+    <div>
+      <!-- হেডার -->
+      <div class="flex items-center justify-between mb-4">
+        <h3 class="font-black text-slate-800 text-base">
+          <i class="fas fa-users text-emerald-600 mr-2"></i>
+          ভোটার তালিকা
+        </h3>
+        <span id="resultCount" class="text-xs font-bold text-slate-500">--</span>
+      </div>
+      
+      <!-- লোডার -->
+      <div id="loader" class="hidden">
+        <div class="flex flex-col items-center py-10">
+          <div class="loader mb-4"></div>
+          <p class="text-sm font-medium text-slate-600">তথ্য লোড হচ্ছে...</p>
+        </div>
+      </div>
+
+      <!-- ভোটার কার্ডস -->
+      <div id="resultsArea" class="space-y-3"></div>
+      
+      <!-- নো রেজাল্ট -->
+      <div id="noResults" class="hidden text-center py-10">
+        <div class="w-16 h-16 rounded-full bg-slate-100 flex items-center justify-center mx-auto mb-4">
+          <i class="fas fa-search text-2xl text-slate-400"></i>
+        </div>
+        <h4 class="font-bold text-slate-600 mb-2">কোন ভোটার পাওয়া যায়নি</h4>
+        <p class="text-sm text-slate-500">আরেকটি নাম দিয়ে চেষ্টা করুন</p>
+      </div>
+    </div>
+
+    <!-- সাপোর্ট সেকশন -->
+    <div class="mt-8 bg-white rounded-2xl p-5 border border-slate-200">
+      <div class="flex items-center gap-3 mb-3">
+        <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-blue-100 to-blue-200 flex items-center justify-center">
+          <i class="fas fa-headset text-blue-700 text-lg"></i>
+        </div>
+        <div>
+          <h4 class="font-bold text-slate-800">মোঃ আবু সুফিয়ান</h4>
+          <p class="text-xs text-slate-600 bg-blue-50 inline-block px-2 py-1 rounded-full">আইটি সাপোর্ট</p>
+        </div>
+      </div>
+      <div class="flex gap-4">
+        <a href="https://facebook.com/mdsofian68" target="_blank" 
+           class="text-sm text-blue-600 hover:text-blue-700 font-semibold">
+          <i class="fab fa-facebook mr-1"></i>ফেসবুক
+        </a>
+        <a href="tel:01871536468" class="text-sm text-emerald-600 hover:text-emerald-700 font-semibold">
+          <i class="fas fa-phone mr-1"></i>কল করুন
+        </a>
+      </div>
+    </div>
+
+    <!-- ফুটার -->
+    <footer class="mt-8 pt-6 border-t border-slate-200 text-center">
+      <p class="text-xs text-slate-500 font-medium">© ২০২৪ দৌলতপুর ৩নং ওয়ার্ড</p>
+      <p class="text-[10px] text-slate-400 mt-1">ডিজিটাল ভোটার ব্যবস্থাপনা</p>
+    </footer>
+
+  </main>
+
+  <!-- ডাউনলোড মডাল -->
+  <div id="downloadModal" class="modal-overlay">
+    <div class="modal-content animate-fade-in">
+      <div class="p-6">
+        <!-- হেডার -->
+        <div class="flex justify-between items-center mb-6">
+          <h3 class="font-black text-slate-800 text-lg">ভোটার স্লিপ ডাউনলোড</h3>
+          <button onclick="closeDownloadModal()" class="w-10 h-10 rounded-full bg-slate-100 hover:bg-slate-200 flex items-center justify-center transition-colors">
+            <i class="fas fa-times text-slate-600"></i>
+          </button>
+        </div>
+        
+       <!-- ডাউনলোড মডালে কার্ড কন্টেন্ট -->
+<div id="downloadCard" class="download-card p-5 mb-6">
+  <!-- সিরিয়াল নম্বর - সরাসরি বাংলা টেক্সট -->
+  <div class="text-center mb-4">
+    <div class="bg-gradient-to-r from-emerald-600 to-emerald-800 text-white font-black rounded-xl py-3 px-6 inline-block shadow-lg">
+      <div class="text-sm opacity-90">সিরিয়াল নং</div>
+      <div class="text-2xl tracking-wider" id="modalSerial">--</div>
+    </div>
+  </div>
+  
+  <!-- ভোটার তথ্য -->
+  <div class="space-y-4">
+    <!-- নাম -->
+    <div class="border border-slate-200 rounded-xl p-4 bg-white">
+      <p class="text-xs text-slate-500 font-bold mb-1">নাম</p>
+      <p class="text-base font-black text-slate-800" id="modalName">--</p>
+    </div>
+    
+    <!-- ভোটার নম্বর -->
+    <div class="border border-slate-200 rounded-xl p-4 bg-white">
+      <p class="text-xs text-slate-500 font-bold mb-1">ভোটার নম্বর</p>
+      <p class="text-base font-black text-slate-800" id="modalVoterNo">--</p>
+    </div>
+    
+    <!-- পিতার নাম এবং মাতার নাম - সাদা ব্যাকগ্রাউন্ড সেট করুন -->
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+      <div class="border border-slate-200 rounded-xl p-4 bg-white">
+        <p class="text-xs text-slate-500 font-bold mb-1">পিতার নাম</p>
+        <p class="text-sm font-bold text-slate-800 min-h-[24px]" id="modalFather">--</p>
+      </div>
+      <div class="border border-slate-200 rounded-xl p-4 bg-white">
+        <p class="text-xs text-slate-500 font-bold mb-1">মাতার নাম</p>
+        <p class="text-sm font-bold text-slate-800 min-h-[24px]" id="modalMother">--</p>
+      </div>
+    </div>
+    
+    <!-- জন্ম তারিখ -->
+    <div class="border border-slate-200 rounded-xl p-4 bg-white">
+      <p class="text-xs text-slate-500 font-bold mb-1">জন্ম তারিখ</p>
+      <p class="text-sm font-bold text-slate-800" id="modalDob">--</p>
+    </div>
+    
+    <!-- ওয়ার্ড তথ্য -->
+    <div class="bg-slate-50 border border-slate-200 rounded-xl p-4">
+      <div class="flex justify-between items-center mb-2">
+        <p class="text-sm font-bold text-slate-800">ওয়ার্ড ০৩</p>
+        <p class="text-sm font-bold text-emerald-700">এলাকা কোড: ১৮৮৩</p>
+      </div>
+      <p class="text-sm text-slate-600">দৌলতপুর দীঘিরপাড় প্রাথমিক বিদ্যালয়</p>
+    </div>
+  </div>
+  
+  <!-- ফুটার -->
+  <div class="border-t border-slate-200 mt-4 pt-3">
+    <p class="text-xs text-slate-400 text-center">
+      ডাউনলোড তারিখ: <span id="modalDate">--</span>
+    </p>
+  </div>
+</div>
+        <!-- অ্যাকশন বাটন -->
+        <div class="grid grid-cols-2 gap-3">
+          <button onclick="downloadAsImage()" class="action-btn download">
+            <i class="fas fa-download"></i>
+            ছবি ডাউনলোড
+          </button>
+          <button onclick="shareVoterInfo()" class="action-btn share">
+            <i class="fas fa-share-alt"></i>
+            শেয়ার করুন
+          </button>
+        </div>
+        
+        <p class="text-xs text-slate-400 mt-4 text-center">
+          ছবিটি আপনার গ্যালারিতে সেভ হবে
+        </p>
       </div>
     </div>
   </div>
 
-  <div id="main-content" class="hidden">
-    <header class="top-header text-white py-8 px-4 shadow-xl text-center relative">
-      <div class="max-w-2xl mx-auto">
-        <button onclick="logout()" class="absolute right-4 top-4 bg-red-500 hover:bg-red-600 text-white px-3 py-1.5 rounded-xl text-[10px] font-black uppercase transition-all shadow-lg">লগআউট</button>
-        <h1 class="text-3xl md:text-4xl font-black tracking-tight mb-3">ভোটার তথ্য অনুসন্ধান</h1>
-        <div class="flex flex-wrap justify-center gap-3 text-sm font-medium opacity-90">
-          <span class="bg-white/10 px-3 py-1 rounded-full border border-white/20"> উপজেলা-কর্ণফুলী</span>
-          <span class="bg-white/10 px-3 py-1 rounded-full border border-white/20">ইউনিয়ন-বড়উঠান </span>
-        </div>
-      </div>
-    </header>
-
-    <main class="max-w-xl mx-auto px-4 -mt-6 relative z-10">
-      <div class="bg-white rounded-2xl shadow-lg p-5 border border-gray-100 mb-6">
-        <div class="text-center mb-5">
-          <p class="text-blue-900 font-bold text-lg">ভোটার এলাকা: দৌলতপুর (১৮৮৩)</p>
-          <p class="text-slate-500 text-sm font-bold uppercase tracking-widest">৩ নং ওয়ার্ড ডিজিটাল বুথ</p>
-        </div>
-
-        <div class="flex gap-3 mb-5">
-          <button onclick="setGender('Male', this)" class="btn-gender active flex-1 py-3 rounded-xl font-bold text-base shadow-sm">
-            পুরুষ ভোটার
-          </button>
-          <button onclick="setGender('Female', this)" class="btn-gender flex-1 py-3 rounded-xl font-bold text-base shadow-sm">
-            মহিলা ভোটার
-          </button>
-        </div>
-
-        <div class="space-y-3">
-          <input type="text" id="searchInput" 
-                 class="w-full px-5 py-4 rounded-xl bg-slate-50 border-2 border-slate-100 focus:border-blue-500 focus:bg-white outline-none text-lg transition-all" 
-                 placeholder="নাম, পিতা বা মাতার নাম লিখুন...">
-          <button onclick="handleSearch()" class="btn-search w-full text-white py-4 rounded-xl font-bold text-lg shadow-lg flex items-center justify-center gap-2 active:scale-95 transition-transform">
-            তথ্য অনুসন্ধান করুন
-          </button>
-        </div>
-      </div>
-
-      <div id="loader" class="hidden text-center py-8">
-          <div class="inline-block h-10 w-10 animate-spin rounded-full border-4 border-blue-600 border-r-transparent"></div>
-          <p class="mt-4 text-blue-900 font-bold animate-pulse text-sm">তথ্য খোঁজা হচ্ছে, দয়া করে অপেক্ষা করুন...</p>
-      </div>
-
-      <div id="resultsArea" class="space-y-4"></div>
-
-      <div class="mt-12 p-6 bg-white/50 backdrop-blur-sm border border-gray-200 rounded-2xl text-center">
-          <p class="text-xs text-slate-500 leading-relaxed font-medium">
-              <span class="text-red-500 font-bold">সতর্কবার্তা:</span> এটি একটি বেসরকারি স্বেচ্ছাসেবী উদ্যোগ। <br>
-              প্রদর্শিত তথ্যের কোনো অসঙ্গতি থাকলে সরকারি ভোটার তালিকাই চূড়ান্ত।
-          </p>
-          <div class="mt-4 h-px bg-gray-200 w-24 mx-auto"></div>
-          <p class="mt-3 text-[10px] text-slate-400 font-bold uppercase tracking-widest">প্রযুক্তিগত সহায়তায়:মোঃ আবু সুফিয়ান</p>
-      </div>
-    </main>
-  </div>
-
+  <!-- HTML2Canvas লাইব্রেরি -->
+  <script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
+  
   <script>
-    // পেজ লোড হওয়ার সময় লগইন স্ট্যাটাস চেক করা
-    window.onload = function() {
-        if (localStorage.getItem("isLoggedIn") === "true") {
-            document.getElementById('login-overlay').style.display = 'none';
-            document.getElementById('main-content').classList.remove('hidden');
-        }
-    };
+    let currentGender = 'Male';
+    let currentVoterData = null;
+    const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbyYlqsTVz_vim5MsONPJ0bi8CwtNeJYTZIoLrkKU6QZlwuZbhLVZpMbi7xopkx_MhE/exec"; 
 
-    function checkLogin() {
-      const id = document.getElementById('user_id').value;
-      const pass = document.getElementById('user_pass').value;
-      const error = document.getElementById('login-error');
+    // ইংরেজি সংখ্যাকে বাংলায় রূপান্তর
+    function toBengaliNumber(number) {
+      if (!number && number !== 0) return '---';
+      const englishDigits = { '0': '০', '1': '১', '2': '২', '3': '৩', '4': '৪', '5': '৫', '6': '৬', '7': '৭', '8': '৮', '9': '৯' };
+      return number.toString().replace(/[0-9]/g, (w) => englishDigits[w]);
+    }
 
-      if (id === "agent" && pass === "12345") {
-        localStorage.setItem("isLoggedIn", "true"); // লগইন সেশন সেভ করা
-        document.getElementById('login-overlay').style.display = 'none';
-        document.getElementById('main-content').classList.remove('hidden');
+    // লিঙ্গ সেট করা
+    function setGender(gender) {
+      currentGender = gender;
+      const maleBtn = document.getElementById('maleBtn');
+      const femaleBtn = document.getElementById('femaleBtn');
+      
+      maleBtn.classList.remove('active');
+      femaleBtn.classList.remove('active');
+      
+      if (gender === 'Male') {
+        maleBtn.classList.add('active');
       } else {
-        error.classList.remove('hidden');
-        setTimeout(() => error.classList.add('hidden'), 3000);
+        femaleBtn.classList.add('active');
       }
     }
 
-    function logout() {
-      localStorage.removeItem("isLoggedIn"); // সেশন মুছে ফেলা
-      location.reload();
+    // টোস্ট মেসেজ শো করা
+    function showToast(message, type = 'info') {
+      const toast = document.createElement('div');
+      toast.className = `toast ${type === 'success' ? 'bg-emerald-50 border-emerald-200' : 
+                                type === 'error' ? 'bg-rose-50 border-rose-200' : 
+                                'bg-blue-50 border-blue-200'}`;
+      toast.textContent = message;
+      document.body.appendChild(toast);
+      
+      setTimeout(() => {
+        toast.classList.add('show');
+      }, 10);
+      
+      setTimeout(() => {
+        toast.classList.remove('show');
+        setTimeout(() => toast.remove(), 400);
+      }, 3000);
     }
 
-    // আপনার আগের সব স্ক্রিপ্ট - অপরিবর্তিত
-    let currentGender = 'Male';
-    const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbx3yLqxNZLHJfXIGzDXsaqdQpF2k6W0n__-cJQUJ7Ka1_7g85_4rKc8L72-bLwrWbQG/exec";
-
-    function setGender(gender, btn) {
-      currentGender = gender;
-      document.querySelectorAll('.btn-gender').forEach(b => b.classList.remove('active'));
-      btn.classList.add('active');
-      document.getElementById('resultsArea').innerHTML = '';
-      document.getElementById('searchInput').value = '';
+    // ডাউনলোড মডাল খোলা
+    function openDownloadModal(voterData) {
+      currentVoterData = voterData;
+      const modal = document.getElementById('downloadModal');
+      
+      // ডেটা সেট করা
+      document.getElementById('modalSerial').textContent = toBengaliNumber(voterData.serial);
+      document.getElementById('modalName').textContent = voterData.name;
+      document.getElementById('modalVoterNo').textContent = toBengaliNumber(voterData.voterNo || '---');
+      document.getElementById('modalFather').textContent = voterData.father;
+      document.getElementById('modalMother').textContent = voterData.mother || '--'; // মাতার নাম যোগ করা হয়েছে
+      document.getElementById('modalDob').textContent = toBengaliNumber(voterData.dob);
+      document.getElementById('modalDate').textContent = new Date().toLocaleDateString('bn-BD');
+      
+      modal.classList.add('active');
     }
 
-    function handleSearch() {
+    // ডাউনলোড মডাল বন্ধ করা
+    function closeDownloadModal() {
+      document.getElementById('downloadModal').classList.remove('active');
+    }
+
+ // ছবি হিসেবে ডাউনলোড - উন্নত সংস্করণ
+async function downloadAsImage() {
+  const element = document.getElementById('downloadCard');
+  
+  try {
+    showToast('ছবি তৈরি হচ্ছে...', 'info');
+    
+    // ডাউনলোড কার্ডের জন্য অতিরিক্ত স্টাইল যোগ
+    const originalStyles = {
+      width: element.style.width,
+      backgroundColor: element.style.backgroundColor,
+      boxShadow: element.style.boxShadow
+    };
+    
+    // ডাউনলোডের জন্য স্টাইল অপটিমাইজ
+    element.style.width = '400px';
+    element.style.backgroundColor = '#ffffff';
+    element.style.boxShadow = 'none';
+    
+    const canvas = await html2canvas(element, {
+      scale: 3,
+      backgroundColor: '#ffffff', // সাদা ব্যাকগ্রাউন্ড সেট করুন
+      useCORS: true,
+      logging: false,
+      allowTaint: true,
+      removeContainer: true,
+      onclone: function(clonedDoc) {
+        // ক্লোন করা এলিমেন্টেও স্টাইল সেট করুন
+        const clonedCard = clonedDoc.getElementById('downloadCard');
+        if (clonedCard) {
+          clonedCard.style.width = '400px';
+          clonedCard.style.backgroundColor = '#ffffff';
+          clonedCard.style.boxShadow = 'none';
+          
+          // টেক্সট এলিমেন্টগুলির জন্য অতিরিক্ত স্টাইল
+          const textElements = clonedCard.querySelectorAll('p, div');
+          textElements.forEach(el => {
+            el.style.color = '#000000';
+            el.style.backgroundColor = 'transparent';
+          });
+        }
+      }
+    });
+    
+    // মূল স্টাইল ফিরিয়ে দিন
+    element.style.width = originalStyles.width;
+    element.style.backgroundColor = originalStyles.backgroundColor;
+    element.style.boxShadow = originalStyles.boxShadow;
+    
+    const link = document.createElement('a');
+    link.download = `ভোটার_স্লিপ_${currentVoterData.serial}.png`;
+    link.href = canvas.toDataURL('image/png', 1.0);
+    link.click();
+    
+    showToast('ছবি ডাউনলোড শুরু হয়েছে', 'success');
+  } catch (error) {
+    console.error('Error downloading image:', error);
+    showToast('ডাউনলোড ব্যর্থ হয়েছে', 'error');
+  }
+}
+    // সার্চ হ্যান্ডলার
+    async function handleSearch() {
       const query = document.getElementById('searchInput').value.trim();
-      const resultsArea = document.getElementById('resultsArea');
       const loader = document.getElementById('loader');
+      const area = document.getElementById('resultsArea');
+      const noResults = document.getElementById('noResults');
+      const resultCount = document.getElementById('resultCount');
 
       if (query.length < 2) {
-        alert("অনুগ্রহ করে কমপক্ষে ২ অক্ষরের নাম লিখুন।");
+        showToast('কমপক্ষে ২ অক্ষর লিখুন', 'error');
         return;
       }
-
-      resultsArea.innerHTML = '';
+      
+      area.innerHTML = '';
+      noResults.classList.add('hidden');
       loader.classList.remove('hidden');
+      resultCount.textContent = 'অনুসন্ধান হচ্ছে...';
 
-      fetch(`${SCRIPT_URL}?query=${encodeURIComponent(query)}&gender=${currentGender}`)
-        .then(res => res.json())
-        .then(data => {
-          loader.classList.add('hidden');
+      try {
+        const response = await fetch(`${SCRIPT_URL}?query=${encodeURIComponent(query)}&gender=${currentGender}&ward=3`);
+        const data = await response.json();
+        
+        loader.classList.add('hidden');
+        
+        if (data.length === 0) {
+          noResults.classList.remove('hidden');
+          resultCount.textContent = 'কিছু নেই';
+          showToast('কোন ভোটার পাওয়া যায়নি', 'info');
+        } else {
           renderResults(data);
-        })
-        .catch(err => {
-          loader.classList.add('hidden');
-          resultsArea.innerHTML = `<div class="text-center p-5 bg-red-50 text-red-600 rounded-xl font-bold">সংযোগ সমস্যা! আবার চেষ্টা করুন।</div>`;
-        });
+          resultCount.textContent = `${toBengaliNumber(data.length)} জন`;
+          showToast(`${toBengaliNumber(data.length)} জন ভোটার পাওয়া গেছে`, 'success');
+        }
+      } catch (err) {
+        loader.classList.add('hidden');
+        resultCount.textContent = 'ত্রুটি';
+        showToast('সার্ভার সমস্যা! পরে চেষ্টা করুন', 'error');
+      }
     }
 
+    // রেজাল্ট রেন্ডার
     function renderResults(data) {
       const area = document.getElementById('resultsArea');
-      if (data.length === 0) {
-        area.innerHTML = `
-          <div class="text-center p-12 bg-white rounded-2xl shadow-sm border border-dashed border-gray-300">
-            <p class="text-slate-400 font-bold">দুঃখিত, কোনো তথ্য পাওয়া যায়নি।</p>
-          </div>`;
-        return;
-      }
-
-      area.innerHTML = data.map(v => `
-        <div class="voter-card flex overflow-hidden">
-          <div class="serial-section px-4">
-            <span class="info-label">সিরিয়াল</span>
-            <span class="text-3xl font-black text-blue-700 leading-none">${v.serial}</span>
-          </div>
-
-          <div class="flex-1 p-4 min-w-0">
-            <div class="flex justify-between items-start mb-3 border-b border-gray-50 pb-2">
-                <h3 class="text-xl font-black text-slate-800 truncate">${v.name}</h3>
-                <span class="bg-blue-50 text-blue-600 text-[10px] font-bold px-2 py-0.5 rounded uppercase">ওয়ার্ড ০৩</span>
+      
+      area.innerHTML = data.map((v, index) => `
+        <div class="voter-card-mini animate-fade-in" style="animation-delay: ${index * 0.05}s">
+          <div class="p-4">
+            <!-- হেডার -->
+            <div class="flex justify-between items-start mb-3">
+              <!-- সিরিয়াল -->
+              <div>
+                <div class="text-xs font-bold text-slate-500 mb-1">সিরিয়াল নং</div>
+                <div class="text-xl font-black text-emerald-700">${toBengaliNumber(v.serial)}</div>
+              </div>
+              
+              <!-- অ্যাকশন বাটন -->
+              <div class="flex gap-2">
+                <button onclick="openDownloadModal(${JSON.stringify(v).replace(/"/g, '&quot;')})" 
+                        class="action-btn download" title="ডাউনলোড">
+                  <i class="fas fa-download"></i>
+                </button>
+                <button onclick="openDownloadModal(${JSON.stringify(v).replace(/"/g, '&quot;')})" 
+                        class="action-btn share" title="শেয়ার">
+                  <i class="fas fa-share-alt"></i>
+                </button>
+              </div>
             </div>
             
-            <div class="grid grid-cols-2 gap-x-4 gap-y-3">
+            <!-- ভোটার নাম -->
+            <h3 class="text-sm font-black text-slate-800 mb-2 truncate">${v.name}</h3>
+            
+            <!-- ভোটার নম্বর -->
+            <div class="mb-3">
+              <div class="text-xs font-bold text-slate-500">ভোটার নম্বর</div>
+              <div class="text-sm font-black text-slate-900">${toBengaliNumber(v.voterNo || '---')}</div>
+            </div>
+            
+            <!-- পিতার নাম এবং মাতার নাম -->
+            <div class="grid grid-cols-2 gap-3 text-xs mb-2">
               <div>
-                <p class="info-label">পিতার নাম</p>
-                <p class="text-sm font-bold text-slate-700 truncate">${v.father}</p>
+                <div class="text-slate-500 font-medium">পিতার নাম</div>
+                <div class="font-bold text-slate-700 truncate">${v.father}</div>
               </div>
               <div>
-                <p class="info-label">মাতার নাম</p>
-                <p class="text-sm font-bold text-slate-700 truncate">${v.mother}</p>
-              </div>
-              <div>
-                <p class="info-label">জন্ম তারিখ</p>
-                <p class="text-sm font-bold text-slate-700">${v.dob}</p>
-              </div>
-              <div class="text-right">
-                <p class="info-label">এলাকা কোড</p>
-                <p class="text-sm font-black text-blue-600">১৮৮৩</p>
+                <div class="text-slate-500 font-medium">মাতার নাম</div>
+                <div class="font-bold text-slate-700 truncate">${v.mother || '--'}</div>
               </div>
             </div>
-
-            <div class="mt-4 bg-slate-50 p-3 rounded-xl flex items-start gap-2 border border-slate-100">
-               <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-blue-500 mt-0.5 shrink-0" viewBox="0 0 20 20" fill="currentColor">
-                 <path fill-rule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clip-rule="evenodd" />
-               </svg>
-               <p class="text-xs font-bold text-slate-600 leading-tight">${v.address}</p>
+            
+            <!-- জন্ম তারিখ -->
+            <div class="mb-2">
+              <div class="text-slate-500 font-medium text-xs">জন্ম তারিখ</div>
+              <div class="font-bold text-slate-700 text-sm">${toBengaliNumber(v.dob)}</div>
+            </div>
+            
+            <!-- ফুটার -->
+            <div class="flex justify-between items-center mt-4 pt-3 border-t border-slate-100">
+              <span class="text-xs font-bold text-emerald-700 bg-emerald-50 px-2 py-1 rounded-lg">ওয়ার্ড ০৩</span>
+              <span class="text-xs text-slate-500">কোড: ১৮৮৩</span>
             </div>
           </div>
         </div>
       `).join('');
     }
+
+    // এন্টার কি চাপলে সার্চ
+    document.getElementById('searchInput').addEventListener('keypress', function(e) {
+      if (e.key === 'Enter') handleSearch();
+    });
+
+    // মডাল বাইরে ক্লিক করলে বন্ধ
+    document.getElementById('downloadModal').addEventListener('click', function(e) {
+      if (e.target === this) closeDownloadModal();
+    });
+
+    // ইনিশিয়ালাইজেশন
+    document.addEventListener('DOMContentLoaded', function() {
+      setGender('Male');
+      setTimeout(() => {
+        document.getElementById('searchInput').focus();
+      }, 500);
+    });
   </script>
 </body>
 </html>
