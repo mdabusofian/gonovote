@@ -3,192 +3,215 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>ভোটার তথ্য | দৌলতপুর ৩নং ওয়ার্ড</title>
+  <title>দৌলতপুর ৩নং ওয়ার্ড | ভোটার তথ্য</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <link href="https://fonts.cdnfonts.com/css/solaimanlipi" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
   
   <style>
     :root {
-      --primary: #10b981;
-      --primary-dark: #059669;
-      --surface: #ffffff;
-      --background: #f8fafc;
+      --primary-color: #1e6c32;
+      --secondary-color: #2d8c4a;
+      --accent-color: #f8f9fa;
+      --text-dark: #1a1a1a;
+      --text-light: #4a5568;
+      --border-color: #e2e8f0;
+      --card-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+      --card-hover-shadow: 0 8px 25px rgba(30, 108, 50, 0.15);
     }
 
     * {
       -webkit-tap-highlight-color: transparent;
     }
 
-    body { 
+    body {
       font-family: 'SolaimanLipi', Arial, sans-serif;
-      background: linear-gradient(135deg, #f0f9ff 0%, #f8fafc 100%);
+      background-color: #f8f9fa;
+      color: var(--text-dark);
       min-height: 100vh;
-      color: #1e293b;
-      overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
     }
 
-    /* হেডার ডিজাইন */
-    .gradient-header {
-      background: linear-gradient(145deg, #0d9488 0%, #10b981 50%, #34d399 100%);
+    /* হেডার */
+    .main-header {
+      background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+      color: white;
+      padding: 20px 0 60px;
       position: relative;
       overflow: hidden;
-      padding-top: 2rem !important;
-      padding-bottom: 5rem !important;
     }
 
-    .gradient-header::before {
-      content: '';
+    .header-pattern {
       position: absolute;
       top: 0;
       left: 0;
-      width: 100%;
-      height: 100%;
-      background: radial-gradient(circle at 30% 30%, rgba(255,255,255,0.1) 0%, transparent 50%);
+      right: 0;
+      bottom: 0;
+      background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.05'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
     }
 
-    .floating-element {
-      background: rgba(255, 255, 255, 0.1);
-      backdrop-filter: blur(10px);
-      border: 1px solid rgba(255, 255, 255, 0.2);
-    }
-
-    /* সার্চ কন্টেইনার */
-    .search-container {
-      background: var(--surface);
-      border-radius: 24px;
-      box-shadow: 0 10px 40px rgba(6, 95, 70, 0.08);
-      border: 1px solid rgba(16, 185, 129, 0.1);
+    /* সার্চ বক্স */
+    .search-box {
+      background: white;
+      border-radius: 16px;
+      padding: 24px;
+      box-shadow: var(--card-shadow);
+      border: 1px solid var(--border-color);
+      margin-top: -40px;
       position: relative;
       z-index: 10;
-      margin-top: -3.5rem !important;
-      overflow: visible;
     }
 
-    /* জেন্ডার ট্যাব */
+    /* ভোটার কার্ড */
+    .voter-card {
+      background: white;
+      border-radius: 14px;
+      border: 1px solid var(--border-color);
+      box-shadow: var(--card-shadow);
+      transition: all 0.3s ease;
+      overflow: hidden;
+    }
+
+    .voter-card:hover {
+      box-shadow: var(--card-hover-shadow);
+      transform: translateY(-2px);
+    }
+
+    .card-header {
+      background: linear-gradient(to right, #f8f9fa, #e8f5e9);
+      padding: 16px;
+      border-bottom: 1px solid var(--border-color);
+    }
+
+    .serial-number {
+      background: var(--primary-color);
+      color: white;
+      width: 40px;
+      height: 40px;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: bold;
+      font-size: 18px;
+    }
+
+    /* বাটন */
+    .btn-primary {
+      background: linear-gradient(to right, var(--primary-color), var(--secondary-color));
+      color: white;
+      border: none;
+      border-radius: 10px;
+      padding: 14px 24px;
+      font-weight: 600;
+      font-size: 15px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+    }
+
+    .btn-primary:hover {
+      opacity: 0.95;
+      transform: translateY(-1px);
+      box-shadow: 0 6px 20px rgba(30, 108, 50, 0.2);
+    }
+
+    .btn-secondary {
+      background: #f8f9fa;
+      color: var(--text-dark);
+      border: 1px solid var(--border-color);
+      border-radius: 10px;
+      padding: 12px 20px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .btn-secondary:hover {
+      background: #e9ecef;
+    }
+
+    /* ইনপুট ফিল্ড */
+    .input-field {
+      width: 100%;
+      padding: 14px 16px;
+      border: 2px solid #e2e8f0;
+      border-radius: 10px;
+      font-size: 15px;
+      font-family: 'SolaimanLipi', Arial, sans-serif;
+      transition: all 0.3s ease;
+      background: white;
+    }
+
+    .input-field:focus {
+      outline: none;
+      border-color: var(--primary-color);
+      box-shadow: 0 0 0 3px rgba(30, 108, 50, 0.1);
+    }
+
+    /* ট্যাব */
     .gender-tabs {
       display: flex;
-      background: #f1f5f9;
-      border-radius: 14px;
-      padding: 6px;
+      background: #f8f9fa;
+      border-radius: 10px;
+      padding: 4px;
     }
 
     .gender-tab {
       flex: 1;
-      padding: 14px;
-      border-radius: 10px;
-      font-weight: 800;
-      font-size: 14px;
-      transition: all 0.3s ease;
+      padding: 12px;
+      text-align: center;
       border: none;
       background: transparent;
-      color: #64748b;
+      font-weight: 600;
+      font-size: 14px;
+      cursor: pointer;
+      border-radius: 8px;
+      transition: all 0.3s ease;
+      color: var(--text-light);
     }
 
     .gender-tab.active {
-      background: var(--surface);
-      color: var(--primary);
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+      background: white;
+      color: var(--primary-color);
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
     }
 
-    /* ইনপুট ফিল্ড */
-    .search-input {
-      background: #f8fafc;
-      border: 2px solid #e2e8f0;
-      transition: all 0.3s ease;
-      font-size: 16px;
-    }
-
-    .search-input:focus {
-      border-color: var(--primary);
-      box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.1);
-      background: var(--surface);
-    }
-
-    /* ভোটার কার্ড - কম্প্যাক্ট */
-    .voter-card-mini {
-      background: var(--surface);
-      border-radius: 18px;
-      border: 1px solid #e2e8f0;
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03);
-      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-      position: relative;
-      overflow: hidden;
-      margin-bottom: 12px;
-    }
-
-    .voter-card-mini:hover {
-      transform: translateY(-3px);
-      box-shadow: 0 8px 25px rgba(6, 95, 70, 0.1);
-      border-color: var(--primary);
-    }
-
-    .voter-card-mini::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 5px;
-      height: 100%;
-      background: linear-gradient(to bottom, var(--primary), var(--primary-dark));
-    }
-
-    /* সিরিয়াল হাইলাইট */
-    .serial-highlight {
-      background: linear-gradient(135deg, var(--primary), var(--primary-dark));
-      color: white;
-      font-weight: 900;
+    /* নোটিফিকেশন */
+    .notification {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      background: white;
       border-radius: 12px;
-      padding: 8px 16px;
-      display: inline-flex;
-      flex-direction: column;
+      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
+      padding: 16px 20px;
+      display: flex;
       align-items: center;
-      box-shadow: 0 4px 15px rgba(16, 185, 129, 0.3);
+      gap: 12px;
+      z-index: 1000;
+      transform: translateX(150%);
+      transition: transform 0.4s ease;
+      max-width: 350px;
+      border-left: 4px solid var(--primary-color);
     }
 
-    /* অ্যাকশন বাটন */
-    .action-btn {
-      padding: 8px 16px;
-      border-radius: 10px;
-      font-weight: 700;
-      font-size: 12px;
-      transition: all 0.3s;
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      border: none;
-      cursor: pointer;
-    }
-
-    .action-btn.download {
-      background: linear-gradient(135deg, #d1fae5, #a7f3d0);
-      color: #065f46;
-    }
-
-    .action-btn.download:hover {
-      background: linear-gradient(135deg, #a7f3d0, #6ee7b7);
-      transform: translateY(-2px);
-      box-shadow: 0 6px 20px rgba(16, 185, 129, 0.2);
-    }
-
-    .action-btn.share {
-      background: linear-gradient(135deg, #dbeafe, #bfdbfe);
-      color: #1e40af;
-    }
-
-    .action-btn.share:hover {
-      background: linear-gradient(135deg, #bfdbfe, #93c5fd);
-      transform: translateY(-2px);
-      box-shadow: 0 6px 20px rgba(37, 99, 235, 0.2);
+    .notification.show {
+      transform: translateX(0);
     }
 
     /* লোডিং */
     .loader {
-      width: 48px;
-      height: 48px;
-      border: 3px solid #f3f4f6;
-      border-top: 3px solid var(--primary);
+      border: 3px solid #f3f3f3;
+      border-top: 3px solid var(--primary-color);
       border-radius: 50%;
+      width: 40px;
+      height: 40px;
       animation: spin 1s linear infinite;
     }
 
@@ -197,25 +220,64 @@
       100% { transform: rotate(360deg); }
     }
 
-    /* নোটিফিকেশন */
-    .toast {
-      position: fixed;
-      bottom: 20px;
-      left: 50%;
-      transform: translateX(-50%) translateY(100px);
-      background: var(--surface);
-      color: var(--primary-dark);
-      padding: 12px 20px;
-      border-radius: 12px;
-      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
-      font-weight: 600;
-      z-index: 1000;
-      transition: transform 0.4s ease;
-      border: 1px solid #d1fae5;
+    /* স্লিপ ডাউনলোড কার্ড */
+    .slip-card {
+      background: white;
+      border-radius: 16px;
+      width: 400px;
+      padding: 30px;
+      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+      border: 2px solid var(--primary-color);
     }
 
-    .toast.show {
-      transform: translateX(-50%) translateY(0);
+    .slip-header {
+      text-align: center;
+      margin-bottom: 25px;
+      padding-bottom: 20px;
+      border-bottom: 2px solid #e8f5e9;
+    }
+
+    .slip-title {
+      color: var(--primary-color);
+      font-size: 20px;
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+
+    .slip-subtitle {
+      color: var(--text-light);
+      font-size: 14px;
+    }
+
+    .info-row {
+      display: flex;
+      margin-bottom: 15px;
+      align-items: flex-start;
+    }
+
+    .info-label {
+      width: 120px;
+      font-weight: 600;
+      color: var(--text-light);
+      font-size: 14px;
+      flex-shrink: 0;
+    }
+
+    .info-value {
+      flex: 1;
+      font-weight: 600;
+      color: var(--text-dark);
+      font-size: 15px;
+      line-height: 1.5;
+    }
+
+    .slip-footer {
+      margin-top: 25px;
+      padding-top: 20px;
+      border-top: 1px solid #e8f5e9;
+      text-align: center;
+      color: var(--text-light);
+      font-size: 12px;
     }
 
     /* মডাল */
@@ -226,11 +288,10 @@
       width: 100%;
       height: 100%;
       background: rgba(0, 0, 0, 0.5);
-      backdrop-filter: blur(4px);
       display: flex;
       align-items: center;
       justify-content: center;
-      z-index: 1000;
+      z-index: 2000;
       padding: 20px;
       opacity: 0;
       visibility: hidden;
@@ -243,48 +304,40 @@
     }
 
     .modal-content {
-      background: var(--surface);
-      border-radius: 24px;
+      background: white;
+      border-radius: 20px;
       width: 100%;
-      max-width: 400px;
-      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
-      transform: translateY(20px);
-      transition: transform 0.3s ease;
+      max-width: 500px;
       max-height: 90vh;
       overflow-y: auto;
+      transform: translateY(20px);
+      transition: transform 0.3s ease;
     }
 
     .modal-overlay.active .modal-content {
       transform: translateY(0);
     }
 
-    /* ডাউনলোড কার্ড */
-    .download-card {
-      background: linear-gradient(135deg, #ffffff, #f8fafc);
-      border: 2px solid var(--primary);
-      border-radius: 20px;
-      position: relative;
-      overflow: hidden;
-    }
-
-    .download-card::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      height: 6px;
-      background: linear-gradient(to right, var(--primary), var(--primary-dark));
-    }
-
-    /* অ্যানিমেশন */
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(10px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-
-    .animate-fade-in {
-      animation: fadeIn 0.5s ease forwards;
+    /* রেস্পন্সিভ */
+    @media (max-width: 640px) {
+      .search-box {
+        padding: 20px;
+        margin-top: -30px;
+      }
+      
+      .slip-card {
+        width: 100%;
+        padding: 20px;
+      }
+      
+      .info-row {
+        flex-direction: column;
+        gap: 5px;
+      }
+      
+      .info-label {
+        width: 100%;
+      }
     }
 
     /* স্ক্রলবার */
@@ -307,256 +360,238 @@
     }
   </style>
 </head>
-<body class="pb-6">
-
-  <!-- মেইন হেডার -->
-  <header class="gradient-header text-white pt-8 pb-12 px-5">
-    <div class="text-center relative z-10">
-      <!-- লোগো/আইকন -->
-      <div class="w-16 h-16 rounded-2xl bg-white/10 backdrop-blur-sm flex items-center justify-center mx-auto mb-4 border border-white/20">
-        <i class="fas fa-vote-yea text-2xl text-white"></i>
-      </div>
-      
-      <!-- টাইটেল -->
-      <h1 class="text-2xl font-black mb-2 tracking-tight">দৌলতপুর ৩নং ওয়ার্ড</h1>
-      <p class="text-sm opacity-90 mb-4">ভোটার তথ্য ব্যবস্থাপনা</p>
-      
-      <!-- তথ্য বক্স -->
-      <div class="floating-element rounded-xl p-4 max-w-sm mx-auto">
-        <div class="flex items-center justify-center gap-3 mb-2">
-          <div class="w-2 h-2 bg-emerald-300 rounded-full animate-pulse"></div>
-          <span class="text-sm font-bold">এরিয়া এলাকা কোড: ১৮৮৩</span>
-        </div>
-        <p class="text-xs opacity-80">দৌলতপুর দীঘিরপাড় সরকারী প্রাথমিক বিদ্যালয়</p>
-      </div>
+<body>
+  <!-- নোটিফিকেশন -->
+  <div class="notification" id="notification">
+    <div class="w-10 h-10 rounded-full bg-green-100 flex items-center justify-center flex-shrink-0">
+      <i class="fas fa-check text-green-600"></i>
     </div>
-  </header>
+    <div>
+      <p class="font-bold text-gray-800 text-sm" id="notification-text">অপারেশন সফল</p>
+      <p class="text-xs text-gray-600" id="notification-detail">তথ্য লোড করা হয়েছে</p>
+    </div>
+  </div>
 
-  <!-- মেইন কন্টেন্ট -->
-  <main class="max-w-md mx-auto px-4">
-    
-    <!-- সার্চ সেকশন -->
-    <div class="search-container p-5 mb-5">
-      <div class="flex items-center gap-3 mb-4">
-        <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-emerald-500 to-emerald-600 flex items-center justify-center shadow-lg">
-          <i class="fas fa-search text-white text-lg"></i>
-        </div>
-        <div>
-          <h2 class="font-black text-slate-800 text-lg">ভোটার অনুসন্ধান</h2>
-          <p class="text-sm text-slate-500">নাম অথবা পিতার নাম লিখুন</p>
-        </div>
-      </div>
-
-      <!-- জেন্ডার সিলেক্টর -->
-      <div class="mb-4">
-        <p class="text-sm font-semibold text-slate-600 mb-2">লিঙ্গ নির্বাচন করুন</p>
-        <div class="gender-tabs">
-          <button onclick="setGender('Male')" id="maleBtn" class="gender-tab active">
-            <i class="fas fa-mars mr-2"></i>পুরুষ
-          </button>
-          <button onclick="setGender('Female')" id="femaleBtn" class="gender-tab">
-            <i class="fas fa-venus mr-2"></i>মহিলা
-          </button>
-        </div>
-      </div>
-
-      <!-- সার্চ ইনপুট -->
-      <div class="mb-5">
-        <div class="relative">
-          <input type="text" id="searchInput" 
-                 class="search-input w-full px-5 py-4 rounded-xl outline-none text-slate-800 font-medium placeholder-slate-300"
-                 placeholder="নাম/পিতা/মাতা/জন্মতারিখ/ঠিকানা দিন">
-          <div class="absolute right-4 top-1/2 transform -translate-y-1/2 text-slate-400">
-            <i class="fas fa-user-edit"></i>
+  <!-- মূল কন্টেন্ট -->
+  <div id="mainContent">
+    <!-- হেডার -->
+    <div class="main-header">
+      <div class="header-pattern"></div>
+      <div class="container mx-auto px-4 relative">
+        <div class="text-center">
+          <div class="w-16 h-16 rounded-2xl bg-white/10 backdrop-blur-sm flex items-center justify-center mx-auto mb-4 border border-white/20">
+            <i class="fas fa-vote-yea text-2xl text-white"></i>
+          </div>
+          
+          <h1 class="text-2xl font-bold mb-2">দৌলতপুর ৩নং ওয়ার্ড</h1>
+          <p class="text-sm opacity-90 mb-4">ভোটার তথ্য ব্যবস্থাপনা</p>
+          
+          <div class="inline-block px-4 py-2 bg-white/10 rounded-full backdrop-blur-sm">
+            <p class="text-sm font-medium">এরিয়া কোড: ১৮৮৩</p>
           </div>
         </div>
-        <p class="text-xs text-slate-400 mt-2">কমপক্ষে ২টি অক্ষর লিখুন</p>
-      </div>
-
-      <!-- সার্চ বাটন -->
-      <button onclick="handleSearch()" 
-              class="w-full py-4 rounded-xl bg-gradient-to-r from-slate-800 to-slate-900 text-white font-black text-lg shadow-lg hover:shadow-xl active:scale-[0.98] transition-all duration-300">
-        <i class="fas fa-search mr-2"></i>
-        অনুসন্ধান শুরু করুন
-      </button>
-    </div>
-
-    <!-- সতর্কতা নোট -->
-    <div class="bg-gradient-to-r from-amber-50 to-amber-100 border border-amber-200 rounded-xl p-4 mb-5">
-      <div class="flex items-start gap-3">
-        <i class="fas fa-info-circle text-amber-600 text-lg mt-0.5"></i>
-        <div>
-          <p class="text-sm font-bold text-amber-800 mb-1">স্বেচ্ছাসেবী উদ্যোগ</p>
-          <p class="text-xs text-amber-700">সরকারি ভোটার তালিকা চূড়ান্ত। তথ্য যাচাই করুন।</p>
-        </div>
       </div>
     </div>
 
-    <!-- রেজাল্টস সেকশন -->
-    <div>
-      <!-- হেডার -->
-      <div class="flex items-center justify-between mb-4">
-        <h3 class="font-black text-slate-800 text-base">
-          <i class="fas fa-users text-emerald-600 mr-2"></i>
-          ভোটার তালিকা
-        </h3>
-        <span id="resultCount" class="text-xs font-bold text-slate-500">--</span>
-      </div>
-      
-      <!-- লোডার -->
-      <div id="loader" class="hidden">
-        <div class="flex flex-col items-center py-10">
-          <div class="loader mb-4"></div>
-          <p class="text-sm font-medium text-slate-600">তথ্য লোড হচ্ছে...</p>
+    <!-- সার্চ বক্স -->
+    <div class="container mx-auto px-4">
+      <div class="search-box">
+        <div class="flex items-center gap-3 mb-6">
+          <div class="w-12 h-12 rounded-lg bg-green-100 flex items-center justify-center">
+            <i class="fas fa-search text-green-600"></i>
+          </div>
+          <div>
+            <h2 class="text-lg font-bold text-gray-800">ভোটার অনুসন্ধান</h2>
+            <p class="text-sm text-gray-600">নাম অথবা পিতার নাম লিখুন</p>
+          </div>
+        </div>
+
+        <div class="space-y-5">
+          <div>
+            <label class="block text-sm font-medium text-gray-700 mb-2">লিঙ্গ নির্বাচন করুন</label>
+            <div class="gender-tabs">
+              <button onclick="setGender('Male')" id="maleBtn" class="gender-tab active">
+                <i class="fas fa-mars mr-2"></i>পুরুষ
+              </button>
+              <button onclick="setGender('Female')" id="femaleBtn" class="gender-tab">
+                <i class="fas fa-venus mr-2"></i>মহিলা
+              </button>
+            </div>
+          </div>
+
+          <div>
+            <label class="block text-sm font-medium text-gray-700 mb-2">নাম অথবা পিতার নাম লিখুন</label>
+            <input type="text" id="searchInput" class="input-field" placeholder="নাম/পিতা/মাতা/জন্মতারিখ/ঠিকানা দিন">
+            <p class="text-xs text-gray-500 mt-1">কমপক্ষে ২ অক্ষর লিখুন</p>
+          </div>
+
+          <button onclick="handleSearch()" class="btn-primary w-full">
+            <i class="fas fa-search"></i>
+            অনুসন্ধান করুন
+          </button>
         </div>
       </div>
 
-      <!-- ভোটার কার্ডস -->
-      <div id="resultsArea" class="space-y-3"></div>
-      
-      <!-- নো রেজাল্ট -->
-      <div id="noResults" class="hidden text-center py-10">
-        <div class="w-16 h-16 rounded-full bg-slate-100 flex items-center justify-center mx-auto mb-4">
-          <i class="fas fa-search text-2xl text-slate-400"></i>
-        </div>
-        <h4 class="font-bold text-slate-600 mb-2">কোন ভোটার পাওয়া যায়নি</h4>
-        <p class="text-sm text-slate-500">আরেকটি নাম দিয়ে চেষ্টা করুন</p>
+      <!-- সতর্কবার্তা -->
+      <div class="mt-5 p-4 bg-yellow-50 border border-yellow-200 rounded-lg">
+        <p class="text-sm text-yellow-800 text-center">
+          <i class="fas fa-exclamation-triangle mr-1"></i>
+          সতর্কবার্তা: সরকারি ভোটার তালিকা চূড়ান্ত। তথ্য যাচাই করুন।
+        </p>
       </div>
+
+      <!-- ফলাফল -->
+      <div class="mt-6">
+        <div class="flex justify-between items-center mb-4">
+          <h3 class="text-lg font-bold text-gray-800" id="resultTitle">ভোটার তালিকা</h3>
+          <span class="text-sm text-gray-600" id="resultCount">০টি ফলাফল</span>
+        </div>
+
+        <!-- লোডার -->
+        <div id="loader" class="hidden py-10">
+          <div class="flex flex-col items-center">
+            <div class="loader mb-4"></div>
+            <p class="text-gray-600">তথ্য লোড হচ্ছে...</p>
+          </div>
+        </div>
+
+        <!-- ভোটার লিস্ট -->
+        <div id="resultsArea" class="space-y-4"></div>
+
+        <!-- কোনো ফলাফল না পাওয়া গেলে -->
+        <div id="noResults" class="hidden py-10 text-center">
+          <div class="w-16 h-16 rounded-full bg-gray-100 flex items-center justify-center mx-auto mb-4">
+            <i class="fas fa-search text-gray-400"></i>
+          </div>
+          <h4 class="text-lg font-bold text-gray-700 mb-2">কোন ভোটার পাওয়া যায়নি</h4>
+          <p class="text-gray-600">দয়া করে ভিন্ন কীওয়ার্ড দিয়ে আবার চেষ্টা করুন</p>
+        </div>
+      </div>
+
+      <!-- সাপোর্ট -->
+      <div class="mt-8 bg-white rounded-lg p-5 border border-gray-200">
+        <div class="flex items-center gap-3 mb-4">
+          <div class="w-12 h-12 rounded-lg bg-blue-100 flex items-center justify-center">
+            <i class="fas fa-headset text-blue-600"></i>
+          </div>
+          <div>
+            <h4 class="font-bold text-gray-800">মোঃ আবু সুফিয়ান</h4>
+            <p class="text-sm text-gray-600">আইটি সাপোর্ট</p>
+          </div>
+        </div>
+        <div class="space-y-3">
+          <a href="https://www.facebook.com/mdsofian68" target="_blank" class="flex items-center gap-2 text-blue-600 hover:text-blue-700">
+            <i class="fab fa-facebook"></i>
+            <span>facebook.com/mdsofian68</span>
+          </a>
+          <a href="tel:01871536468" class="flex items-center gap-2 text-green-600 hover:text-green-700">
+            <i class="fas fa-phone"></i>
+            <span>০১৮৭১-৫৩৬৪৬৮</span>
+          </a>
+        </div>
+      </div>
+
+      <!-- ফুটার -->
+      <footer class="mt-8 pt-6 border-t border-gray-200 text-center">
+        <p class="text-sm text-gray-600 mb-1">© ২০২৬ দৌলতপুর ৩নং ওয়ার্ড</p>
+        <p class="text-xs text-gray-500">ডিজিটাল ভোটার স্লিপ ব্যবস্থাপনা</p>
+      </footer>
     </div>
+  </div>
 
-    <!-- সাপোর্ট সেকশন -->
-    <div class="mt-8 bg-white rounded-2xl p-5 border border-slate-200">
-      <div class="flex items-center gap-3 mb-3">
-        <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-blue-100 to-blue-200 flex items-center justify-center">
-          <i class="fas fa-headset text-blue-700 text-lg"></i>
-        </div>
-        <div>
-          <h4 class="font-bold text-slate-800">মোঃ আবু সুফিয়ান</h4>
-          <p class="text-xs text-slate-600 bg-blue-50 inline-block px-2 py-1 rounded-full">আইটি সাপোর্ট</p>
-        </div>
-      </div>
-      <div class="flex gap-4">
-        <a href="https://facebook.com/mdsofian68" target="_blank" 
-           class="text-sm text-blue-600 hover:text-blue-700 font-semibold">
-          <i class="fab fa-facebook mr-1"></i>ফেসবুক
-        </a>
-        <a href="tel:01871536468" class="text-sm text-emerald-600 hover:text-emerald-700 font-semibold">
-          <i class="fas fa-phone mr-1"></i>কল করুন
-        </a>
-      </div>
-    </div>
-
-    <!-- ফুটার -->
-    <footer class="mt-8 pt-6 border-t border-slate-200 text-center">
-      <p class="text-xs text-slate-500 font-medium">© ২০২৬ দৌলতপুর ৩নং ওয়ার্ড</p>
-      <p class="text-[10px] text-slate-400 mt-1">ডিজিটাল ভোটার স্লিপ ব্যবস্থাপনা</p>
-    </footer>
-
-  </main>
-
-  <!-- ডাউনলোড মডাল -->
-  <div id="downloadModal" class="modal-overlay">
-    <div class="modal-content animate-fade-in">
+  <!-- স্লিপ ডাউনলোড মডাল -->
+  <div id="slipModal" class="modal-overlay">
+    <div class="modal-content">
       <div class="p-6">
-        <!-- হেডার -->
         <div class="flex justify-between items-center mb-6">
-          <h3 class="font-black text-slate-800 text-lg">ভোটার স্লিপ ডাউনলোড</h3>
-          <button onclick="closeDownloadModal()" class="w-10 h-10 rounded-full bg-slate-100 hover:bg-slate-200 flex items-center justify-center transition-colors">
-            <i class="fas fa-times text-slate-600"></i>
+          <h3 class="text-lg font-bold text-gray-800">ভোটার স্লিপ ডাউনলোড</h3>
+          <button onclick="closeSlipModal()" class="w-10 h-10 rounded-full bg-gray-100 hover:bg-gray-200 flex items-center justify-center transition-colors">
+            <i class="fas fa-times text-gray-600"></i>
           </button>
         </div>
-        
-       <!-- ডাউনলোড মডালে কার্ড কন্টেন্ট -->
-<div id="downloadCard" class="download-card p-5 mb-6">
-  <!-- সিরিয়াল নম্বর - সরাসরি বাংলা টেক্সট -->
-  <div class="text-center mb-4">
-    <div class="bg-gradient-to-r from-emerald-600 to-emerald-800 text-white font-black rounded-xl py-3 px-6 inline-block shadow-lg">
-      <div class="text-sm opacity-90">সিরিয়াল নং</div>
-      <div class="text-2xl tracking-wider" id="modalSerial">--</div>
-    </div>
-  </div>
-  
-  <!-- ভোটার তথ্য -->
-  <div class="space-y-4">
-    <!-- নাম -->
-    <div class="border border-slate-200 rounded-xl p-4 bg-white">
-      <p class="text-xs text-slate-500 font-bold mb-1">নাম</p>
-      <p class="text-base font-black text-slate-800" id="modalName">--</p>
-    </div>
-    
-    <!-- ভোটার নম্বর -->
-    <div class="border border-slate-200 rounded-xl p-4 bg-white">
-      <p class="text-xs text-slate-500 font-bold mb-1">ভোটার নম্বর</p>
-      <p class="text-base font-black text-slate-800" id="modalVoterNo">--</p>
-    </div>
-    
-    <!-- পিতার নাম এবং মাতার নাম - সাদা ব্যাকগ্রাউন্ড সেট করুন -->
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-      <div class="border border-slate-200 rounded-xl p-4 bg-white">
-        <p class="text-xs text-slate-500 font-bold mb-1">পিতার নাম</p>
-        <p class="text-sm font-bold text-slate-800 min-h-[24px]" id="modalFather">--</p>
-      </div>
-      <div class="border border-slate-200 rounded-xl p-4 bg-white">
-        <p class="text-xs text-slate-500 font-bold mb-1">মাতার নাম</p>
-        <p class="text-sm font-bold text-slate-800 min-h-[24px]" id="modalMother">--</p>
-      </div>
-    </div>
-    
-    <!-- জন্ম তারিখ -->
-    <div class="border border-slate-200 rounded-xl p-4 bg-white">
-      <p class="text-xs text-slate-500 font-bold mb-1">জন্ম তারিখ</p>
-      <p class="text-sm font-bold text-slate-800" id="modalDob">--</p>
-    </div>
-    
-    <!-- ওয়ার্ড তথ্য -->
-    <div class="bg-slate-50 border border-slate-200 rounded-xl p-4">
-      <div class="flex justify-between items-center mb-2">
-        <p class="text-sm font-bold text-slate-800">ওয়ার্ড ০৩</p>
-        <p class="text-sm font-bold text-emerald-700">এলাকা কোড: ১৮৮৩</p>
-      </div>
-      <p class="text-sm text-slate-600">দৌলতপুর দীঘিরপাড় প্রাথমিক বিদ্যালয়</p>
-    </div>
-  </div>
-  
-  <!-- ফুটার -->
-  <div class="border-t border-slate-200 mt-4 pt-3">
-    <p class="text-xs text-slate-400 text-center">
-      ডাউনলোড তারিখ: <span id="modalDate">--</span>
-    </p>
-  </div>
-</div>
+
+        <!-- স্লিপ কার্ড -->
+        <div id="slipCard" class="slip-card mx-auto">
+          <!-- হেডার -->
+          <div class="slip-header">
+            <h2 class="slip-title">দৌলতপুর ৩নং ওয়ার্ড</h2>
+            <p class="slip-subtitle">ভোটার তথ্য স্লিপ</p>
+          </div>
+
+          <!-- সিরিয়াল নম্বর -->
+          <div class="text-center mb-6">
+            <div class="inline-block px-6 py-3 bg-green-100 rounded-lg">
+              <p class="text-sm text-gray-600 font-medium">সিরিয়াল নং</p>
+              <p class="text-2xl font-bold text-green-700" id="slipSerial">০০</p>
+            </div>
+          </div>
+
+          <!-- ভোটার তথ্য -->
+          <div class="space-y-4">
+            <div class="info-row">
+              <span class="info-label">নাম:</span>
+              <span class="info-value" id="slipName">-</span>
+            </div>
+            <div class="info-row">
+              <span class="info-label">ভোটার নম্বর:</span>
+              <span class="info-value" id="slipVoterNo">-</span>
+            </div>
+            <div class="info-row">
+              <span class="info-label">পিতার নাম:</span>
+              <span class="info-value" id="slipFather">-</span>
+            </div>
+            <div class="info-row">
+              <span class="info-label">মাতার নাম:</span>
+              <span class="info-value" id="slipMother">-</span>
+            </div>
+            <div class="info-row">
+              <span class="info-label">জন্ম তারিখ:</span>
+              <span class="info-value" id="slipDob">-</span>
+            </div>
+            <div class="info-row">
+              <span class="info-label">ওয়ার্ড তথ্য:</span>
+              <span class="info-value">ওয়ার্ড ০৩, এলাকা কোড: ১৮৮৩</span>
+            </div>
+          </div>
+
+          <!-- ফুটার -->
+          <div class="slip-footer">
+            <p id="slipDate">ডাউনলোড তারিখ: -</p>
+            <p class="mt-1">দৌলতপুর দীঘিরপাড় সরকারী প্রাথমিক বিদ্যালয়</p>
+            <p class="text-xs mt-2 text-gray-500">সরকারি ভোটার তালিকা চূড়ান্ত। তথ্য যাচাই করুন।</p>
+          </div>
+        </div>
+
         <!-- অ্যাকশন বাটন -->
-        <div class="grid grid-cols-2 gap-3">
-          <button onclick="downloadAsImage()" class="action-btn download">
+        <div class="flex gap-3 mt-6">
+          <button onclick="downloadSlip()" class="btn-primary flex-1">
             <i class="fas fa-download"></i>
-            স্লিপ ডাউনলোড
+            ছবি ডাউনলোড
           </button>
-          <button onclick="shareVoterInfo()" class="action-btn share">
+          <button onclick="shareSlip()" class="btn-secondary flex-1">
             <i class="fas fa-share-alt"></i>
             শেয়ার করুন
           </button>
         </div>
-        
-        <p class="text-xs text-slate-400 mt-4 text-center">
-          ভোটার স্লিপটি আপনার গ্যালারিতে সেভ হবে
+
+        <p class="text-sm text-gray-500 mt-4 text-center">
+          ছবিটি আপনার গ্যালারিতে স্বয়ংক্রিয়ভাবে সেভ হবে
         </p>
       </div>
     </div>
   </div>
 
-  <!-- HTML2Canvas লাইব্রেরি -->
-  <script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
-  
   <script>
+    // ভেরিয়েবল
     let currentGender = 'Male';
     let currentVoterData = null;
-    const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbyYlqsTVz_vim5MsONPJ0bi8CwtNeJYTZIoLrkKU6QZlwuZbhLVZpMbi7xopkx_MhE/exec"; 
+    const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbyYlqsTVz_vim5MsONPJ0bi8CwtNeJYTZIoLrkKU6QZlwuZbhLVZpMbi7xopkx_MhE/exec";
 
-    // ইংরেজি সংখ্যাকে বাংলায় রূপান্তর
+    // ইংরেজি সংখ্যাকে বাংলায় রূপান্তর
     function toBengaliNumber(number) {
       if (!number && number !== 0) return '---';
       const englishDigits = { '0': '০', '1': '১', '2': '২', '3': '৩', '4': '৪', '5': '৫', '6': '৬', '7': '৭', '8': '৮', '9': '৯' };
-      return number.toString().replace(/[0-9]/g, (w) => englishDigits[w]);
+      return number.toString().replace(/[0-9]/g, w => englishDigits[w]);
     }
 
     // লিঙ্গ সেট করা
@@ -575,124 +610,158 @@
       }
     }
 
-    // টোস্ট মেসেজ শো করা
-    function showToast(message, type = 'info') {
-      const toast = document.createElement('div');
-      toast.className = `toast ${type === 'success' ? 'bg-emerald-50 border-emerald-200' : 
-                                type === 'error' ? 'bg-rose-50 border-rose-200' : 
-                                'bg-blue-50 border-blue-200'}`;
-      toast.textContent = message;
-      document.body.appendChild(toast);
+    // নোটিফিকেশন
+    function showNotification(title, detail, type = 'success') {
+      const notification = document.getElementById('notification');
+      const notificationText = document.getElementById('notification-text');
+      const notificationDetail = document.getElementById('notification-detail');
+      
+      // টাইপ অনুযায়ী স্টাইল
+      const icon = notification.querySelector('div i');
+      const iconContainer = notification.querySelector('div');
+      
+      if (type === 'error') {
+        icon.className = 'fas fa-exclamation-circle text-red-600';
+        iconContainer.className = 'w-10 h-10 rounded-full bg-red-100 flex items-center justify-center flex-shrink-0';
+        notification.style.borderLeftColor = '#ef4444';
+      } else if (type === 'info') {
+        icon.className = 'fas fa-info-circle text-blue-600';
+        iconContainer.className = 'w-10 h-10 rounded-full bg-blue-100 flex items-center justify-center flex-shrink-0';
+        notification.style.borderLeftColor = '#3b82f6';
+      } else {
+        icon.className = 'fas fa-check text-green-600';
+        iconContainer.className = 'w-10 h-10 rounded-full bg-green-100 flex items-center justify-center flex-shrink-0';
+        notification.style.borderLeftColor = '#10b981';
+      }
+      
+      notificationText.textContent = title;
+      notificationDetail.textContent = detail;
+      
+      notification.classList.add('show');
       
       setTimeout(() => {
-        toast.classList.add('show');
-      }, 10);
-      
-      setTimeout(() => {
-        toast.classList.remove('show');
-        setTimeout(() => toast.remove(), 400);
+        notification.classList.remove('show');
       }, 3000);
     }
 
-    // ডাউনলোড মডাল খোলা
-    function openDownloadModal(voterData) {
+    // স্লিপ মডাল
+    function openSlipModal(voterData) {
       currentVoterData = voterData;
-      const modal = document.getElementById('downloadModal');
       
-      // ডেটা সেট করা
-      document.getElementById('modalSerial').textContent = toBengaliNumber(voterData.serial);
-      document.getElementById('modalName').textContent = voterData.name;
-      document.getElementById('modalVoterNo').textContent = toBengaliNumber(voterData.voterNo || '---');
-      document.getElementById('modalFather').textContent = voterData.father;
-      document.getElementById('modalMother').textContent = voterData.mother || '--'; // মাতার নাম যোগ করা হয়েছে
-      document.getElementById('modalDob').textContent = toBengaliNumber(voterData.dob);
-      document.getElementById('modalDate').textContent = new Date().toLocaleDateString('bn-BD');
+      // তথ্য সেট করা
+      document.getElementById('slipSerial').textContent = toBengaliNumber(voterData.serial || '00');
+      document.getElementById('slipName').textContent = voterData.name || '-';
+      document.getElementById('slipVoterNo').textContent = toBengaliNumber(voterData.voterNo || '---');
+      document.getElementById('slipFather').textContent = voterData.father || '-';
+      document.getElementById('slipMother').textContent = voterData.mother || '-';
+      document.getElementById('slipDob').textContent = toBengaliNumber(voterData.dob || '-');
+      document.getElementById('slipDate').textContent = `ডাউনলোড তারিখ: ${new Date().toLocaleDateString('bn-BD')}`;
       
-      modal.classList.add('active');
+      document.getElementById('slipModal').classList.add('active');
     }
 
-    // ডাউনলোড মডাল বন্ধ করা
-    function closeDownloadModal() {
-      document.getElementById('downloadModal').classList.remove('active');
+    function closeSlipModal() {
+      document.getElementById('slipModal').classList.remove('active');
     }
 
- // ছবি হিসেবে ডাউনলোড - উন্নত সংস্করণ
-async function downloadAsImage() {
-  const element = document.getElementById('downloadCard');
-  
-  try {
-    showToast('ছবি তৈরি হচ্ছে...', 'info');
-    
-    // ডাউনলোড কার্ডের জন্য অতিরিক্ত স্টাইল যোগ
-    const originalStyles = {
-      width: element.style.width,
-      backgroundColor: element.style.backgroundColor,
-      boxShadow: element.style.boxShadow
-    };
-    
-    // ডাউনলোডের জন্য স্টাইল অপটিমাইজ
-    element.style.width = '400px';
-    element.style.backgroundColor = '#ffffff';
-    element.style.boxShadow = 'none';
-    
-    const canvas = await html2canvas(element, {
-      scale: 3,
-      backgroundColor: '#ffffff', // সাদা ব্যাকগ্রাউন্ড সেট করুন
-      useCORS: true,
-      logging: false,
-      allowTaint: true,
-      removeContainer: true,
-      onclone: function(clonedDoc) {
-        // ক্লোন করা এলিমেন্টেও স্টাইল সেট করুন
-        const clonedCard = clonedDoc.getElementById('downloadCard');
-        if (clonedCard) {
-          clonedCard.style.width = '400px';
-          clonedCard.style.backgroundColor = '#ffffff';
-          clonedCard.style.boxShadow = 'none';
-          
-          // টেক্সট এলিমেন্টগুলির জন্য অতিরিক্ত স্টাইল
-          const textElements = clonedCard.querySelectorAll('p, div');
-          textElements.forEach(el => {
-            el.style.color = '#000000';
-            el.style.backgroundColor = 'transparent';
-          });
-        }
+    // স্লিপ ডাউনলোড (ছবি হিসেবে)
+    async function downloadSlip() {
+      const element = document.getElementById('slipCard');
+      
+      try {
+        showNotification('ছবি তৈরি হচ্ছে...', 'অনুগ্রহ করে অপেক্ষা করুন', 'info');
+        
+        // HTML2Canvas অপশন
+        const canvas = await html2canvas(element, {
+          scale: 3,
+          backgroundColor: '#ffffff',
+          useCORS: true,
+          logging: false,
+          allowTaint: true,
+          onclone: function(clonedDoc) {
+            // ক্লোন করা এলিমেন্টে অতিরিক্ত স্টাইল
+            const clonedCard = clonedDoc.getElementById('slipCard');
+            if (clonedCard) {
+              clonedCard.style.width = '400px';
+              clonedCard.style.padding = '30px';
+              clonedCard.style.boxSizing = 'border-box';
+              
+              // সমস্ত টেক্সট এলিমেন্টে স্টাইল
+              const textElements = clonedCard.querySelectorAll('*');
+              textElements.forEach(el => {
+                el.style.fontFamily = "'SolaimanLipi', Arial, sans-serif";
+                el.style.color = '#1a1a1a';
+                el.style.backgroundColor = 'transparent';
+              });
+            }
+          }
+        });
+        
+        // ছবি ডাউনলোড
+        const link = document.createElement('a');
+        const fileName = `ভোটার_স্লিপ_${currentVoterData.serial || '00'}.png`;
+        link.download = fileName;
+        link.href = canvas.toDataURL('image/png', 1.0);
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+        
+        showNotification('ডাউনলোড সফল', 'ছবিটি আপনার গ্যালারিতে সেভ হয়েছে', 'success');
+      } catch (error) {
+        console.error('ছবি ডাউনলোডে সমস্যা:', error);
+        showNotification('ডাউনলোড ব্যর্থ', 'দয়া করে আবার চেষ্টা করুন', 'error');
       }
-    });
-    
-    // মূল স্টাইল ফিরিয়ে দিন
-    element.style.width = originalStyles.width;
-    element.style.backgroundColor = originalStyles.backgroundColor;
-    element.style.boxShadow = originalStyles.boxShadow;
-    
-    const link = document.createElement('a');
-    link.download = `ভোটার_স্লিপ_${currentVoterData.serial}.png`;
-    link.href = canvas.toDataURL('image/png', 1.0);
-    link.click();
-    
-    showToast('ছবি ডাউনলোড শুরু হয়েছে', 'success');
-  } catch (error) {
-    console.error('Error downloading image:', error);
-    showToast('ডাউনলোড ব্যর্থ হয়েছে', 'error');
-  }
-}
-    // সার্চ হ্যান্ডলার
+    }
+
+    // শেয়ার ফাংশন
+    function shareSlip() {
+      const shareText = `ভোটার স্লিপ - ${currentVoterData.name}, ভোটার নং: ${toBengaliNumber(currentVoterData.voterNo || '---')}, দৌলতপুর ৩নং ওয়ার্ড`;
+      
+      if (navigator.share) {
+        navigator.share({
+          title: 'দৌলতপুর ভোটার তথ্য',
+          text: shareText,
+          url: window.location.href
+        }).then(() => {
+          showNotification('শেয়ার সফল', 'তথ্য শেয়ার করা হয়েছে', 'success');
+        }).catch(() => {
+          copyToClipboard(shareText);
+        });
+      } else {
+        copyToClipboard(shareText);
+      }
+    }
+
+    // ক্লিপবোর্ডে কপি
+    function copyToClipboard(text) {
+      navigator.clipboard.writeText(text).then(() => {
+        showNotification('কপি করা হয়েছে', 'তথ্য ক্লিপবোর্ডে সংরক্ষিত', 'success');
+      }).catch(() => {
+        showNotification('কপি ব্যর্থ', 'দয়া করে ম্যানুয়ালি কপি করুন', 'error');
+      });
+    }
+
+    // সার্চ ফাংশন
     async function handleSearch() {
       const query = document.getElementById('searchInput').value.trim();
-      const loader = document.getElementById('loader');
-      const area = document.getElementById('resultsArea');
-      const noResults = document.getElementById('noResults');
-      const resultCount = document.getElementById('resultCount');
-
+      
       if (query.length < 2) {
-        showToast('কমপক্ষে ২ অক্ষর লিখুন', 'error');
+        showNotification('অনুসন্ধান ব্যর্থ', 'কমপক্ষে ২ অক্ষর লিখুন', 'error');
         return;
       }
       
-      area.innerHTML = '';
+      // UI আপডেট
+      const loader = document.getElementById('loader');
+      const resultsArea = document.getElementById('resultsArea');
+      const noResults = document.getElementById('noResults');
+      const resultCount = document.getElementById('resultCount');
+      const resultTitle = document.getElementById('resultTitle');
+      
+      resultsArea.innerHTML = '';
       noResults.classList.add('hidden');
       loader.classList.remove('hidden');
-      resultCount.textContent = 'অনুসন্ধান হচ্ছে...';
+      resultTitle.textContent = 'অনুসন্ধান চলছে...';
+      resultCount.textContent = 'লোড হচ্ছে...';
 
       try {
         const response = await fetch(`${SCRIPT_URL}?query=${encodeURIComponent(query)}&gender=${currentGender}&ward=3`);
@@ -702,98 +771,104 @@ async function downloadAsImage() {
         
         if (data.length === 0) {
           noResults.classList.remove('hidden');
-          resultCount.textContent = 'কিছু নেই';
-          showToast('কোন ভোটার পাওয়া যায়নি', 'info');
+          resultTitle.textContent = 'ভোটার তালিকা';
+          resultCount.textContent = '০টি ফলাফল';
+          showNotification('কোন তথ্য নেই', 'আপনার অনুসন্ধানের সাথে মিলছে না', 'info');
         } else {
           renderResults(data);
-          resultCount.textContent = `${toBengaliNumber(data.length)} জন`;
-          showToast(`${toBengaliNumber(data.length)} জন ভোটার পাওয়া গেছে`, 'success');
+          resultTitle.textContent = 'ভোটার তালিকা';
+          resultCount.textContent = `${toBengaliNumber(data.length)}টি ফলাফল`;
+          showNotification('অনুসন্ধান সফল', `${toBengaliNumber(data.length)}টি তথ্য পাওয়া গেছে`, 'success');
         }
-      } catch (err) {
+      } catch (error) {
         loader.classList.add('hidden');
+        resultTitle.textContent = 'ভোটার তালিকা';
         resultCount.textContent = 'ত্রুটি';
-        showToast('সার্ভার সমস্যা! পরে চেষ্টা করুন', 'error');
+        showNotification('সার্ভার সমস্যা', 'অনুগ্রহ করে পরে চেষ্টা করুন', 'error');
       }
     }
 
-    // রেজাল্ট রেন্ডার
+    // ফলাফল প্রদর্শন
     function renderResults(data) {
       const area = document.getElementById('resultsArea');
       
-      area.innerHTML = data.map((v, index) => `
-        <div class="voter-card-mini animate-fade-in" style="animation-delay: ${index * 0.05}s">
+      area.innerHTML = data.map((voter, index) => `
+        <div class="voter-card">
+          <div class="card-header flex items-center justify-between">
+            <div class="flex items-center gap-3">
+              <div class="serial-number">${toBengaliNumber(voter.serial)}</div>
+              <div>
+                <h4 class="font-bold text-gray-800">${voter.name}</h4>
+                <p class="text-xs text-gray-600">ওয়ার্ড ০৩</p>
+              </div>
+            </div>
+            <div class="flex gap-2">
+              <button onclick="openSlipModal(${JSON.stringify(voter).replace(/"/g, '&quot;')})" class="w-10 h-10 rounded-lg bg-green-100 hover:bg-green-200 flex items-center justify-center transition-colors">
+                <i class="fas fa-download text-green-600"></i>
+              </button>
+              <button onclick="shareVoter(${JSON.stringify(voter).replace(/"/g, '&quot;')})" class="w-10 h-10 rounded-lg bg-blue-100 hover:bg-blue-200 flex items-center justify-center transition-colors">
+                <i class="fas fa-share-alt text-blue-600"></i>
+              </button>
+            </div>
+          </div>
+          
           <div class="p-4">
-            <!-- হেডার -->
-            <div class="flex justify-between items-start mb-3">
-              <!-- সিরিয়াল -->
+            <div class="grid grid-cols-2 gap-4 mb-4">
               <div>
-                <div class="text-xs font-bold text-slate-500 mb-1">সিরিয়াল নং</div>
-                <div class="text-xl font-black text-emerald-700">${toBengaliNumber(v.serial)}</div>
-              </div>
-              
-              <!-- অ্যাকশন বাটন -->
-              <div class="flex gap-2">
-                <button onclick="openDownloadModal(${JSON.stringify(v).replace(/"/g, '&quot;')})" 
-                        class="action-btn download" title="ডাউনলোড">
-                  <i class="fas fa-download"></i>
-                </button>
-                <button onclick="openDownloadModal(${JSON.stringify(v).replace(/"/g, '&quot;')})" 
-                        class="action-btn share" title="শেয়ার">
-                  <i class="fas fa-share-alt"></i>
-                </button>
-              </div>
-            </div>
-            
-            <!-- ভোটার নাম -->
-            <h3 class="text-sm font-black text-slate-800 mb-2 truncate">${v.name}</h3>
-            
-            <!-- ভোটার নম্বর -->
-            <div class="mb-3">
-              <div class="text-xs font-bold text-slate-500">ভোটার নম্বর</div>
-              <div class="text-sm font-black text-slate-900">${toBengaliNumber(v.voterNo || '---')}</div>
-            </div>
-            
-            <!-- পিতার নাম এবং মাতার নাম -->
-            <div class="grid grid-cols-2 gap-3 text-xs mb-2">
-              <div>
-                <div class="text-slate-500 font-medium">পিতার নাম</div>
-                <div class="font-bold text-slate-700 truncate">${v.father}</div>
+                <p class="text-xs text-gray-500 mb-1">ভোটার নম্বর</p>
+                <p class="font-medium">${toBengaliNumber(voter.voterNo || '---')}</p>
               </div>
               <div>
-                <div class="text-slate-500 font-medium">মাতার নাম</div>
-                <div class="font-bold text-slate-700 truncate">${v.mother || '--'}</div>
+                <p class="text-xs text-gray-500 mb-1">জন্ম তারিখ</p>
+                <p class="font-medium">${toBengaliNumber(voter.dob)}</p>
+              </div>
+              <div>
+                <p class="text-xs text-gray-500 mb-1">পিতার নাম</p>
+                <p class="font-medium truncate">${voter.father}</p>
+              </div>
+              <div>
+                <p class="text-xs text-gray-500 mb-1">মাতার নাম</p>
+                <p class="font-medium truncate">${voter.mother || '-'}</p>
               </div>
             </div>
             
-            <!-- জন্ম তারিখ -->
-            <div class="mb-2">
-              <div class="text-slate-500 font-medium text-xs">জন্ম তারিখ</div>
-              <div class="font-bold text-slate-700 text-sm">${toBengaliNumber(v.dob)}</div>
-            </div>
-            
-            <!-- ফুটার -->
-            <div class="flex justify-between items-center mt-4 pt-3 border-t border-slate-100">
-              <span class="text-xs font-bold text-emerald-700 bg-emerald-50 px-2 py-1 rounded-lg">ওয়ার্ড ০৩</span>
-              <span class="text-xs text-slate-500">কোড: ১৮৮৩</span>
+            <div class="flex justify-between items-center mt-4 pt-3 border-t border-gray-100">
+              <span class="text-xs font-bold text-green-700 bg-green-50 px-2 py-1 rounded">ওয়ার্ড ০৩</span>
+              <span class="text-xs text-gray-500">এলাকা কোড: ১৮৮৩</span>
             </div>
           </div>
         </div>
       `).join('');
     }
 
-    // এন্টার কি চাপলে সার্চ
-    document.getElementById('searchInput').addEventListener('keypress', function(e) {
-      if (e.key === 'Enter') handleSearch();
-    });
+    // ভোটার শেয়ার ফাংশন
+    function shareVoter(voterData) {
+      const shareText = `ভোটার তথ্য - ${voterData.name}, ভোটার নং: ${toBengaliNumber(voterData.voterNo || '---')}, দৌলতপুর ৩নং ওয়ার্ড`;
+      
+      if (navigator.share) {
+        navigator.share({
+          title: 'ভোটার তথ্য',
+          text: shareText,
+          url: window.location.href
+        });
+      } else {
+        copyToClipboard(shareText);
+      }
+    }
 
-    // মডাল বাইরে ক্লিক করলে বন্ধ
-    document.getElementById('downloadModal').addEventListener('click', function(e) {
-      if (e.target === this) closeDownloadModal();
-    });
-
-    // ইনিশিয়ালাইজেশন
+    // ইভেন্ট লিসেনার
     document.addEventListener('DOMContentLoaded', function() {
-      setGender('Male');
+      // এন্টার কি ইভেন্ট
+      document.getElementById('searchInput').addEventListener('keypress', function(e) {
+        if (e.key === 'Enter') handleSearch();
+      });
+      
+      // মডাল বাইরে ক্লিক করলে বন্ধ
+      document.getElementById('slipModal').addEventListener('click', function(e) {
+        if (e.target === this) closeSlipModal();
+      });
+      
+      // প্রাথমিক ফোকাস
       setTimeout(() => {
         document.getElementById('searchInput').focus();
       }, 500);
